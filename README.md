@@ -11,10 +11,11 @@ SimpleMap/ExampleForms/FrmMapDownloader.cs demonstrates how to download google m
 SimpleMap/ExampleForms/Controls/MapCtl.cs demostrates how to draw cached google map images to screen with custom objects as lines, bitmaps etc.
 
 ## Features
-________
+
 All in one Winform control
-  No un-managed Code & No Dependancies.
-  Lightweight
+  - No un-managed Code & No Dependancies.
+  - Small code size
+  - Lightweight
 
 ### Rendering
 
@@ -34,7 +35,7 @@ All in one Winform control
 
 - Base classes to draw any map layers.
 
-## GIS Projectio
+## GIS Projection
 
 - Projection of coordinate system through sub classes and operators. Translate google coordinates to longitude and latitude.
 
