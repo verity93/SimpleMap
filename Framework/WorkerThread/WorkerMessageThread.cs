@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using ProgramMain.Framework.WorkerThread.Types;
@@ -71,6 +72,7 @@ namespace ProgramMain.Framework.WorkerThread
         
         virtual protected void OnControlClosing()
         {
+            Terminating = true;
         }
 
         protected virtual bool DispatchThreadEvents(WorkerEvent workerEvent)
@@ -135,6 +137,8 @@ namespace ProgramMain.Framework.WorkerThread
 
         private void CreateWorkerThread()
         {
+            Debug.WriteLine("Create Worker Thread");
+
             var threadDeligate = new ThreadStart(WorkerThread);
             var thread = new Thread(threadDeligate) {Priority = ThreadPriority.BelowNormal};
 
@@ -154,6 +158,7 @@ namespace ProgramMain.Framework.WorkerThread
             OnControlClosing();
             
             _terminateEvent.Set();
+            Debug.WriteLine("Terminating Worker Thread");
         }
 
         private void DoThreadWork()

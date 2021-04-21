@@ -1,13 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
-namespace ProgramMain.Map.Google
+namespace ProgramMain.Map.Tile
 {
-    internal class GoogleMapUtilities
+    internal class MapUtilities
     {
-        #region Helpers to work with Google Coordinate system
+        #region Helpers to work with Tile Coordinate system
         /// <summary>
-        /// Block count on the side of google level
+        /// Block count on the side of Tile level
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -17,7 +19,7 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Block count on the google level
+        /// Block count on the Tile level
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -28,7 +30,7 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Translate block count to google level
+        /// Translate block count to Tile level
         /// </summary>
         /// <param name="countTiles"></param>
         /// <returns></returns>
@@ -38,17 +40,17 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Pixel count on the side of google level bitmap
+        /// Pixel count on the side of Tile level bitmap
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
         public static long BitMapSize(int level)
         {
-            return NumTiles(level) * GoogleBlock.BlockSize;
+            return NumTiles(level) * TileBlock.BlockSize;
         }
 
         /// <summary>
-        /// Pixel count on the google level bitmap 
+        /// Pixel count on the Tile level bitmap 
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -58,7 +60,7 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Pixel count per degree on the google level bitmap
+        /// Pixel count per degree on the Tile level bitmap
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -68,7 +70,7 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Pixel count per radian on the google level bitmap
+        /// Pixel count per radian on the Tile level bitmap
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
@@ -79,17 +81,17 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Translate longitude to X coordinate of the google level bitmap
+        /// Translate longitude to X coordinate of the Tile level bitmap
         /// </summary>
-        public static long GetGoogleX(Coordinate coordinate, int level)
+        public static long GetX(GeomCoordinate coordinate, int level)
         {
             return (long)(Math.Floor(BitmapOrigo(level) + coordinate.Longitude * PixelsPerDegree(level)));
         }
 
         /// <summary>
-        /// Translate latitude to Y coordinate of the google level bitmap
+        /// Translate latitude to Y coordinate of the Tile level bitmap
         /// </summary>
-        public static long GetGoogleY(Coordinate coordinate, int level)
+        public static long GetY(GeomCoordinate coordinate, int level)
         {
             const double d2R = Math.PI / 180;
             var z = (1 + Math.Sin(coordinate.Latitude * d2R)) / (1 - Math.Sin(coordinate.Latitude * d2R));
@@ -97,45 +99,45 @@ namespace ProgramMain.Map.Google
         }
 
         /// <summary>
-        /// Translate X coordinate of the google level bitmap to longitude
+        /// Translate X coordinate of the Tile level bitmap to longitude
         /// </summary>
-        public static double GetLongitude(GoogleCoordinate google)
+        public static double GetLongitude(ScreenCoordinate Tile)
         {
-            return Math.Round((google.X - BitmapOrigo(google.Level)) / PixelsPerDegree(google.Level), 5);
+            return Math.Round((Tile.X - BitmapOrigo(Tile.Level)) / PixelsPerDegree(Tile.Level), 5);
         }
 
         /// <summary>
-        /// Translate Y coordinate of the google level bitmap to latitude
+        /// Translate Y coordinate of the Tile level bitmap to latitude
         /// </summary>
-        public static double GetLatitude(GoogleCoordinate google)
+        public static double GetLatitude(ScreenCoordinate Tile)
         {
             const double r2D = 180 / Math.PI; 
             const double p2 = Math.PI / 2;
-            var z = (google.Y - BitmapOrigo(google.Level)) / (-1 * PixelsPerRadian(google.Level));
+            var z = (Tile.Y - BitmapOrigo(Tile.Level)) / (-1 * PixelsPerRadian(Tile.Level));
             return Math.Round((2 * Math.Atan(Math.Exp(z)) - p2) * r2D, 5);
         }
 
         /// <summary>
-        /// Get google bitmap block number X by longitude
+        /// Get Tile bitmap block number X by longitude
         /// </summary>
-        public static long GetNumBlockX(Coordinate coordinate, int level)
+        public static long GetNumBlockX(GeomCoordinate coordinate, int level)
         {
-            return (long)Math.Floor((double)GetGoogleX(coordinate, level) / GoogleBlock.BlockSize);
+            return (long)Math.Floor((double)GetX(coordinate, level) / TileBlock.BlockSize);
         }
 
         /// <summary>
-        /// Get google bitmap block number Y by latitude
+        /// Get Tile bitmap block number Y by latitude
         /// </summary>
-        public static long GetNumBlockY(Coordinate coordinate, int level)
+        public static long GetNumBlockY(GeomCoordinate coordinate, int level)
         {
-            return (long)Math.Floor((double)GetGoogleY(coordinate, level) / GoogleBlock.BlockSize);
+            return (long)Math.Floor((double)GetY(coordinate, level) / TileBlock.BlockSize);
         }
         #endregion
 
         /// <summary>
         /// Line cross
         /// </summary>
-        public static bool CheckLinesInterseption(CoordinateRectangle line1, CoordinateRectangle line2)
+        public static bool CheckLinesIntersection(CoordinateRectangle line1, CoordinateRectangle line2)
         {
             double d = (line1.Left - line1.Right) * (line2.Bottom - line2.Top) - (line1.Top - line1.Bottom) * (line2.Right - line2.Left);
 
@@ -151,11 +153,78 @@ namespace ProgramMain.Map.Google
             return ((0 <= ta) && (ta <= 1) && (0 <= tb) && (tb <= 1));
         }
 
+        /*
+
+        public static GeomCoordinate GetCentralGeoCoordinate(GeomCoordinate posA, GeomCoordinate posB) //IList<GeomCoordinate> geoCoordinates)
+        {
+            IList<GeomCoordinate> geoCoordinates = new List<GeomCoordinate>
+            {
+                posA,
+                posB
+            };
+
+            //if (geoCoordinates.Count == 1)
+            //{
+            //    return geoCoordinates.Single();
+            //}
+
+            double x = 0;
+            double y = 0;
+            double z = 0;
+            foreach (var geoCoordinate in geoCoordinates)
+            {
+                var latitude = geoCoordinate.Latitude * Math.PI / 180;
+                var longitude = geoCoordinate.Longitude * Math.PI / 180;
+                x += Math.Cos(latitude) * Math.Cos(longitude);
+                y += Math.Cos(latitude) * Math.Sin(longitude);
+                z += Math.Sin(latitude);
+            }
+            var total = geoCoordinates.Count;
+            x = x / total;
+            y = y / total;
+            z = z / total;
+            var centralLongitude = Math.Atan2(y, x);
+            var centralSquareRoot = Math.Sqrt(x * x + y * y);
+            var centralLatitude = Math.Atan2(z, centralSquareRoot);
+            return new GeomCoordinate(centralLatitude * 180 / Math.PI, centralLongitude * 180 / Math.PI);
+        }
+        public static GeomCoordinate MidPoint(GeomCoordinate posA, GeomCoordinate posB)
+        {
+            GeomCoordinate midPoint = new GeomCoordinate(0d,0d);
+
+            double dLon = DegreesToRadians(posB.Longitude - posA.Longitude);
+            double Bx = Math.Cos(DegreesToRadians(posB.Latitude)) * Math.Cos(dLon);
+            double By = Math.Cos(DegreesToRadians(posB.Latitude)) * Math.Sin(dLon);
+
+            midPoint.Latitude = RadiansToDegrees(Math.Atan2(
+                         Math.Sin(DegreesToRadians(posA.Latitude)) + Math.Sin(DegreesToRadians(posB.Latitude)),
+                         Math.Sqrt(
+                             (Math.Cos(DegreesToRadians(posA.Latitude)) + Bx) *
+                             (Math.Cos(DegreesToRadians(posA.Latitude)) + Bx) + By * By)));
+
+            midPoint.Longitude = posA.Longitude + RadiansToDegrees(Math.Atan2(By, Math.Cos(DegreesToRadians(posA.Latitude)) + Bx));
+
+            return midPoint;
+        }
+
+        private static double DegreesToRadians(double angle)
+        {
+            return Math.PI * angle / 180.0;
+        }
+
+        public static double RadiansToDegrees(double radians)
+        {
+            double degrees = (180 / Math.PI) * radians;
+            return (degrees);
+        }
+        */
+
         /// <summary>
         /// Line middle point
         /// </summary>
-        public static Coordinate GetMiddlePoint(Coordinate c1, Coordinate c2)
+        public static GeomCoordinate GetMiddlePoint(GeomCoordinate c1, GeomCoordinate c2)
         {
+           
             const double d2R = Math.PI / 180;
             const double r2D = 180 / Math.PI; 
 
@@ -168,25 +237,26 @@ namespace ProgramMain.Map.Google
             var longitude = Math.Round(c1.Longitude + r2D * (Math.Atan2(bY, Math.Cos(c1Rlat) + bX)), 5);
             var latitude = Math.Round(r2D * (Math.Atan2(Math.Sin(c1Rlat) + Math.Sin(c2Rlat), Math.Sqrt((Math.Cos(c1Rlat) + bX) * (Math.Cos(c1Rlat) + bX) + bY * bY))), 5);
 
-            return new Coordinate(longitude, latitude);
+            return new GeomCoordinate(longitude, latitude);
         }
 
         /// <summary>
-        /// Create Url to get bitmap block from google bitmap cache
+        /// Create Url to get bitmap block from Tile bitmap cache
         /// </summary>
-        public static string CreateUrl(GoogleBlock block)
+        public static string CreateUrl(TileBlock block)
         {
-            return String.Format(Properties.Settings.Default.GoogleUrl, block.X, block.Y, block.Level - 1);
+            //GoogleTileUrl =  @"http://mt1.google.com/vt/lyrs=m@146&hl=en&x={0}&y={1}&z={2}";
+            return String.Format(Properties.Settings.Default.TileUrl, block.X, block.Y, block.Level - 1);
         }
 
         /// <summary>
-        /// Create web request to get bitmap block from google bitmap cache
+        /// Create web request to get bitmap block from Tile bitmap cache
         /// </summary>
-        public static HttpWebRequest CreateGoogleWebRequest(GoogleBlock block)
+        public static HttpWebRequest CreateTileWebRequest(TileBlock block)
         {
-            var urlGoogle = CreateUrl(block);
-            var oRequest = (HttpWebRequest)WebRequest.Create(urlGoogle);
-            oRequest.UserAgent = "www.simplemap.ru"; //!!!must have to retrieve image from google
+            var urlTile = CreateUrl(block);
+            var oRequest = (HttpWebRequest)WebRequest.Create(urlTile);
+            oRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"; //!!!must have browser type to retrieve image from Tile
             return oRequest;
         }
     }

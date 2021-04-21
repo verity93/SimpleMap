@@ -1,11 +1,11 @@
 using System;
 using System.Drawing;
 
-namespace ProgramMain.Map.Google
+namespace ProgramMain.Map.Tile
 {
-    public class GoogleBlock : IComparable, ICloneable
+    public class TileBlock : IComparable, ICloneable
     {
-        public static readonly GoogleBlock Empty = new GoogleBlock();
+        public static readonly TileBlock Empty = new TileBlock();
 
         public const int BlockSize = 256;
 
@@ -23,21 +23,21 @@ namespace ProgramMain.Map.Google
 
         public int Level { get; private set; }
 
-        private GoogleBlock()
+        private TileBlock()
         {
             Level = 0;
             Y = 0;
             X = 0;
         }
 
-        public GoogleBlock(int pX, int pY, int pLevel)
+        public TileBlock(int pX, int pY, int pLevel)
         {
             X = pX;
             Y = pY;
             Level = pLevel;
         }
 
-        public GoogleBlock(Point pt, int pLevel)
+        public TileBlock(Point pt, int pLevel)
         {
             X = pt.X;
             Y = pt.Y;
@@ -48,14 +48,14 @@ namespace ProgramMain.Map.Google
         #region ICloneable Members
         public object Clone()
         {
-            return new GoogleBlock(X, Y, Level);
+            return new TileBlock(X, Y, Level);
         }
         #endregion
 
         #region IComparable Members
         public int CompareTo(Object obj)
         {
-            var coords = (GoogleBlock)obj;
+            var coords = (TileBlock)obj;
             if (coords.Level < Level)
                 return -1;
             if (coords.Level > Level)
@@ -72,14 +72,14 @@ namespace ProgramMain.Map.Google
         }
         #endregion
 
-        public static implicit operator GoogleCoordinate(GoogleBlock block)
+        public static implicit operator ScreenCoordinate(TileBlock block)
         {
-            return new GoogleCoordinate(block.X * BlockSize, block.Y * BlockSize, block.Level);
+            return new ScreenCoordinate(block.X * BlockSize, block.Y * BlockSize, block.Level);
         }
 
-        public static implicit operator GoogleRectangle(GoogleBlock block)
+        public static implicit operator ScreenRectangle(TileBlock block)
         {
-            return new GoogleRectangle(
+            return new ScreenRectangle(
                 block.X * BlockSize, block.Y * BlockSize,
                 (block.X + 1) * BlockSize, (block.Y + 1) * BlockSize,
                 block.Level);

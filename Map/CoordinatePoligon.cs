@@ -1,4 +1,4 @@
-using ProgramMain.Map.Google;
+using ProgramMain.Map.Tile;
 using ProgramMain.Map.Indexer;
 using ProgramMain.Map.Types;
 
@@ -10,12 +10,12 @@ namespace ProgramMain.Map
 
         public readonly CoordinateIndexer Coordinates;
 
-        public Coordinate First
+        public GeomCoordinate First
         {
             get { return Coordinates[0]; }
         }
 
-        public Coordinate Last
+        public GeomCoordinate Last
         {
             get { return Coordinates[Coordinates.Count - 1]; }
         }
@@ -42,7 +42,7 @@ namespace ProgramMain.Map
             Coordinates = new CoordinateIndexer();
         }
 
-        public bool Add(Coordinate coordinate)
+        public bool Add(GeomCoordinate coordinate)
         {
             if (Count > 2)
             {
@@ -50,8 +50,8 @@ namespace ProgramMain.Map
                 var line2 = new CoordinateRectangle(Last, coordinate);
                 for (var i = 0; i < Count - 1; i++)
                 {
-                    if (GoogleMapUtilities.CheckLinesInterseption(this[i], line1)
-                        || GoogleMapUtilities.CheckLinesInterseption(this[i], line2))
+                    if (MapUtilities.CheckLinesIntersection(this[i], line1)
+                        || MapUtilities.CheckLinesIntersection(this[i], line2))
                         return false;
                 }
             }
@@ -60,7 +60,7 @@ namespace ProgramMain.Map
             return true;
         }
 
-        public double PoligonDistance(Coordinate coordinate)
+        public double PoligonDistance(GeomCoordinate coordinate)
         {
             double res = 0;
 
@@ -77,38 +77,38 @@ namespace ProgramMain.Map
         {
             for (var i = 0; i < Coordinates.Count; i++)
             {
-                if (rect.PointContains(Coordinates[i]) != InterseptResult.Contains)
+                if (rect.PointContains(Coordinates[i]) != IntersectResult.Contains)
                     return false;
             }
             return true;
         }
 
-        public InterseptResult PointContains(Coordinate coordinate)
+        public IntersectResult PointContains(GeomCoordinate coordinate)
         {
             //to do
 
-            return InterseptResult.None;
+            return IntersectResult.None;
         }
 
-        public InterseptResult LineContains(CoordinateRectangle coordinate)
+        public IntersectResult LineContains(CoordinateRectangle coordinate)
         {
             //to do
 
-            return InterseptResult.None;
+            return IntersectResult.None;
         }
 
-        public InterseptResult RectangleContains(CoordinateRectangle coordinate)
+        public IntersectResult RectangleContains(CoordinateRectangle coordinate)
         {
             //to do
 
-            return InterseptResult.None;
+            return IntersectResult.None;
         }
 
-        public InterseptResult PoligonContains(CoordinateRectangle coordinate)
+        public IntersectResult PoligonContains(CoordinateRectangle coordinate)
         {
             //to do
 
-            return InterseptResult.None;
+            return IntersectResult.None;
         }
     }
 }

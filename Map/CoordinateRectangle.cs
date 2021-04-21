@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using ProgramMain.Map.Google;
+using ProgramMain.Map.Tile;
 using ProgramMain.Map.Types;
 
 namespace ProgramMain.Map
@@ -9,35 +9,35 @@ namespace ProgramMain.Map
     {
         public static readonly CoordinateRectangle Empty = new CoordinateRectangle();
 
-        public Coordinate LeftTop
+        public GeomCoordinate LeftTop
         {
             get
             {
-                return new Coordinate(Left, Top);
+                return new GeomCoordinate(Left, Top);
             }
         }
 
-        public Coordinate RightBottom
+        public GeomCoordinate RightBottom
         {
             get
             {
-                return new Coordinate(Right, Bottom);
+                return new GeomCoordinate(Right, Bottom);
             }
         }
 
-        public Coordinate LeftBottom
+        public GeomCoordinate LeftBottom
         {
             get
             {
-                return new Coordinate(Left, Bottom);
+                return new GeomCoordinate(Left, Bottom);
             }
         }
 
-        public Coordinate RightTop
+        public GeomCoordinate RightTop
         {
             get
             {
-                return new Coordinate(Right, Top);
+                return new GeomCoordinate(Right, Top);
             }
         }
 
@@ -83,7 +83,7 @@ namespace ProgramMain.Map
             Bottom = (double)bottom;
         }
 
-        public CoordinateRectangle(Coordinate pLeftTop, Coordinate pRightBottom)
+        public CoordinateRectangle(GeomCoordinate pLeftTop, GeomCoordinate pRightBottom)
         {
             Left = pLeftTop.Longitude;
             Top = pLeftTop.Latitude;
@@ -104,100 +104,100 @@ namespace ProgramMain.Map
             return (String.Format("E{0:F5} N{1:F5} - E{2:F5} N{3:F5} : {4:n}m", Left, Top, Right, Bottom, LineLength));
         }
 
-        public Rectangle GetScreenRect(GoogleRectangle screenView)
+        public Rectangle GetScreenRect(ScreenRectangle screenView)
         {
-            return new GoogleRectangle(this, screenView.Level).GetScreenRect(screenView);
+            return new ScreenRectangle(this, screenView.Level).GetScreenRect(screenView);
         }
 
-        public InterseptResult PointContains(Coordinate point)
+        public IntersectResult PointContains(GeomCoordinate point)
         {
             return (point.Longitude >= Left
                 && point.Longitude <= Right
                 && point.Latitude <= Top
-                && point.Latitude >= Bottom) ? InterseptResult.Contains : InterseptResult.None;
+                && point.Latitude >= Bottom) ? IntersectResult.Contains : IntersectResult.None;
         }
 
-        public InterseptResult RectangleContains(CoordinateRectangle rectangle)
+        public IntersectResult RectangleContains(CoordinateRectangle rectangle)
         {
-            var iLeftTop = PointContains(rectangle.LeftTop) != InterseptResult.None;
-            var iRightBottom = PointContains(rectangle.RightBottom) != InterseptResult.None;
+            var iLeftTop = PointContains(rectangle.LeftTop) != IntersectResult.None;
+            var iRightBottom = PointContains(rectangle.RightBottom) != IntersectResult.None;
 
             if (iLeftTop && iRightBottom)
-                return InterseptResult.Contains;
+                return IntersectResult.Contains;
             if (iLeftTop || iRightBottom)
-                return InterseptResult.Intersepts;
+                return IntersectResult.Intersects;
 
-            if (PointContains(rectangle.LeftBottom) != InterseptResult.None)
-                return InterseptResult.Intersepts;
-            if (PointContains(rectangle.RightTop) != InterseptResult.None)
-                return InterseptResult.Intersepts;
+            if (PointContains(rectangle.LeftBottom) != IntersectResult.None)
+                return IntersectResult.Intersects;
+            if (PointContains(rectangle.RightTop) != IntersectResult.None)
+                return IntersectResult.Intersects;
 
-            iLeftTop = rectangle.PointContains(LeftTop) != InterseptResult.None;
-            iRightBottom = rectangle.PointContains(RightBottom) != InterseptResult.None;
+            iLeftTop = rectangle.PointContains(LeftTop) != IntersectResult.None;
+            iRightBottom = rectangle.PointContains(RightBottom) != IntersectResult.None;
 
             if (iLeftTop && iRightBottom)
-                return InterseptResult.Supersets;
+                return IntersectResult.Supersets;
             if (iLeftTop || iRightBottom)
-                return InterseptResult.Intersepts;
+                return IntersectResult.Intersects;
 
-            if (rectangle.PointContains(LeftBottom) != InterseptResult.None)
-                return InterseptResult.Intersepts;
-            if (rectangle.PointContains(RightTop) != InterseptResult.None)
-                return InterseptResult.Intersepts;
+            if (rectangle.PointContains(LeftBottom) != IntersectResult.None)
+                return IntersectResult.Intersects;
+            if (rectangle.PointContains(RightTop) != IntersectResult.None)
+                return IntersectResult.Intersects;
 
-            if (GoogleMapUtilities.CheckLinesInterseption(new CoordinateRectangle(Left, Top, Left, Bottom),
+            if (MapUtilities.CheckLinesIntersection(new CoordinateRectangle(Left, Top, Left, Bottom),
                     new CoordinateRectangle(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Top)))
-                return InterseptResult.Intersepts;
-            if (GoogleMapUtilities.CheckLinesInterseption(new CoordinateRectangle(Left, Top, Right, Top),
+                return IntersectResult.Intersects;
+            if (MapUtilities.CheckLinesIntersection(new CoordinateRectangle(Left, Top, Right, Top),
                     new CoordinateRectangle(rectangle.Left, rectangle.Top, rectangle.Left, rectangle.Bottom)))
-                return InterseptResult.Intersepts;
+                return IntersectResult.Intersects;
 
-            return InterseptResult.None;
+            return IntersectResult.None;
         }
 
-        public InterseptResult LineContains(CoordinateRectangle line)
+        public IntersectResult LineContains(CoordinateRectangle line)
         {
-            var iLeftTop = PointContains(line.LeftTop) != InterseptResult.None;
-            var iRightBottom = PointContains(line.RightBottom) != InterseptResult.None;
+            var iLeftTop = PointContains(line.LeftTop) != IntersectResult.None;
+            var iRightBottom = PointContains(line.RightBottom) != IntersectResult.None;
 
             if (iLeftTop && iRightBottom)
-                return InterseptResult.Contains;
+                return IntersectResult.Contains;
             if (iLeftTop || iRightBottom)
-                return InterseptResult.Intersepts;
-            if (GoogleMapUtilities.CheckLinesInterseption(new CoordinateRectangle(Left, Top, Right, Top), line))
-                return InterseptResult.Intersepts;
-            if (GoogleMapUtilities.CheckLinesInterseption(new CoordinateRectangle(Right, Top, Right, Bottom), line))
-                return InterseptResult.Intersepts;
-            if (GoogleMapUtilities.CheckLinesInterseption(new CoordinateRectangle(Left, Bottom, Right, Bottom), line))
-                return InterseptResult.Intersepts;
-            if (GoogleMapUtilities.CheckLinesInterseption(new CoordinateRectangle(Left, Top, Left, Bottom), line))
-                return InterseptResult.Intersepts;
-            return InterseptResult.None;
+                return IntersectResult.Intersects;
+            if (MapUtilities.CheckLinesIntersection(new CoordinateRectangle(Left, Top, Right, Top), line))
+                return IntersectResult.Intersects;
+            if (MapUtilities.CheckLinesIntersection(new CoordinateRectangle(Right, Top, Right, Bottom), line))
+                return IntersectResult.Intersects;
+            if (MapUtilities.CheckLinesIntersection(new CoordinateRectangle(Left, Bottom, Right, Bottom), line))
+                return IntersectResult.Intersects;
+            if (MapUtilities.CheckLinesIntersection(new CoordinateRectangle(Left, Top, Left, Bottom), line))
+                return IntersectResult.Intersects;
+            return IntersectResult.None;
         }
 
-        public InterseptResult PoligonContains(CoordinatePoligon poligon)
+        public IntersectResult PoligonContains(CoordinatePoligon poligon)
         {
             if (poligon.IncludeTo(this))
-                return InterseptResult.Contains;
+                return IntersectResult.Contains;
 
             for (var i = 0; i < poligon.Count; i++)
             {
-                if (LineContains(poligon[i]) != InterseptResult.None)
-                    return InterseptResult.Intersepts;
+                if (LineContains(poligon[i]) != IntersectResult.None)
+                    return IntersectResult.Intersects;
             }
 
-            if (poligon.PointContains(LeftTop) != InterseptResult.None
-                && poligon.PointContains(RightTop) != InterseptResult.None
-                && poligon.PointContains(RightBottom) != InterseptResult.None
-                && poligon.PointContains(LeftBottom) != InterseptResult.None)
-                return InterseptResult.Supersets;
+            if (poligon.PointContains(LeftTop) != IntersectResult.None
+                && poligon.PointContains(RightTop) != IntersectResult.None
+                && poligon.PointContains(RightBottom) != IntersectResult.None
+                && poligon.PointContains(LeftBottom) != IntersectResult.None)
+                return IntersectResult.Supersets;
 
-            return InterseptResult.None;
+            return IntersectResult.None;
         }
 
-        public double RectangeDistance(Coordinate coordinate)
+        public double RectangeDistance(GeomCoordinate coordinate)
         {
-            if (PointContains(coordinate) != InterseptResult.None)
+            if (PointContains(coordinate) != IntersectResult.None)
                 return 0;
 
             var min = EarthUtilities.GetDistance(new CoordinateRectangle(Left, Top, Right, Top), coordinate);
@@ -211,14 +211,14 @@ namespace ProgramMain.Map
             return min;
         }
 
-        public double LineDistance(Coordinate coordinate)
+        public double LineDistance(GeomCoordinate coordinate)
         {
             return EarthUtilities.GetDistance(this, coordinate);
         }
 
-        public Coordinate LineMiddlePoint
+        public GeomCoordinate LineMiddlePoint
         {
-            get { return GoogleMapUtilities.GetMiddlePoint(LeftTop, RightBottom); }
+            get { return MapUtilities.GetMiddlePoint(LeftTop, RightBottom); }
         }
 
         public double LineLength
@@ -239,7 +239,7 @@ namespace ProgramMain.Map
             Bottom = Top + (len + meter) * Math.Sin(ang);
         }
 
-        public Coordinate GetNearestPoint(Coordinate pt)
+        public GeomCoordinate GetNearestPoint(GeomCoordinate pt)
         {
             return EarthUtilities.GetNearestPoint(this, pt);
         }

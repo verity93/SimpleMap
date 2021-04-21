@@ -11,13 +11,13 @@ namespace ProgramMain.ExampleForms
 
         public static string GetAssemblyTitle()
         {
-            var aTitle = @"Simple Map";
-            var thisAssembly = Program.MainForm.GetType().Assembly;
-            var attributes = thisAssembly.GetCustomAttributes(typeof(System.Reflection.AssemblyTitleAttribute), false);
-            if (attributes.Length == 1)
-            {
-               aTitle = ((System.Reflection.AssemblyTitleAttribute) attributes[0]).Title;
-            }
+            var aTitle = @"Simple Map - GeoReference";
+            //var thisAssembly = Program.GeoReference.GetType().Assembly;
+            //var attributes = thisAssembly.GetCustomAttributes(typeof(System.Reflection.AssemblyTitleAttribute), false);
+            //if (attributes.Length == 1)
+            //{
+            //    aTitle = ((System.Reflection.AssemblyTitleAttribute)attributes[0]).Title;
+            //}
             return aTitle;
         }
     }

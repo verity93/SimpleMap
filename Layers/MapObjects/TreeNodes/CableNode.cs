@@ -15,7 +15,7 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
             get { return SpatialTreeNodeTypes.Line; }
         }
 
-        public Coordinate Coordinate
+        public GeomCoordinate Coordinate
         {
             get { throw new Exception(); }
         }

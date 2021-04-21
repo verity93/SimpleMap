@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ProgramMain.Map.Google;
+using ProgramMain.Map.Tile;
 using ProgramMain.Map.Spatial.Types;
 
 namespace ProgramMain.Map.Spatial.Indexer
@@ -9,7 +9,7 @@ namespace ProgramMain.Map.Spatial.Indexer
         private readonly SpatialTree<TNode> _tree;
         private readonly SpatialSheetBase<TNode> _sheet;
 
-        private SortedDictionary<GoogleBlock, SpatialSheet<TNode>> _children;
+        private SortedDictionary<TileBlock, SpatialSheet<TNode>> _children;
 
         internal SpatialSheetIndexer(SpatialSheetBase<TNode> sheet, SpatialTree<TNode> tree)
         {
@@ -27,14 +27,14 @@ namespace ProgramMain.Map.Spatial.Indexer
             get { return _tree.Power.Length; }
         }
 
-        public SpatialSheet<TNode> this[GoogleBlock block]
+        public SpatialSheet<TNode> this[TileBlock block]
         {
             get
             {
                 SpatialSheet<TNode> sheet;
 
                 if (_children == null)
-                    _children = new SortedDictionary<GoogleBlock, SpatialSheet<TNode>>();
+                    _children = new SortedDictionary<TileBlock, SpatialSheet<TNode>>();
 
                 if (!_children.TryGetValue(block, out sheet))
                 {
@@ -45,20 +45,20 @@ namespace ProgramMain.Map.Spatial.Indexer
                     sheet = new SpatialSheet<TNode>(
                         _tree,
                         _sheet.Level + 1,
-                        _sheet.NextGoogleLevel,
-                        (GoogleRectangle) block);
+                        _sheet.NextTileLevel,
+                        (ScreenRectangle) block);
                     _children.Add(block, sheet);
                 }
                 return sheet;
             }
         }
 
-        public SortedDictionary<GoogleBlock, SpatialSheet<TNode>>.ValueCollection Values
+        public SortedDictionary<TileBlock, SpatialSheet<TNode>>.ValueCollection Values
         {
             get { return _children != null ? _children.Values : null; }
         }
 
-        public void Remove(GoogleBlock block)
+        public void Remove(TileBlock block)
         {
             if (_children != null)
             {

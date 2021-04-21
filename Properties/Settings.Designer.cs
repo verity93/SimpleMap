@@ -12,7 +12,7 @@ namespace ProgramMain.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -49,16 +49,7 @@ namespace ProgramMain.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://mt1.google.com/vt/lyrs=m@146&hl=en&x={0}&y={1}&z={2}")]
-        public string GoogleUrl {
-            get {
-                return ((string)(this["GoogleUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.3.8.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.0.0")]
         public string AppVersion {
             get {
                 return ((string)(this["AppVersion"]));
@@ -67,7 +58,7 @@ namespace ProgramMain.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("17")]
+        [global::System.Configuration.DefaultSettingValueAttribute("23")]
         public int MaxZoomLevel {
             get {
                 return ((int)(this["MaxZoomLevel"]));
@@ -79,7 +70,7 @@ namespace ProgramMain.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int MinZoomLevel {
             get {
                 return ((int)(this["MinZoomLevel"]));
@@ -91,7 +82,7 @@ namespace ProgramMain.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("37.24468")]
+        [global::System.Configuration.DefaultSettingValueAttribute("115.9217")]
         public double LeftMapBound {
             get {
                 return ((double)(this["LeftMapBound"]));
@@ -103,7 +94,7 @@ namespace ProgramMain.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("55.9469")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-32.05323")]
         public double TopMapBound {
             get {
                 return ((double)(this["TopMapBound"]));
@@ -115,7 +106,7 @@ namespace ProgramMain.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("38.00891")]
+        [global::System.Configuration.DefaultSettingValueAttribute("115.93505")]
         public double RightMapBound {
             get {
                 return ((double)(this["RightMapBound"]));
@@ -127,13 +118,34 @@ namespace ProgramMain.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("55.5601")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-32.06163")]
         public double BottomMapBound {
             get {
                 return ((double)(this["BottomMapBound"]));
             }
             set {
                 this["BottomMapBound"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("E115.88267 N-31.95194")]
+        public string Setting {
+            get {
+                return ((string)(this["Setting"]));
+            }
+            set {
+                this["Setting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://mt1.google.com/vt/lyrs=m@146&hl=en&x={0}&y={1}&z={2}")]
+        public string TileUrl {
+            get {
+                return ((string)(this["TileUrl"]));
             }
         }
     }

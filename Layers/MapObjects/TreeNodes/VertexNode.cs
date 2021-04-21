@@ -15,9 +15,9 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
             get { return SpatialTreeNodeTypes.Point; }
         }
 
-        public Coordinate Coordinate
+        public GeomCoordinate Coordinate
         {
-            get { return new Coordinate(_row.Longitude, _row.Latitude); }
+            get { return new GeomCoordinate(_row.Longitude, _row.Latitude); }
         }
 
         public CoordinateRectangle Rectangle

@@ -9,9 +9,9 @@ namespace ProgramMain.ExampleDb
 
         public static BindingSource CreateDataSource(DataTable table)
         {
-            var bindingSource = new BindingSource {DataSource = table.DataSet, DataMember = table.TableName};
+            var bindingSource = new BindingSource { DataSource = table.DataSet, DataMember = table.TableName };
 
-            return bindingSource;            
+            return bindingSource;
         }
     }
 }

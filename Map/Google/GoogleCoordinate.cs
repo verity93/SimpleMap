@@ -1,50 +1,50 @@
 using System;
 using System.Drawing;
 
-namespace ProgramMain.Map.Google
+namespace ProgramMain.Map.Tile
 {
-    public class GoogleCoordinate : IComparable, ICloneable
+    public class ScreenCoordinate : IComparable, ICloneable
     {
-        public static readonly GoogleCoordinate Empty = new GoogleCoordinate();
+        public static readonly ScreenCoordinate Empty = new ScreenCoordinate();
 
-        public long X { get; private set; }
+        public long X { get;  set; }
 
-        public long Y { get; private set; }
+        public long Y { get; set; }
 
-        public int Level { get; private set; }
+        public int Level { get; set; }
 
-        private GoogleCoordinate()
+        private ScreenCoordinate()
         {
             X = 0;
             Level = 0;
             Y = 0;
         }
 
-        public GoogleCoordinate(long pX, long pY, int pLevel)
+        public ScreenCoordinate(long pX, long pY, int pLevel)
         {
             X = pX;
             Y = pY;
             Level = pLevel;
         }
 
-        public GoogleCoordinate(Coordinate coordinate, int level)
+        public ScreenCoordinate(GeomCoordinate coordinate, int level)
         {
-            X = GoogleMapUtilities.GetGoogleX(coordinate, level);
-            Y = GoogleMapUtilities.GetGoogleY(coordinate, level);
+            X = MapUtilities.GetX(coordinate, level);
+            Y = MapUtilities.GetY(coordinate, level);
             Level = level;
         }
 
         #region ICloneable Members
         public object Clone()
         {
-            return new GoogleCoordinate(X, Y, Level);
+            return new ScreenCoordinate(X, Y, Level);
         }
         #endregion
 
         #region IComparable Members
         public int CompareTo(Object obj)
         {
-            var coords = (GoogleCoordinate)obj;
+            var coords = (ScreenCoordinate)obj;
             if (coords.Level < Level)
                 return -1;
             if (coords.Level > Level)
@@ -61,33 +61,33 @@ namespace ProgramMain.Map.Google
         }
         #endregion
 
-        public static GoogleCoordinate operator + (GoogleCoordinate google, GoogleCoordinate addon)
+        public static ScreenCoordinate operator + (ScreenCoordinate Tile, ScreenCoordinate addon)
         {
-            if (google.Level != addon.Level)
+            if (Tile.Level != addon.Level)
             {
-                addon = new GoogleCoordinate(addon, google.Level);
+                addon = new ScreenCoordinate(addon, Tile.Level);
             }
-            return new GoogleCoordinate(google.X + addon.X, google.Y + addon.Y, google.Level);
+            return new ScreenCoordinate(Tile.X + addon.X, Tile.Y + addon.Y, Tile.Level);
         }
 
-        public static implicit operator Coordinate(GoogleCoordinate google)
+        public static implicit operator GeomCoordinate(ScreenCoordinate Tile)
         {
-            return new Coordinate(GoogleMapUtilities.GetLongitude(google), GoogleMapUtilities.GetLatitude(google));
+            return new GeomCoordinate(MapUtilities.GetLongitude(Tile), MapUtilities.GetLatitude(Tile));
         }
 
-        public static implicit operator GoogleBlock(GoogleCoordinate google)
+        public static implicit operator TileBlock(ScreenCoordinate Tile)
         {
-            return new GoogleBlock(
-                (int)(google.X / GoogleBlock.BlockSize), 
-                (int)(google.Y / GoogleBlock.BlockSize),
-                google.Level);
+            return new TileBlock(
+                (int)(Tile.X / TileBlock.BlockSize), 
+                (int)(Tile.Y / TileBlock.BlockSize),
+                Tile.Level);
         }
 
-        public Point GetScreenPoint(GoogleRectangle screenView)
+        public Point GetScreenPoint(ScreenRectangle screenView)
         {
             if (Level != screenView.Level)
             {
-                screenView = new GoogleRectangle(new CoordinateRectangle(screenView.LeftTop, screenView.RightBottom), Level);
+                screenView = new ScreenRectangle(new CoordinateRectangle(screenView.LeftTop, screenView.RightBottom), Level);
             }
             return new Point((int)(X - screenView.Left), (int)(Y - screenView.Top));
         }

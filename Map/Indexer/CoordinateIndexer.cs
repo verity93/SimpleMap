@@ -4,23 +4,23 @@ namespace ProgramMain.Map.Indexer
 {
     public class CoordinateIndexer
     {
-        private List<Coordinate> _values;
+        private List<GeomCoordinate> _values;
 
-        public Coordinate this[int index]
+        public GeomCoordinate this[int index]
         {
             get { return index >= 0 && index < _values.Count ? _values[index] : null; }
         }
 
         public int Count {get { return _values != null ? _values.Count : 0; }}
         
-        public void Add(Coordinate coordinate)
+        public void Add(GeomCoordinate coordinate)
         {
             if (_values == null)
-                _values = new List<Coordinate>();
+                _values = new List<GeomCoordinate>();
             _values.Add(coordinate);
         }
 
-        public void Remove(Coordinate coordinate)
+        public void Remove(GeomCoordinate coordinate)
         {
             if (_values != null)
             {

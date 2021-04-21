@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using ProgramMain.Map;
-using ProgramMain.Map.Google;
+using ProgramMain.Map.Tile;
 
 // ReSharper disable CheckNamespace
 namespace ProgramMain.Properties {
@@ -20,9 +20,9 @@ namespace ProgramMain.Properties {
 // ReSharper restore EmptyConstructor
             // // To add event handlers for saving and changing settings, uncomment the lines below:
             //
-            // this.SettingChanging += this.SettingChangingEventHandler;
+             this.SettingChanging += this.SettingChangingEventHandler;
             //
-            // this.SettingsSaving += this.SettingsSavingEventHandler;
+             this.SettingsSaving += this.SettingsSavingEventHandler;
             //
         }
         
@@ -44,7 +44,7 @@ namespace ProgramMain.Properties {
         }
 // ReSharper restore UnusedMember.Local
 
-        public static string GetMapFileName(GoogleBlock block)
+        public static string GetMapFileName(TileBlock block)
         {
             var mapPath = Default.MapCacheLocalPath;
             if (!Path.IsPathRooted(mapPath))
@@ -58,9 +58,9 @@ namespace ProgramMain.Properties {
             return fileName;
         }
 
-        private static Coordinate _centerMapBound;
+        private static GeomCoordinate _centerMapBound;
 
-        public static Coordinate CenterMapBound
+        public static GeomCoordinate CenterMapBound
         {
             get
             {
@@ -70,6 +70,11 @@ namespace ProgramMain.Properties {
                     _centerMapBound = rectBound.LineMiddlePoint;
                 }
                 return _centerMapBound;
+            }
+            set
+            {
+                var rectBound = new CoordinateRectangle(Default.LeftMapBound, Default.TopMapBound, Default.RightMapBound, Default.BottomMapBound);
+                _centerMapBound = rectBound.LineMiddlePoint;
             }
         }
     }

@@ -3,11 +3,15 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Threading;
+using System.Windows;
 using System.Windows.Forms;
 using ProgramMain.Framework.WorkerThread;
 using ProgramMain.Framework.WorkerThread.Types;
 using ProgramMain.Map;
-using ProgramMain.Map.Google;
+using ProgramMain.Map.Tile;
+using Point = System.Drawing.Point;
+using Font = System.Drawing.Font;
+using FontStyle = System.Drawing.FontStyle;
 
 namespace ProgramMain.Framework
 {
@@ -20,20 +24,49 @@ namespace ProgramMain.Framework
         private enum ActiveDrawBuffer {DC0 = 0, DC1 = 1};
         private ActiveDrawBuffer _activeDC = ActiveDrawBuffer.DC0;
 
-        private Coordinate _centerCoordinate;
+        private GeomCoordinate _centerCoordinate;
+        private GeomCoordinate _cursorCoordinate;
+
         private int _level = Properties.Settings.Default.StartZoomLevel;
 
-        public Coordinate CenterCoordinate
+        private CoordinateRectangle _envelope;
+
+        public CoordinateRectangle Envelope
+        {
+
+            // new CoordinateRectangle(Left, Top, Left, Bottom)
+            //RectangleContains
+            get { return _envelope; }
+            set { _envelope = value; }
+        }
+
+
+        public GeomCoordinate CenterCoordinate
         {
             get
             {
-                return (Coordinate)_centerCoordinate.Clone();
+                return (GeomCoordinate)_centerCoordinate.Clone();
             }
             set
             {
                 SetCenterCoordinate(value, _level);
             }
         }
+
+        private Rectangle _ImageOverlayRect;
+        public  Rectangle ImageOverlayRect
+        {
+            get
+            {
+                return _ImageOverlayRect;
+            }
+            set
+            {
+                _ImageOverlayRect = value;
+            }
+        }
+
+
         public int Level
         {
             get
@@ -46,12 +79,12 @@ namespace ProgramMain.Framework
             }
         }
 
-        private GoogleRectangle _screenView;
-        public GoogleRectangle ScreenView
+        private ScreenRectangle _screenView;
+        public ScreenRectangle ScreenView
         {
             get
             {
-                return (GoogleRectangle)_screenView.Clone();
+                return (ScreenRectangle)_screenView.Clone();
             }
         }
         private CoordinateRectangle _coordinateView;
@@ -63,13 +96,16 @@ namespace ProgramMain.Framework
             }
         }
 
-        public int Width { get; private set; }
+        public int Width { get;  set; }
 
-        public int Height { get; private set; }
+        public int Height { get;  set; }
 
-        public PixelFormat PiFormat { get; private set; }
-
-        public GraphicLayer(int pWidth, int pHeight, Coordinate centerCoordinate, int pLevel)
+        public PixelFormat PiFormat { get;  set; }
+        public GraphicLayer()
+        {
+            //Need to get info from world file
+        }
+        public GraphicLayer(int pWidth, int pHeight, GeomCoordinate centerCoordinate, int pLevel)
         {
             Width = pWidth;
             Height = pHeight;
@@ -110,7 +146,7 @@ namespace ProgramMain.Framework
             }
         }
 
-        protected void FireIvalidateLayer(Rectangle clipRectangle)
+        protected void FireInvalidateLayer(Rectangle clipRectangle)
         {
             FireEventToMainThread(_drawLayerEvent, new InvalidateLayerEventArgs(clipRectangle));
         }
@@ -128,11 +164,11 @@ namespace ProgramMain.Framework
             return base.DispatchThreadEvents(workerEvent);
         }
 
-        protected virtual bool SetCenterCoordinate(Coordinate center, int level)
+        protected virtual bool SetCenterCoordinate(GeomCoordinate center, int level)
         {
             if (_level != level
-                || new GoogleCoordinate(_centerCoordinate, level).CompareTo(
-                new GoogleCoordinate(center, level)) != 0)
+                || new ScreenCoordinate(_centerCoordinate, level).CompareTo(
+                new ScreenCoordinate(center, level)) != 0)
             {
                 _centerCoordinate = center;
                 _level = level;
@@ -223,6 +259,7 @@ namespace ProgramMain.Framework
             }
         }
 
+       
         virtual protected void TranslateCoords()
         {
             _screenView = _centerCoordinate.GetScreenViewFromCenter(Width, Height, _level);
@@ -258,6 +295,20 @@ namespace ProgramMain.Framework
                 _lockDc.Release();
             }
         }
+
+        protected void DrawGeoRefImagetoScreenRect(Bitmap bmp, Rectangle clipRectangle)
+        {
+            try
+            {
+                _lockDc.Wait();
+                _offScreenDc[0].DrawImageUnscaledAndClipped(bmp, clipRectangle);
+            }
+            finally
+            {
+                _lockDc.Release();
+            }
+        }
+
 
         protected void DrawBitmap(Bitmap bmp, Point point)
         {

@@ -1,0 +1,81 @@
+MAP
+  DEFRESOLUTION 96
+  EXTENT 12904922.3570213 -3770887.54476876 12905176.2727302 -3770704.79783334
+  FONTSET "C:\\Program Files (x86)\\MapManager\\templates\\font.list"
+  IMAGETYPE "png24"
+  NAME "MS"
+  RESOLUTION 96
+  SHAPEPATH ""
+  SIZE 843 607
+  STATUS ON
+  SYMBOLSET "C:\\Program Files (x86)\\MapManager\\templates\\symbols.sym"
+  UNITS METERS
+
+  OUTPUTFORMAT
+    NAME "png24"
+    MIMETYPE "image/png"
+    DRIVER "AGG/PNG"
+    EXTENSION "png"
+    IMAGEMODE RGB
+    TRANSPARENT FALSE
+  END # OUTPUTFORMAT
+
+  OUTPUTFORMAT
+    NAME "print"
+    MIMETYPE "image/png"
+    DRIVER "AGG/PNG"
+    EXTENSION "png"
+    IMAGEMODE RGB
+    TRANSPARENT FALSE
+  END # OUTPUTFORMAT
+
+  LEGEND
+    KEYSIZE 20 10
+    KEYSPACING 5 5
+    LABEL
+      SIZE 10
+      OFFSET 0 0
+      SHADOWSIZE 1 1
+    END # LABEL
+    STATUS OFF
+  END # LEGEND
+
+  QUERYMAP
+    SIZE -1 -1
+    STATUS OFF
+    STYLE HILITE
+  END # QUERYMAP
+
+  SCALEBAR
+    INTERVALS 4
+    LABEL
+      SIZE 10
+      OFFSET 0 0
+      SHADOWSIZE 1 1
+    END # LABEL
+    SIZE 200 3
+    STATUS OFF
+    UNITS MILES
+  END # SCALEBAR
+
+  WEB
+    METADATA
+      "distance_units"	"MS_METERS"
+      "mapmanager_version"	"1.1.0.0"
+    END # METADATA
+  END # WEB
+
+  LAYER
+    DATA "C:\\Users\\David\\Desktop\\SimpleMap\\SampleData\\18 - 20 Vulcan Rd.jpg"
+    EXTENT 12905040.5309713 -3770887.54476876 12905058.0987801 -3770704.79783334
+    NAME "18 - 20 Vulcan Rd"
+    PROJECTION
+      "AUTO"
+    END # PROJECTION
+    STATUS ON
+    TILEITEM "location"
+    TYPE RASTER
+    UNITS METERS
+  END # LAYER
+
+END # MAP

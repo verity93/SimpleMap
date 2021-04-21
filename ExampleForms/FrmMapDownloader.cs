@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProgramMain.Layers;
 using ProgramMain.Map;
-using ProgramMain.Map.Google;
+using ProgramMain.Map.Tile;
 using ProgramMain.Framework;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
@@ -142,16 +142,16 @@ namespace ProgramMain.ExampleForms
 
         private void DownloadThread(CancellationToken ct)
         {
-            var leftBound = new Coordinate(Properties.Settings.Default.LeftMapBound, Properties.Settings.Default.TopMapBound);
-            var rightBound = new Coordinate(Properties.Settings.Default.RightMapBound, Properties.Settings.Default.BottomMapBound);
+            var leftBound = new GeomCoordinate(Properties.Settings.Default.LeftMapBound, Properties.Settings.Default.TopMapBound);
+            var rightBound = new GeomCoordinate(Properties.Settings.Default.RightMapBound, Properties.Settings.Default.BottomMapBound);
 
             var rectBound = new CoordinateRectangle(leftBound, rightBound);
 
             var mapBlockCount = 0;
             for (var mapLevel = Properties.Settings.Default.MinZoomLevel; mapLevel <= Properties.Settings.Default.MaxZoomLevel; mapLevel++)
             {
-                var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, mapLevel)).X - (new GoogleCoordinate(rectBound.LeftTop, mapLevel)).X) + 2 * GoogleBlock.BlockSize;
-                var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, mapLevel)).Y - (new GoogleCoordinate(rectBound.LeftTop, mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
+                var mapWidth = Convert.ToInt32((new ScreenCoordinate(rectBound.RightTop, mapLevel)).X - (new ScreenCoordinate(rectBound.LeftTop, mapLevel)).X) + 2 * TileBlock.BlockSize;
+                var mapHeight = Convert.ToInt32((new ScreenCoordinate(rectBound.LeftBottom, mapLevel)).Y - (new ScreenCoordinate(rectBound.LeftTop, mapLevel)).Y) + 2 * TileBlock.BlockSize;
 
                 var viewBound = rectBound.LineMiddlePoint.GetScreenViewFromCenter(mapWidth, mapHeight, mapLevel);
                 var blockView = viewBound.BlockView;
@@ -163,8 +163,8 @@ namespace ProgramMain.ExampleForms
 
             for (var mapLevel = Properties.Settings.Default.MinZoomLevel; mapLevel <= Properties.Settings.Default.MaxZoomLevel; mapLevel++)
             {
-                var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, mapLevel)).X - (new GoogleCoordinate(rectBound.LeftTop, mapLevel)).X) + 2 * GoogleBlock.BlockSize;
-                var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, mapLevel)).Y - (new GoogleCoordinate(rectBound.LeftTop, mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
+                var mapWidth = Convert.ToInt32((new ScreenCoordinate(rectBound.RightTop, mapLevel)).X - (new ScreenCoordinate(rectBound.LeftTop, mapLevel)).X) + 2 * TileBlock.BlockSize;
+                var mapHeight = Convert.ToInt32((new ScreenCoordinate(rectBound.LeftBottom, mapLevel)).Y - (new ScreenCoordinate(rectBound.LeftTop, mapLevel)).Y) + 2 * TileBlock.BlockSize;
 
                 var viewBound = rectBound.LineMiddlePoint.GetScreenViewFromCenter(mapWidth, mapHeight, mapLevel);
                 var blockView = viewBound.BlockView;
@@ -173,11 +173,11 @@ namespace ProgramMain.ExampleForms
                 {
                     for (var y = blockView.Top; y <= blockView.Bottom; y++)
                     {
-                        var block = new GoogleBlock(x, y, mapLevel);
+                        var block = new TileBlock(x, y, mapLevel);
 
                         var fileName = Properties.Settings.GetMapFileName(block);
                         if (!File.Exists(fileName))
-                            MapLayer.DownloadImageFromGoogle(block, false);
+                            TileLayer.DownloadImageFromTile(block, false);
 
                         mapBlockNumber++;
 
@@ -193,15 +193,15 @@ namespace ProgramMain.ExampleForms
 
         private void GetFullMapThread(CancellationToken ct)
         {
-            var leftBound = new Coordinate(Properties.Settings.Default.LeftMapBound, Properties.Settings.Default.TopMapBound);
-            var rightBound = new Coordinate(Properties.Settings.Default.RightMapBound, Properties.Settings.Default.BottomMapBound);
+            var leftBound = new GeomCoordinate(Properties.Settings.Default.LeftMapBound, Properties.Settings.Default.TopMapBound);
+            var rightBound = new GeomCoordinate(Properties.Settings.Default.RightMapBound, Properties.Settings.Default.BottomMapBound);
 
             var rectBound = new CoordinateRectangle(leftBound, rightBound);
 
             try
             {
-                var mapWidth = Convert.ToInt32((new GoogleCoordinate(rectBound.RightTop, _mapLevel)).X - (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).X) + 2 * GoogleBlock.BlockSize;
-                var mapHeight = Convert.ToInt32((new GoogleCoordinate(rectBound.LeftBottom, _mapLevel)).Y - (new GoogleCoordinate(rectBound.LeftTop, _mapLevel)).Y) + 2 * GoogleBlock.BlockSize;
+                var mapWidth = Convert.ToInt32((new ScreenCoordinate(rectBound.RightTop, _mapLevel)).X - (new ScreenCoordinate(rectBound.LeftTop, _mapLevel)).X) + 2 * TileBlock.BlockSize;
+                var mapHeight = Convert.ToInt32((new ScreenCoordinate(rectBound.LeftBottom, _mapLevel)).Y - (new ScreenCoordinate(rectBound.LeftTop, _mapLevel)).Y) + 2 * TileBlock.BlockSize;
 
                 var image = GraphicLayer.CreateCompatibleBitmap(null, mapWidth, mapHeight, _mapPiFormat);
                 var graphics = Graphics.FromImage(image);
@@ -217,12 +217,12 @@ namespace ProgramMain.ExampleForms
                 {
                     for (var y = blockView.Top; y <= blockView.Bottom; y++)
                     {
-                        var block = new GoogleBlock(x, y, _mapLevel);
+                        var block = new TileBlock(x, y, _mapLevel);
                         var bmp = GraphicLayer.CreateCompatibleBitmap(
-                            MapLayer.DownloadImageFromFile(block) ?? MapLayer.DownloadImageFromGoogle(block, true),
-                            GoogleBlock.BlockSize, GoogleBlock.BlockSize, _mapPiFormat);
+                            TileLayer.DownloadImageFromFile(block) ?? TileLayer.DownloadImageFromTile(block, true),
+                            TileBlock.BlockSize, TileBlock.BlockSize, _mapPiFormat);
 
-                        var rect = ((GoogleRectangle) block).GetScreenRect(viewBound);
+                        var rect = ((ScreenRectangle) block).GetScreenRect(viewBound);
                         graphics.DrawImageUnscaled(bmp, rect.Location.X, rect.Location.Y);
 
                         mapBlockNumber++;

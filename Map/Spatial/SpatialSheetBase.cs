@@ -1,4 +1,4 @@
-using ProgramMain.Map.Google;
+using ProgramMain.Map.Tile;
 using ProgramMain.Map.Spatial.Indexer;
 using ProgramMain.Map.Spatial.Types;
 
@@ -7,7 +7,7 @@ namespace ProgramMain.Map.Spatial
     internal class SpatialSheetBase<TNode> where TNode : ISpatialTreeNode
     {
         public int Level { get; private set; }
-        public int GoogleLevel { get; private set; }
+        public int TileLevel { get; private set; }
 
         //Daughter index sheets
         public readonly SpatialSheetIndexer<TNode> Sheets;
@@ -28,28 +28,28 @@ namespace ProgramMain.Map.Spatial
             get { return Level >= Sheets.PowerLength; }
         }
 
-        public SpatialSheetBase(SpatialTree<TNode> tree, int level, int googleLevel)
+        public SpatialSheetBase(SpatialTree<TNode> tree, int level, int TileLevel)
         {
             Level = level;
-            GoogleLevel = googleLevel;
+            TileLevel = TileLevel;
 
             Sheets = new SpatialSheetIndexer<TNode>(this, tree);
             Content = new SpatialContentIndexer<TNode>();
         }
 
-        private int GoogleNumLevel(int level)
+        private int TileNumLevel(int level)
         {
-            return (int)GoogleMapUtilities.NumLevel((int)Sheets.Power(level));
+            return (int)MapUtilities.NumLevel((int)Sheets.Power(level));
         }
 
-        private int GoogleNextLevelAddon()
+        private int TileNextLevelAddon()
         {
-            return GoogleNumLevel(Level) - 1;
+            return TileNumLevel(Level) - 1;
         }
 
-        public int NextGoogleLevel
+        public int NextTileLevel
         {
-            get { return GoogleLevel + GoogleNextLevelAddon(); }
+            get { return TileLevel + TileNextLevelAddon(); }
         }
 
         public void Clear()

@@ -2,25 +2,25 @@ using System;
 using System.Drawing;
 using ProgramMain.Map.Types;
 
-namespace ProgramMain.Map.Google
+namespace ProgramMain.Map.Tile
 {
-    public class GoogleRectangle : ICloneable, IComparable
+    public class ScreenRectangle : ICloneable, IComparable
     {
-        public static readonly GoogleRectangle Empty = new GoogleRectangle();
+        public static readonly ScreenRectangle Empty = new ScreenRectangle();
 
-        public GoogleCoordinate LeftTop
+        public ScreenCoordinate LeftTop
         {
             get
             {
-                return new GoogleCoordinate(Left, Top, Level);
+                return new ScreenCoordinate(Left, Top, Level);
             }
         }
 
-        public GoogleCoordinate RightBottom
+        public ScreenCoordinate RightBottom
         {
             get
             {
-                return new GoogleCoordinate(Right, Bottom, Level);
+                return new ScreenCoordinate(Right, Bottom, Level);
             }
         }
 
@@ -34,7 +34,7 @@ namespace ProgramMain.Map.Google
 
         public int Level { get; private set; }
 
-        private GoogleRectangle()
+        private ScreenRectangle()
         {
             Left = 0;
             Right = 0;
@@ -43,7 +43,7 @@ namespace ProgramMain.Map.Google
             Level = 0;
         }
 
-        public GoogleRectangle(long left, long top, long right, long bottom, int level)
+        public ScreenRectangle(long left, long top, long right, long bottom, int level)
         {
             Left = left;
             Top = top;
@@ -52,11 +52,11 @@ namespace ProgramMain.Map.Google
             Level = level;
         }
 
-        public GoogleRectangle(GoogleCoordinate pLeftTop, GoogleCoordinate pRightBottom)
+        public ScreenRectangle(ScreenCoordinate pLeftTop, ScreenCoordinate pRightBottom)
         {
             if (pRightBottom.Level != pLeftTop.Level)
             {
-                pRightBottom = new GoogleCoordinate(pRightBottom, pLeftTop.Level);
+                pRightBottom = new ScreenCoordinate(pRightBottom, pLeftTop.Level);
             }
             Left = pLeftTop.X;
             Top = pLeftTop.Y;
@@ -65,10 +65,10 @@ namespace ProgramMain.Map.Google
             Level = pLeftTop.Level;
         }
 
-        public GoogleRectangle(CoordinateRectangle coordinateRect, int level)
+        public ScreenRectangle(CoordinateRectangle coordinateRect, int level)
         {
-            var pLeftTop = new GoogleCoordinate(coordinateRect.LeftTop, level);
-            var pRightBottom = new GoogleCoordinate(coordinateRect.RightBottom, level);
+            var pLeftTop = new ScreenCoordinate(coordinateRect.LeftTop, level);
+            var pRightBottom = new ScreenCoordinate(coordinateRect.RightBottom, level);
             Left = pLeftTop.X;
             Top = pLeftTop.Y;
             Right = pRightBottom.X;
@@ -76,11 +76,11 @@ namespace ProgramMain.Map.Google
             Level = level;
         }
 
-        public GoogleRectangle(CoordinatePoligon coordinatePoligon, int level)
+        public ScreenRectangle(CoordinatePoligon coordinatePoligon, int level)
         {
             for (var i = 0; i < coordinatePoligon.Count; i++)
             {
-                var pt = new GoogleCoordinate(coordinatePoligon.Coordinates[i], level);
+                var pt = new ScreenCoordinate(coordinatePoligon.Coordinates[i], level);
                 if (i == 0)
                 {
                     Left = pt.X;
@@ -103,45 +103,45 @@ namespace ProgramMain.Map.Google
         #region ICloneable Members
         public object Clone()
         {
-            return new GoogleRectangle(Left, Top, Right, Bottom, Level);
+            return new ScreenRectangle(Left, Top, Right, Bottom, Level);
         }
         #endregion
 
         #region IComparable Members
         public int CompareTo(Object obj)
         {
-            var rectangle = (GoogleRectangle)obj;
+            var rectangle = (ScreenRectangle)obj;
             var res = LeftTop.CompareTo(rectangle.LeftTop);
             if (res != 0) return res;
             return RightBottom.CompareTo(rectangle.RightBottom);
         }
         #endregion
 
-        public static implicit operator CoordinateRectangle(GoogleRectangle google)
+        public static implicit operator CoordinateRectangle(ScreenRectangle Tile)
         {
-            return new CoordinateRectangle(google.LeftTop, google.RightBottom);
+            return new CoordinateRectangle(Tile.LeftTop, Tile.RightBottom);
         }
 
         /// <summary>
-        /// Google bitmap block count for (X, Y)
+        /// Tile bitmap block count for (X, Y)
         /// </summary>
         public Rectangle BlockView
         {
             get
             {
                 return Rectangle.FromLTRB(
-                    (int) (Left / GoogleBlock.BlockSize),
-                    (int) (Top / GoogleBlock.BlockSize),
-                    (int) ((Right - GoogleBlock.BlockSize) / GoogleBlock.BlockSize) + 1,
-                    (int) ((Bottom - GoogleBlock.BlockSize) / GoogleBlock.BlockSize) + 1);
+                    (int) (Left / TileBlock.BlockSize),
+                    (int) (Top / TileBlock.BlockSize),
+                    (int) ((Right - TileBlock.BlockSize) / TileBlock.BlockSize) + 1,
+                    (int) ((Bottom - TileBlock.BlockSize) / TileBlock.BlockSize) + 1);
             }
         }
 
-        public Rectangle GetScreenRect(GoogleRectangle screenView)
+        public Rectangle GetScreenRect(ScreenRectangle screenView)
         {
             if (Level != screenView.Level)
             {
-                screenView = new GoogleRectangle(
+                screenView = new ScreenRectangle(
                     new CoordinateRectangle(screenView.LeftTop, screenView.RightBottom), Level);
             }
 
@@ -151,22 +151,22 @@ namespace ProgramMain.Map.Google
             return Rectangle.FromLTRB(pt1.X, pt1.Y, pt2.X, pt2.Y);
         }
 
-        public InterseptResult PointContains(Coordinate point)
+        public IntersectResult PointContains(GeomCoordinate point)
         {
             return ((CoordinateRectangle)this).PointContains(point);
         }
 
-        public InterseptResult RectangleContains(CoordinateRectangle rectangle)
+        public IntersectResult RectangleContains(CoordinateRectangle rectangle)
         {
             return ((CoordinateRectangle)this).RectangleContains(rectangle);
         }
 
-        public InterseptResult LineContains(CoordinateRectangle line)
+        public IntersectResult LineContains(CoordinateRectangle line)
         {
             return ((CoordinateRectangle)this).LineContains(line);
         }
 
-        public InterseptResult PoligonContains(CoordinatePoligon poligon)
+        public IntersectResult PoligonContains(CoordinatePoligon poligon)
         {
             return ((CoordinateRectangle)this).PoligonContains(poligon);
         }

@@ -1,0 +1,41 @@
+<XmlLayer xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/MW5.Services.Serialization">
+  <ColorSchemeCaption />
+  <CustomObjects>
+    <XmlCustomObject>
+      <Guid>7b9df651-4b8b-4aa8-a4a9-c1463a35dac7</Guid>
+      <Object>
+        <SymbologyMetadata xmlns="">
+          <Initialized>true</Initialized>
+        </SymbologyMetadata>
+      </Object>
+    </XmlCustomObject>
+  </CustomObjects>
+  <Expanded>true</Expanded>
+  <Guid>90731f87-ec9e-441d-93a9-8bdfd0712bed</Guid>
+  <HideFromLegend>false</HideFromLegend>
+  <Identity xmlns:d2p1="http://schemas.datacontract.org/2004/07/MW5.Api.Concrete">
+    <d2p1:Connection i:nil="true" />
+    <d2p1:Filename>T:\Temp\Gis\Data\staff.shp</d2p1:Filename>
+    <d2p1:GeometryType>None</d2p1:GeometryType>
+    <d2p1:IdentityType>File</d2p1:IdentityType>
+    <d2p1:Query i:nil="true" />
+    <d2p1:ZValueType>None</d2p1:ZValueType>
+  </Identity>
+  <LayerType>Shapefile</LayerType>
+  <Name>staff</Name>
+  <OcxLayer>
+    <Layer LayerType="Shapefile" LayerName="staff" LayerVisible="1" LayerKey="" MinVisibleScale="1.000000" MaxVisibleScale="10000000000.000000" MinVisibleZoom="1" MaxVisibleZoom="24" Filename="" xmlns="">
+      <ShapefileClass>
+        <DefaultDrawingOptions FillColor="1971946" LineColor="9868950" PointNumSides="5" PointShapeType="2" PointSize="12.000000" Rotation="18.000000" />
+        <ShapefileCategoriesClass ClassificationField="-1" />
+        <LabelsClass Alignment="1" Generated="1" MaxVisibleScale="10000000000.000000" MinVisibleScale="1.000000" MinVisibleZoom="1" MaxVisibleZoom="24" Positioning="1" TextRenderingHint="3" Expression="[First Name] +&quot; &quot; +  [Last Name] " />
+        <ChartsClass Visible="-1" />
+        <Selection TotalCount="2" SelectedCount="1">10</Selection>
+        <TableClass>
+          <Fields />
+        </TableClass>
+      </ShapefileClass>
+    </Layer>
+  </OcxLayer>
+  <Selected>false</Selected>
+</XmlLayer>

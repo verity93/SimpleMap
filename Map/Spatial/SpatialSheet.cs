@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ProgramMain.Map.Google;
+using ProgramMain.Map.Tile;
 using ProgramMain.Map.Spatial.Types;
 using ProgramMain.Map.Types;
 
@@ -9,8 +9,8 @@ namespace ProgramMain.Map.Spatial
     {
         public CoordinateRectangle Rectangle { get; private set; }
 
-        public SpatialSheet(SpatialTree<TNode> tree, int level, int googleLevel, CoordinateRectangle rectangle)
-            : base(tree, level, googleLevel)
+        public SpatialSheet(SpatialTree<TNode> tree, int level, int TileLevel, CoordinateRectangle rectangle)
+            : base(tree, level, TileLevel)
         {
             Rectangle = rectangle;
         }
@@ -58,7 +58,7 @@ namespace ProgramMain.Map.Spatial
 
         private void PointSheetAction(TNode node, SheetActionType actionType)
         {
-            var block = node.Coordinate.GetGoogleBlock(NextGoogleLevel);
+            var block = node.Coordinate.GetTileBlock(NextTileLevel);
             lock (this)
             {
                 //point search in daughter sheet 
@@ -72,10 +72,10 @@ namespace ProgramMain.Map.Spatial
 
         private void LineSheetAction(TNode node, SheetActionType actionType)
         {
-            var blockViewLevel = NextGoogleLevel;
+            var blockViewLevel = NextTileLevel;
             
             var line = node.Rectangle;
-            var rect = new GoogleRectangle(line, blockViewLevel).BlockView;
+            var rect = new ScreenRectangle(line, blockViewLevel).BlockView;
 
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;
@@ -85,10 +85,10 @@ namespace ProgramMain.Map.Spatial
             {
                 for (var y = rect.Top; (deltaY == 1 && y <= rect.Bottom) || (deltaY == -1 && y >= rect.Bottom); y += deltaY)
                 {
-                    var block = new GoogleBlock(x, y, blockViewLevel);
-                    var googleRect = (GoogleRectangle)block;
+                    var block = new TileBlock(x, y, blockViewLevel);
+                    var TileRect = (ScreenRectangle)block;
                     
-                    if (googleRect.LineContains(line) != InterseptResult.None)
+                    if (TileRect.LineContains(line) != IntersectResult.None)
                     {
                         lock (this)
                         {
@@ -105,9 +105,9 @@ namespace ProgramMain.Map.Spatial
 
         private void RectangleSheetAction(TNode node, SheetActionType actionType)
         {
-            var blockViewLevel = NextGoogleLevel;
+            var blockViewLevel = NextTileLevel;
 
-            var rect = new GoogleRectangle(node.Rectangle, blockViewLevel).BlockView;
+            var rect = new ScreenRectangle(node.Rectangle, blockViewLevel).BlockView;
 
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;
@@ -117,7 +117,7 @@ namespace ProgramMain.Map.Spatial
             {
                 for (var y = rect.Top; (deltaY == 1 && y <= rect.Bottom) || (deltaY == -1 && y >= rect.Bottom); y += deltaY)
                 {
-                    var block = new GoogleBlock(x, y, blockViewLevel);
+                    var block = new TileBlock(x, y, blockViewLevel);
                     lock (this)
                     {
                         var sheet = Sheets[block];
@@ -132,10 +132,10 @@ namespace ProgramMain.Map.Spatial
 
         private void PoligonSheetAction(TNode node, SheetActionType actionType)
         {
-            var blockViewLevel = NextGoogleLevel;
+            var blockViewLevel = NextTileLevel;
 
             var poligon = node.Poligon;
-            var rect = new GoogleRectangle(poligon, blockViewLevel).BlockView;
+            var rect = new ScreenRectangle(poligon, blockViewLevel).BlockView;
 
             var deltaX = (rect.Left <= rect.Right) ? 1 : -1;
             var deltaY = (rect.Top <= rect.Bottom) ? 1 : -1;
@@ -145,10 +145,10 @@ namespace ProgramMain.Map.Spatial
             {
                 for (var y = rect.Top; (deltaY == 1 && y <= rect.Bottom) || (deltaY == -1 && y >= rect.Bottom); y += deltaY)
                 {
-                    var block = new GoogleBlock(x, y, blockViewLevel);
-                    var googleRect = (GoogleRectangle)block;
+                    var block = new TileBlock(x, y, blockViewLevel);
+                    var TileRect = (ScreenRectangle)block;
 
-                    if (googleRect.PoligonContains(poligon) != InterseptResult.None)
+                    if (TileRect.PoligonContains(poligon) != IntersectResult.None)
                     {
                         lock (this)
                         {
@@ -163,7 +163,7 @@ namespace ProgramMain.Map.Spatial
             }
         }
 
-        private void PostSheetAction(GoogleBlock block, SpatialSheet<TNode> sheet, SheetActionType actionType)
+        private void PostSheetAction(TileBlock block, SpatialSheet<TNode> sheet, SheetActionType actionType)
         {
             switch (actionType)
             {
@@ -176,7 +176,7 @@ namespace ProgramMain.Map.Spatial
             }
         }
 
-        public void Query(HashSet<ISpatialTreeNode> hashSet, CoordinateRectangle rectangle, InterseptResult parentResult, SpatialQueryIterator i)
+        public void Query(HashSet<ISpatialTreeNode> hashSet, CoordinateRectangle rectangle, IntersectResult parentResult, SpatialQueryIterator i)
         {
             //Query elements on the map by coordinate ractengle(indexed search)
             lock (this)
@@ -187,19 +187,19 @@ namespace ProgramMain.Map.Spatial
                     {
                         foreach (var sheet in Sheets.Values)
                         {
-                            var res = parentResult == InterseptResult.Supersets ? InterseptResult.Supersets : InterseptResult.None;
+                            var res = parentResult == IntersectResult.Supersets ? IntersectResult.Supersets : IntersectResult.None;
                             
-                            if (res != InterseptResult.Supersets)
+                            if (res != IntersectResult.Supersets)
                             {
                                 i.Next();
 
                                 res = sheet.Rectangle.RectangleContains(rectangle);
                             }
-                            if (res != InterseptResult.None)
+                            if (res != IntersectResult.None)
                             {
                                 sheet.Query(hashSet, rectangle, res, i);
                             }
-                            if (res == InterseptResult.Contains) break;
+                            if (res == IntersectResult.Contains) break;
                         }
                     }
                 }
@@ -207,8 +207,8 @@ namespace ProgramMain.Map.Spatial
                 {
                     foreach (var node in Content.Values)
                     {
-                        var res = parentResult == InterseptResult.Supersets ? InterseptResult.Supersets : InterseptResult.None;
-                        if (res != InterseptResult.Supersets)
+                        var res = parentResult == IntersectResult.Supersets ? IntersectResult.Supersets : IntersectResult.None;
+                        if (res != IntersectResult.Supersets)
                         {
                             i.Next();
 
@@ -228,7 +228,7 @@ namespace ProgramMain.Map.Spatial
                                     break;
                             }
                         }
-                        if (res != InterseptResult.None)
+                        if (res != IntersectResult.None)
                         {
                             hashSet.Add(node);
                         }
@@ -237,7 +237,7 @@ namespace ProgramMain.Map.Spatial
             }
         }
 
-        public void Distance(HashSet<ISpatialTreeNode> hashSet, Coordinate coordinate, double variance, SpatialQueryIterator i)
+        public void Distance(HashSet<ISpatialTreeNode> hashSet, GeomCoordinate coordinate, double variance, SpatialQueryIterator i)
         {
             //Query elements on the map close to coordinate (indexed search)
             lock (this)

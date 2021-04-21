@@ -83,7 +83,7 @@ namespace ProgramMain.Map.Spatial
             var i = SpatialQueryIterator.Start();
             
             var res = new HashSet<ISpatialTreeNode>();
-            _root.Query(res, rectangle, InterseptResult.None, i);
+            _root.Query(res, rectangle, IntersectResult.None, i);
             
             //index turning
             System.Diagnostics.Trace.WriteLine(string.Format("{5} Level nodes {1} {2} {3} {4}, Query iterations - {0:d}",
@@ -92,7 +92,7 @@ namespace ProgramMain.Map.Spatial
             return res;
         }
 
-        public HashSet<ISpatialTreeNode> Distance(Coordinate coordinate, double variance)
+        public HashSet<ISpatialTreeNode> Distance(GeomCoordinate coordinate, double variance)
         {
             //for debug to see how many iterations used for a search
             var i = SpatialQueryIterator.Start();

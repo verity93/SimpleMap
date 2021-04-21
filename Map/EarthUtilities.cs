@@ -4,51 +4,54 @@ namespace ProgramMain.Map
 {
     internal class EarthUtilities
     {
-        #region Вспомогательные функциии для расчета растояний для земного шара с допуском, что все объекты находятся на высоте 0 метров над уровнем моря
+
+        #region Auxiliary functions for calculating distances for the globe with the assumption that all objects are at a height of 0 meters above sea level
 
         /// <summary>
-        /// Приблизительное растояние между двумя точками
-        /// Передаваемые широта/долгота в градусах и сотых долях
+        /// Approximate distance between two points
+        /// Transmitted latitude / longitude in degrees and hundredths
         /// </summary>
-        public static double GetLength(Coordinate c1, Coordinate c2)
+        public static double GetLength(GeomCoordinate c1, GeomCoordinate c2)
         {
-            // Константы, используемые для вычисления смещения и расстояния
-            const double d2R = Math.PI / 180; // Константа для преобразования градусов в радианы
-            const double a = 6378137.0; // Основные полуоси
-            //const double b = 6356752.314245; // Неосновные полуоси
-            const double e2 = 0.006739496742337; // Квадрат эксцентричности эллипсоида
 
-            // Вычисляем разницу между двумя долготами и широтами и получаем среднюю широту
-            var fdLambda = (c1.Longitude - c2.Longitude) * d2R; // Разница между двумя значениями долготы
-            var fdPhi = (c1.Latitude - c2.Latitude) * d2R; // Разница между двумя значениями широты
-            var fPhimean = ((c1.Latitude + c2.Latitude) / 2.0) * d2R; // Средняя широта
+            // Constants used to calculate offset and distance
+            const double d2R = Math.PI / 180; // Constant to convert degrees to radians
+            const double a = 6378137.0; // Main axis
+            // const double b = 6356752.314245; // Minor axis
+            const double e2 = 0.006739496742337; // The square of the eccentricity of the ellipsoid
 
-            // Меридианский радиус кривизны
+            // Calculate the difference between two longitudes and latitudes and get the average latitude
+            var fdLambda = (c1.Longitude - c2.Longitude) * d2R; // The difference between the two values ​​of longitude
+            var fdPhi = (c1.Latitude - c2.Latitude) * d2R; // The difference between the two latitudes
+            var fPhimean = ((c1.Latitude + c2.Latitude) / 2.0) * d2R; // Mid latitude
+
+            // Meridian radius of curvature
             var fRho = (a * (1 - e2)) / Math.Pow(1 - e2 * (Math.Pow(Math.Sin(fPhimean), 2)), 1.5);
-            // Поперечный радиус кривизны
+            // Transverse radius of curvature
             var fNu = a / (Math.Sqrt(1 - e2 * (Math.Sin(fPhimean) * Math.Sin(fPhimean))));
 
-            // Вычисляем угловое расстояние от центра сфероида
+            // Calculate the angular distance from the center of the spheroid
             var fz = 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(fdPhi / 2.0), 2) + Math.Cos(c2.Latitude * d2R) * Math.Cos(c1.Latitude * d2R) * Math.Pow(Math.Sin(fdLambda / 2.0), 2)));
 
-            // Вычисляем смещение
+            // Calculate the offset
             var fAlpha = Math.Asin(Math.Cos(c2.Latitude * d2R) * Math.Sin(fdLambda) * 1 / Math.Sin(fz));
-            // Вычисляем радиус Земли
+            // Calculate the radius of the Earth
             var fR = (fRho * fNu) / ((fRho * Math.Pow(Math.Sin(fAlpha), 2)) + (fNu * Math.Pow(Math.Cos(fAlpha), 2)));
 
-            // Вычисленное расстояния в метрах
+            // Calculated distance in meters
             var distance = fz * fR;
 
             return distance;
         }
 
         /// <summary>
-        /// Приблизительное растояние от точки до отрезка прямой
-        /// Передаваемые широта/долгота в градусах и сотых долях
+        /// Approximate distance from point to line segment
+        /// Transmitted latitude / longitude in degrees and hundredths
         /// </summary>
-        public static double GetDistance(CoordinateRectangle line, Coordinate pt)
+        /// 
+        public static double GetDistance(CoordinateRectangle line, GeomCoordinate pt)
         {
-            const double r2D = 180 / Math.PI; // Константа для преобразования радиан в градусы 
+            const double r2D = 180 / Math.PI; // Constant for converting radians to degrees
 
             var a = GetLength(line.LeftTop, line.RightBottom);
 
@@ -70,10 +73,10 @@ namespace ProgramMain.Map
             return ar * 2 / a;
         }
 
-        public static Coordinate GetNearestPoint(CoordinateRectangle line, Coordinate pt)
+        public static GeomCoordinate GetNearestPoint(CoordinateRectangle line, GeomCoordinate pt)
         {
 
-            const double r2D = 180 / Math.PI; // Константа для преобразования радиан в градусы 
+            const double r2D = 180 / Math.PI; // Constant for converting radians to degrees
 
             var a = GetLength(line.LeftTop, line.RightBottom);
             if (a <= 0)
@@ -91,11 +94,11 @@ namespace ProgramMain.Map
 
 
             var x = ((line.Right - line.Left) * (line.Bottom - line.Top) * (pt.Latitude - line.Top) +
-                        line.Left * Math.Pow(line.Bottom - line.Top, 2) + pt.Longitude*Math.Pow(line.Right - line.Left, 2)) /
+                        line.Left * Math.Pow(line.Bottom - line.Top, 2) + pt.Longitude * Math.Pow(line.Right - line.Left, 2)) /
                        (Math.Pow(line.Bottom - line.Top, 2) + Math.Pow(line.Right - line.Left, 2));
             var y = (line.Bottom - line.Top) * (x - line.Left) / (line.Right - line.Left) + line.Top;
 
-            return new Coordinate(x,y);
+            return new GeomCoordinate(x, y);
         }
 
         #endregion

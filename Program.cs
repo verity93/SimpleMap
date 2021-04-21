@@ -2,25 +2,31 @@
 using System.Windows.Forms;
 using ProgramMain.ExampleForms;
 
-
 namespace ProgramMain
 {
 	static class Program
 	{
 	    static Program()
 	    {
-            MainForm = null;
-	    }
+			// MapDemo = null;
+			//GeoReference = null;
+		}
 
-        public static FrmOpticMap MainForm { get; private set; }
+		//public static FrmMapDemo MapDemo { get; private set; }
+		//public static FrmGeoReference GeoReference { get; private set; }
 
-	    [STAThread]
+		[STAThread]
         static void Main()
 		{
             Application.EnableVisualStyles();
 
-			MainForm = new FrmOpticMap();
-            Application.Run(MainForm);
+            FrmMapDemo MapDemo = new FrmMapDemo();
+            Application.Run(MapDemo);
+
+            FrmWorldMap GeoReference = new FrmWorldMap();
+            Application.Run(GeoReference);
+
+            //GeoReference = null;
         }
 	}
 }
