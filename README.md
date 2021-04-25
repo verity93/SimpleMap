@@ -1,57 +1,68 @@
-# SimpleMap
+SimpleMap is an AMAZING (FOSS) open-source, fully managed code implementation of a GIS engine for desktop, easily ported to mobile and web.
 
-This is fully workable sample project on C# for Visual Studio 2019
+It is a fully managed dot net core codebase, compact and easy to use.
 
-Sample demonstrates how You can use maps in your projects. 
+This is a fully working Visual Studio C# sample project, please help to add more features like georeferencing.
 
-You can download and run SimpleMap.exe. Or download and compile the source code.
-
-SimpleMap/ExampleForms/FrmMapDownloader.cs demonstrates how to download google map area as single image (GetFullMapThread function) or how to cache google map on local disk (DownloadThread function).
-
-SimpleMap/ExampleForms/Controls/MapCtl.cs demostrates how to draw cached google map images to screen with custom objects as lines, bitmaps etc.
+Full FOSS source code, sample compiles and demonstrates how You can use maps in your projects.
 
 ## Features
 
-All in one Winform control
-  - No un-managed Code & No Dependancies.
-  - Small code size
-  - Lightweight
+ - All in one Winform control
 
-### Rendering
+ - No un-managed Code & No Dependencies.
 
-- Fast image draw to screen via GDI+, written pure on C# without any direct mapping to WinApi.
+ - Small code size
 
-- Double buffering technology, all image changes draw into memory buffer and then changes apply to the screen.
+ - Lightweight
 
-### Tile servers
+## Rendering
 
-- Download map images from tile servers (e.g google).
+ - Fast image draw to screen via GDI+, written pure on C# without any direct mapping to WinApi.
 
-- Cache map tile on disk.
+ - Double buffering technology, all image changes draw into memory buffer and then changes apply to the screen.
 
-- Download google image file cache to local storage.
+## Tile servers
 
-- Save google map as one image.
+ - Download map images from tile servers (e.g google).
 
-- Base classes to draw any map layers.
+ - Cache map tile on disk.
 
-## Georeference Raster Images
+ - Download google image file cache to local storage.
+
+ - Save google Maps as one image.
+
+ - Base classes to draw any map layers.
+
+ ## Georeference 
  
- - Georeference image to create worldfile
+ **New Feature/ Work in progress**
  
+ - Raster Image loader  
+ - Georeference image to create world file
+
  - Load raster image (pngw,bmpw,jpgw,tifw, etc) as geo referenced overlay
 
 ## GIS Projection
 
-- Projection of coordinate system through sub classes and operators. Translate google coordinates to longitude and latitude.
+ - Projection of coordinate system through subclasses and operators.
 
-- Translate longitude and latitude to google coordinates. Math operators support to work with coordinates. 
+ - Translate google coordinates to longitude and latitude.
 
-- Spatial in-memory index with fast search by coordinates based on google map coordinate system.
+ - Translate longitude and latitude to google coordinates.
 
-- Spatial index tuning.
+ - Math operators support working with coordinates.
 
-- Spatial index supported objects are: Point, Line, Rectangle, Poligon(patially suppoted).
+ - Spatial in-memory index with fast search by coordinates based on google map coordinate system.
 
+ - Spatial index tuning.
 
-## It is absolutely free for use.
+ - Spatial index supported objects are: 
+ 
+    - Point, Line, Rectangle, Polygon(partially supported).
+
+SimpleMap/ExampleForms/FrmMapDownloader.cs demonstrates how to download google map area as single image (GetFullMapThread function) or how to cache google map on local disk (DownloadThread function).
+
+SimpleMap/ExampleForms/Controls/MapCtl.cs demonstrates how to draw cached google map images to screen with custom objects as lines, bitmaps etc.
+
+**It is absolutely free for use.**  Please fork or contribute and help improve.
