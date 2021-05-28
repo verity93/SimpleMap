@@ -3,9 +3,10 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
-using ProgramMain.ExampleForms.Controls;
+using SimpleMap;
+using SimpleMap.Controls;
 
-namespace ProgramMain.ExampleForms
+namespace SimpleMapApp
 {
     public partial class FrmMapDemo : Form
     {
@@ -156,7 +157,7 @@ namespace ProgramMain.ExampleForms
             string pathToMaps = Path.Combine(statupPath, "Maps");
 
 
-            //Load and georeferenced Images then upload to mapservder so tile come back with georeferenced layers from server?..
+            //Load and georeferenced Images then upload to mapservder so tile come back with georeferenced layers from server?.
             
             
             //Test  loading a georeferenced image 

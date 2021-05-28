@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Drawing;
-using ProgramMain.Framework;
-using ProgramMain.Framework.WorkerThread;
-using ProgramMain.Framework.WorkerThread.Types;
-using ProgramMain.Map;
-using ProgramMain.Map.Tile;
+using SimpleMap.Framework;
+using SimpleMap.Framework.WorkerThread;
+using SimpleMap.Framework.WorkerThread.Types;
+using SimpleMap.Map;
+using SimpleMap.Map.Tile;
 
-namespace ProgramMain.Layers
+namespace SimpleMap.Layers
 {
     //Source Tiles from 
     //https://github.com/jaypwagner/SharpMappingWinform/blob/master/Form1.cs

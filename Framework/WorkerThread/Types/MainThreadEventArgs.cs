@@ -1,4 +1,4 @@
-namespace ProgramMain.Framework.WorkerThread.Types
+namespace SimpleMap.Framework.WorkerThread.Types
 {
     public class MainThreadEventArgs
     {

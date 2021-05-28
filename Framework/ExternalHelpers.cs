@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace ProgramMain.Framework
+namespace SimpleMap.Framework
 {
     public static class ExternalHelpers
     {

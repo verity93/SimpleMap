@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using ProgramMain.Map.Tile;
-using ProgramMain.Map.Spatial.Types;
-using ProgramMain.Map.Types;
+using SimpleMap.Map.Tile;
+using SimpleMap.Map.Spatial.Types;
+using SimpleMap.Map.Types;
 
-namespace ProgramMain.Map.Spatial
+namespace SimpleMap.Map.Spatial
 {
     internal class SpatialSheet<TNode> : SpatialSheetBase<TNode> where TNode : ISpatialTreeNode
     {

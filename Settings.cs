@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using ProgramMain.Map;
-using ProgramMain.Map.Tile;
+using SimpleMap.Map;
+using SimpleMap.Map.Tile;
 
 // ReSharper disable CheckNamespace
-namespace ProgramMain.Properties {
+namespace SimpleMap.Properties {
 // ReSharper restore CheckNamespace
     
     

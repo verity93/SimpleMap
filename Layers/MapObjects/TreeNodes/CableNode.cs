@@ -1,14 +1,15 @@
 using System;
 using System.Data;
-using ProgramMain.ExampleDb;
-using ProgramMain.Map;
-using ProgramMain.Map.Spatial.Types;
 
-namespace ProgramMain.Layers.MapObjects.TreeNodes
+using SimpleMap.Map;
+using SimpleMap.Map.Spatial.Types;
+using SimpleMap.SimpleMapDb;
+
+namespace SimpleMap.Layers.MapObjects.TreeNodes
 {
     public class CableNode : ISpatialTreeNode
     {
-        private readonly SimpleMapDb.CablesRow _row;
+        private readonly MapDb.CablesRow _row;
 
         public SpatialTreeNodeTypes NodeType
         {
@@ -42,7 +43,7 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
             get { return _row.ID; }
         }
 
-        internal CableNode(SimpleMapDb.CablesRow row)
+        internal CableNode(MapDb.CablesRow row)
         {
             _row = row;    
         }
@@ -52,7 +53,7 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
             get { return _row; }
         }
 
-        public static implicit operator CableNode(SimpleMapDb.CablesRow row)
+        public static implicit operator CableNode(MapDb.CablesRow row)
         {
             return new CableNode(row);
         }

@@ -1,8 +1,8 @@
 using System;
 using System.Drawing;
-using ProgramMain.Map.Types;
+using SimpleMap.Map.Types;
 
-namespace ProgramMain.Map.Tile
+namespace SimpleMap.Map.Tile
 {
     public class ScreenRectangle : ICloneable, IComparable
     {

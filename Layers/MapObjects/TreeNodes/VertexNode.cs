@@ -1,14 +1,15 @@
 using System;
 using System.Data;
-using ProgramMain.ExampleDb;
-using ProgramMain.Map;
-using ProgramMain.Map.Spatial.Types;
 
-namespace ProgramMain.Layers.MapObjects.TreeNodes
+using SimpleMap.Map;
+using SimpleMap.Map.Spatial.Types;
+using SimpleMap.SimpleMapDb;
+
+namespace SimpleMap.Layers.MapObjects.TreeNodes
 {
     public class VertexNode : ISpatialTreeNode
     {
-        private readonly SimpleMapDb.VertexesRow _row;
+        private readonly MapDb.VertexesRow _row;
 
         public SpatialTreeNodeTypes NodeType
         {
@@ -35,7 +36,7 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
             get { return _row.ID; }
         }
 
-        internal VertexNode(SimpleMapDb.VertexesRow row)
+        internal VertexNode(MapDb.VertexesRow row)
         {
             _row = row;    
         }
@@ -45,7 +46,7 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
             get { return _row; }
         }
 
-        public static implicit operator VertexNode(SimpleMapDb.VertexesRow row)
+        public static implicit operator VertexNode(MapDb.VertexesRow row)
         {
             return new VertexNode(row);
         }

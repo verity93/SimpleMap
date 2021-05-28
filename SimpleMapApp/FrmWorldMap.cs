@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ProgramMain.ExampleForms
+namespace SimpleMapApp
 {
     public partial class FrmWorldMap : Form
     {

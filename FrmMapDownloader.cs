@@ -6,13 +6,13 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ProgramMain.Layers;
-using ProgramMain.Map;
-using ProgramMain.Map.Tile;
-using ProgramMain.Framework;
+using SimpleMap.Layers;
+using SimpleMap.Map;
+using SimpleMap.Map.Tile;
+using SimpleMap.Framework;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
-namespace ProgramMain.ExampleForms
+namespace SimpleMap
 {
     public partial class FrmMapDownloader : Form
     {

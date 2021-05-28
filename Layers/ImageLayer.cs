@@ -1,8 +1,8 @@
-﻿using ProgramMain.Framework;
-using ProgramMain.Framework.WorkerThread;
-using ProgramMain.Framework.WorkerThread.Types;
-using ProgramMain.Map;
-using ProgramMain.Map.Tile;
+﻿using SimpleMap.Framework;
+using SimpleMap.Framework.WorkerThread;
+using SimpleMap.Framework.WorkerThread.Types;
+using SimpleMap.Map;
+using SimpleMap.Map.Tile;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,7 +11,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 
-namespace ProgramMain.Layers
+namespace SimpleMap.Layers
 {
     public class ImageLayer : GraphicLayer
     {
@@ -408,7 +408,7 @@ namespace ProgramMain.Layers
                     var geoTrans = new double[6];
                     _gdalDataset.GetGeoTransform(geoTrans);
 
-                    // no rotation...use default transform
+                    // no rotation..use default transform
                     if (!_useRotation && !HaveSpot || (DoublesAreEqual(geoTrans[0], 0) && DoublesAreEqual(geoTrans[3], 0)))
                         geoTrans = new[] { 999.5, 1, 0, 1000.5, 0, -1 };
 

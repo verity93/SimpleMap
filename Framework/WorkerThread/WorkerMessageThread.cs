@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using ProgramMain.Framework.WorkerThread.Types;
+using SimpleMap.Framework.WorkerThread.Types;
 
-namespace ProgramMain.Framework.WorkerThread
+namespace SimpleMap.Framework.WorkerThread
 {
     public class WorkerMessageThread
     {

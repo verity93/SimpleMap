@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="SimpleMapDb" targetNamespace="http://tempuri.org/SimpleMapDb.xsd" xmlns:mstns="http://tempuri.org/SimpleMapDb.xsd" xmlns="http://tempuri.org/SimpleMapDb.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="MapDb" targetNamespace="http://tempuri.org/SimpleMap.MapDbxsd" xmlns:mstns="http://tempuri.org/SimpleMap.MapDbxsd" xmlns="http://tempuri.org/SimpleMap.MapDbxsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="FileAdapter" GeneratorFunctionsComponentClassName="FileAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="FileAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="programConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="programConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ProgramMain.Properties.Settings.GlobalReference.Default.programConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="programConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="programConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.SimpleMap.Properties.Settings.GlobalReference.Default.programConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables />
         <Sources />
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="SimpleMapDb" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msdata:EnforceConstraints="False" msprop:EnableTableAdapterManager="False" msprop:Generator_DataSetName="SimpleMapDb" msprop:Generator_UserDSName="SimpleMapDb">
+  <xs:element name="MapDb" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msdata:EnforceConstraints="False" msprop:EnableTableAdapterManager="False" msprop:Generator_DataSetName="MapDb" msprop:Generator_UserDSName="MapDb">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="Vertexes" msprop:Generator_TableClassName="VertexesDataTable" msprop:Generator_TableVarName="tableVertexes" msprop:Generator_TablePropName="Vertexes" msprop:Generator_RowDeletingName="VertexesRowDeleting" msprop:Generator_RowChangingName="VertexesRowChanging" msprop:Generator_RowEvHandlerName="VertexesRowChangeEventHandler" msprop:Generator_RowDeletedName="VertexesRowDeleted" msprop:Generator_UserTableName="Vertexes" msprop:Generator_RowChangedName="VertexesRowChanged" msprop:Generator_RowEvArgName="VertexesRowChangeEvent" msprop:Generator_RowClassName="VertexesRow">

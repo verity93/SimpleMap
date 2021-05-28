@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace ProgramMain.Map.Tile
+namespace SimpleMap.Map.Tile
 {
     internal class MapUtilities
     {

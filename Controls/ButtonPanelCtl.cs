@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace ProgramMain.ExampleForms.Controls
+namespace SimpleMap.Controls
 {
     public partial class ButtonPanelCtl : UserControl
     {
@@ -95,12 +95,18 @@ namespace ProgramMain.ExampleForms.Controls
 
         private void btnLoadGeoRefImage_Click(object sender, EventArgs e)
         {
-            if (LoadGeoRefImageClicked != null) LoadGeoRefImageClicked(this, EventArgs.Empty);
+            if (LoadGeoRefImageClicked != null)
+                LoadGeoRefImageClicked(this, EventArgs.Empty);
         }
 
         private void btnShapeData_Click(object sender, EventArgs e)
         {
             //GenerateSampleData();
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

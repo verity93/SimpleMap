@@ -1,28 +1,29 @@
 using System.Data;
 using System.Threading.Tasks;
-using ProgramMain.ExampleDb;
-using ProgramMain.Layers.MapObjects.TreeNodes;
-using ProgramMain.Map.Spatial;
-using ProgramMain.Map.Spatial.Types;
 
-namespace ProgramMain.Layers.MapObjects
+using SimpleMap.Layers.MapObjects.TreeNodes;
+using SimpleMap.Map.Spatial;
+using SimpleMap.Map.Spatial.Types;
+using SimpleMap.SimpleMapDb;
+
+namespace SimpleMap.Layers.MapObjects
 {
     public class CableTree : SpatialTree<CableNode>
     {
-        public SimpleMapDb.CablesDataTable CableDbRows { get; private set; }
+        public MapDb.CablesDataTable CableDbRows { get; private set; }
 
         public CableTree()
             : base(SpatialSheetPowerTypes.Ultra, SpatialSheetPowerTypes.High, SpatialSheetPowerTypes.Low, SpatialSheetPowerTypes.Low)
         {
-            CableDbRows = new SimpleMapDb.CablesDataTable();
+            CableDbRows = new MapDb.CablesDataTable();
         }
 
-        protected void Insert(SimpleMapDb.CablesRow row)
+        protected void Insert(MapDb.CablesRow row)
         {
             base.Insert(row);
         }
 
-        protected void Delete(SimpleMapDb.CablesRow row)
+        protected void Delete(MapDb.CablesRow row)
         {
             base.Delete(row);
         }
@@ -36,7 +37,7 @@ namespace ProgramMain.Layers.MapObjects
             Parallel.ForEach(CableDbRows, Insert);
         }
 
-        public void MergeData(SimpleMapDb.CablesDataTable cables)
+        public void MergeData(MapDb.CablesDataTable cables)
         {
             if (CableDbRows == null) return;
 
@@ -66,16 +67,16 @@ namespace ProgramMain.Layers.MapObjects
             return false;
         }
 
-        public SimpleMapDb.CablesRow GetCable(int objectId)
+        public MapDb.CablesRow GetCable(int objectId)
         {
             if (CableDbRows == null) return null;
 
             var row = CableDbRows.FindByID(objectId);
             if (row != null)
             {
-                var dt = (SimpleMapDb.CablesDataTable)CableDbRows.Clone();
+                var dt = (MapDb.CablesDataTable)CableDbRows.Clone();
                 dt.ImportRow(row);
-                return (SimpleMapDb.CablesRow)dt.Rows[0];
+                return (MapDb.CablesRow)dt.Rows[0];
             }
             return null;
         }

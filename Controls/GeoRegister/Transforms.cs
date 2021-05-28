@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.Windows;
 using Point = System.Windows.Point;
 
-namespace ProgramMain.ExampleForms.Controls
+namespace SimpleMap.Controls
 {
 
     /*
@@ -209,7 +209,7 @@ The control points are used in conjunction with the transformation to shift and 
         import signal
         signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-        print "Warping ..."
+        print "Warping .."
         dst = dst_driver.CreateCopy(dst_path, warped, callback=gdal.TermProgress)
 
         os.remove(warped_path)
@@ -270,7 +270,7 @@ def read_georeference(map_name, token_path, x_size, y_size):
     })
     georef_url = 'http://georeferencer3.appspot.com/api/georeference?' + params
 
-    print 'Fetching georeference ...'
+    print 'Fetching georeference ..'
     resp = urllib2.urlopen(georef_url)
     status = resp.getcode()
     if status != 200:

@@ -9,7 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 
-namespace ProgramMain.ExampleForms.Controls
+namespace SimpleMap.Controls
 {
 
     // https://www.mapwindow.org/documentation/mapwindow/
@@ -88,7 +88,7 @@ namespace ProgramMain.ExampleForms.Controls
             openFileDialog.ShowHelp = true;
             openFileDialog.ShowReadOnly = false;
             openFileDialog.SupportMultiDottedExtensions = true;
-            openFileDialog.Title = "Select an image...";
+            openFileDialog.Title = "Select an image..";
             openFileDialog.ValidateNames = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)

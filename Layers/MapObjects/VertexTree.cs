@@ -1,28 +1,29 @@
 using System.Data;
 using System.Threading.Tasks;
-using ProgramMain.ExampleDb;
-using ProgramMain.Layers.MapObjects.TreeNodes;
-using ProgramMain.Map.Spatial;
-using ProgramMain.Map.Spatial.Types;
 
-namespace ProgramMain.Layers.MapObjects
+using SimpleMap.Layers.MapObjects.TreeNodes;
+using SimpleMap.Map.Spatial;
+using SimpleMap.Map.Spatial.Types;
+using SimpleMap.SimpleMapDb;
+
+namespace SimpleMap.Layers.MapObjects
 {
     public class VertexTree : SpatialTree<VertexNode>
     {
-        public SimpleMapDb.VertexesDataTable VertexDbRows { get; private set;}
+        public MapDb.VertexesDataTable VertexDbRows { get; private set;}
 
         public VertexTree()
             : base(SpatialSheetPowerTypes.Ultra, SpatialSheetPowerTypes.Extra, SpatialSheetPowerTypes.Medium, SpatialSheetPowerTypes.Low)
         {
-            VertexDbRows = new SimpleMapDb.VertexesDataTable();
+            VertexDbRows = new MapDb.VertexesDataTable();
         }
 
-        protected void Insert(SimpleMapDb.VertexesRow row)
+        protected void Insert(MapDb.VertexesRow row)
         {
             base.Insert(row);
         }
 
-        protected void Delete(SimpleMapDb.VertexesRow row)
+        protected void Delete(MapDb.VertexesRow row)
         {
             base.Delete(row);
         }
@@ -36,7 +37,7 @@ namespace ProgramMain.Layers.MapObjects
             Parallel.ForEach(VertexDbRows, Insert);
         }
 
-        public void MergeData(SimpleMapDb.VertexesDataTable vertexes)
+        public void MergeData(MapDb.VertexesDataTable vertexes)
         {
             if (VertexDbRows == null) return;
 
@@ -66,16 +67,16 @@ namespace ProgramMain.Layers.MapObjects
             return false;
         }
 
-        public SimpleMapDb.VertexesRow GetVertex(int objectId)
+        public MapDb.VertexesRow GetVertex(int objectId)
         {
             if (VertexDbRows == null) return null;
 
             var row = VertexDbRows.FindByID(objectId);
             if (row != null)
             {
-                var dt = (SimpleMapDb.VertexesDataTable)VertexDbRows.Clone();
+                var dt = (MapDb.VertexesDataTable)VertexDbRows.Clone();
                 dt.ImportRow(row);
-                return (SimpleMapDb.VertexesRow)dt.Rows[0];
+                return (MapDb.VertexesRow)dt.Rows[0];
             }
             return null;
         }

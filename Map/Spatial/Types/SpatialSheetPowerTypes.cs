@@ -1,4 +1,4 @@
-namespace ProgramMain.Map.Spatial.Types
+namespace SimpleMap.Map.Spatial.Types
 {
     public enum SpatialSheetPowerTypes
     {

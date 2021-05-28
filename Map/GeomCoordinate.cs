@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using ProgramMain.Map.Tile;
+using SimpleMap.Map.Tile;
 
-namespace ProgramMain.Map
+namespace SimpleMap.Map
 {
     public class GeomCoordinate : IComparable, ICloneable
     {

@@ -4,18 +4,19 @@ using System.Linq;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
-using ProgramMain.ExampleDb;
-using ProgramMain.Framework;
-using ProgramMain.Framework.WorkerThread;
-using ProgramMain.Framework.WorkerThread.Types;
-using ProgramMain.Layers.MapObjects;
-using ProgramMain.Map;
-using ProgramMain.Map.Tile;
+
+using SimpleMap.Framework;
+using SimpleMap.Framework.WorkerThread;
+using SimpleMap.Framework.WorkerThread.Types;
+using SimpleMap.Layers.MapObjects;
+using SimpleMap.Map;
+using SimpleMap.Map.Tile;
 
 using HashItem = System.Collections.Generic.KeyValuePair<double, int>;
 using NearestSet = System.Collections.Generic.HashSet<System.Collections.Generic.KeyValuePair<double, int>>;
+using SimpleMap.SimpleMapDb;
 
-namespace ProgramMain.Layers
+namespace SimpleMap.Layers
 {
     public class ShapeLayer : GraphicLayer
     {
@@ -193,7 +194,7 @@ namespace ProgramMain.Layers
 
                 foreach (var node in res)
                 {
-                    var row = (SimpleMapDb.VertexesRow) node.Row;
+                    var row = (MapDb.VertexesRow) node.Row;
 
                     var coordinate = new GeomCoordinate(row.Longitude, row.Latitude);
                     var pt = coordinate.GetScreenPoint(localScreenView);
@@ -230,7 +231,7 @@ namespace ProgramMain.Layers
                 var res = _rCableTree.Query(localScreenView);
                 foreach (var node in res)
                 {
-                    var row = (SimpleMapDb.CablesRow) node.Row;
+                    var row = (MapDb.CablesRow) node.Row;
 
                     var cabRect = new CoordinateRectangle(row.Longitude1, row.Latitude1, row.Longitude2, row.Latitude2);
                     var rect = cabRect.GetScreenRect(localScreenView);
@@ -260,7 +261,7 @@ namespace ProgramMain.Layers
             }
         }
 
-        public SimpleMapDb.VertexesRow GetVertex(int objectId)
+        public MapDb.VertexesRow GetVertex(int objectId)
         {
             try
             {
@@ -274,7 +275,7 @@ namespace ProgramMain.Layers
             }
         }
 
-        public void MergeData(SimpleMapDb.VertexesDataTable vertexes)
+        public void MergeData(MapDb.VertexesDataTable vertexes)
         {
             try
             {
@@ -308,7 +309,7 @@ namespace ProgramMain.Layers
                 Update(new Rectangle(0, 0, Width, Height));
         }
 
-        public SimpleMapDb.CablesRow GetCable(int objectId)
+        public MapDb.CablesRow GetCable(int objectId)
         {
             try
             {
@@ -322,7 +323,7 @@ namespace ProgramMain.Layers
             }
         }
 
-        public void MergeData(SimpleMapDb.CablesDataTable cables)
+        public void MergeData(MapDb.CablesDataTable cables)
         {
             try
             {
@@ -369,7 +370,7 @@ namespace ProgramMain.Layers
                 var res = _rVertexTree.Distance(pt, CoordinateTolerance);
                 foreach (var node in res)
                 {
-                    var row = (SimpleMapDb.VertexesRow)node.Row;
+                    var row = (MapDb.VertexesRow)node.Row;
 
                     var coordinate = new GeomCoordinate(row.Longitude, row.Latitude);
 
@@ -397,7 +398,7 @@ namespace ProgramMain.Layers
                 var res = _rCableTree.Distance(pt, CoordinateTolerance);
                 foreach (var node in res)
                 {
-                    var row = (SimpleMapDb.CablesRow)node.Row;
+                    var row = (MapDb.CablesRow)node.Row;
 
                     var cableRect = new CoordinateRectangle(row.Longitude1, row.Latitude1, row.Longitude2, row.Latitude2);
 

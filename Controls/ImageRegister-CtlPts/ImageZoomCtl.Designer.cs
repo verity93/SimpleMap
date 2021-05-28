@@ -1,4 +1,4 @@
-namespace ProgramMain.ExampleForms.Controls
+namespace SimpleMap.Controls
 {
     partial class ImageZoomCtl
     {

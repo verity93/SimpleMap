@@ -1,4 +1,4 @@
-﻿namespace ProgramMain.ExampleForms
+﻿namespace SimpleMap
 {
     partial class FrmMapDownloader
     {

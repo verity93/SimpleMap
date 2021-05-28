@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using ProgramMain.Map.Spatial.Indexer;
-using ProgramMain.Map.Spatial.Types;
-using ProgramMain.Map.Types;
+using SimpleMap.Map.Spatial.Indexer;
+using SimpleMap.Map.Spatial.Types;
+using SimpleMap.Map.Types;
 
-namespace ProgramMain.Map.Spatial
+namespace SimpleMap.Map.Spatial
 {
     public class SpatialTree<TNode> where TNode : ISpatialTreeNode
     {

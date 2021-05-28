@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace ProgramMain.Map.Spatial.Types
+namespace SimpleMap.Map.Spatial.Types
 {
     public interface ISpatialTreeNode
     {

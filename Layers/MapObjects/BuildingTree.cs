@@ -1,28 +1,28 @@
 using System.Data;
 using System.Threading.Tasks;
-using ProgramMain.ExampleDb;
-using ProgramMain.Layers.MapObjects.TreeNodes;
-using ProgramMain.Map.Spatial;
-using ProgramMain.Map.Spatial.Types;
+using SimpleMap.Layers.MapObjects.TreeNodes;
+using SimpleMap.Map.Spatial;
+using SimpleMap.Map.Spatial.Types;
+using SimpleMap.SimpleMapDb;
 
-namespace ProgramMain.Layers.MapObjects
+namespace SimpleMap.Layers.MapObjects
 {
     public class BuildingTree : SpatialTree<BuildingNode>
     {
-        public SimpleMapDb.BuildingsDataTable BuildingDbRows { get; private set; }
+        public MapDb.BuildingsDataTable BuildingDbRows { get; private set; }
 
         public BuildingTree()
             : base(SpatialSheetPowerTypes.Ultra, SpatialSheetPowerTypes.Extra, SpatialSheetPowerTypes.Medium, SpatialSheetPowerTypes.Low)
         {
-            BuildingDbRows = new SimpleMapDb.BuildingsDataTable();
+            BuildingDbRows = new MapDb.BuildingsDataTable();
         }
 
-        protected void Insert(SimpleMapDb.BuildingsRow row)
+        protected void Insert(MapDb.BuildingsRow row)
         {
             base.Insert(row);
         }
 
-        protected void Delete(SimpleMapDb.BuildingsRow row)
+        protected void Delete(MapDb.BuildingsRow row)
         {
             base.Delete(row);
         }
@@ -36,7 +36,7 @@ namespace ProgramMain.Layers.MapObjects
             Parallel.ForEach(BuildingDbRows, Insert);
         }
 
-        public void MergeData(SimpleMapDb.BuildingsDataTable buildings)
+        public void MergeData(MapDb.BuildingsDataTable buildings)
         {
             if (BuildingDbRows == null) return;
 
@@ -65,16 +65,16 @@ namespace ProgramMain.Layers.MapObjects
             return false;
         }
 
-        public SimpleMapDb.BuildingsRow GetBuilding(int objectId)
+        public MapDb.BuildingsRow GetBuilding(int objectId)
         {
             if (BuildingDbRows == null) return null;
 
             var row = BuildingDbRows.FindByID(objectId);
             if (row != null)
             {
-                var dt = (SimpleMapDb.BuildingsDataTable)BuildingDbRows.Clone();
+                var dt = (MapDb.BuildingsDataTable)BuildingDbRows.Clone();
                 dt.ImportRow(row);
-                return (SimpleMapDb.BuildingsRow)dt.Rows[0];
+                return (MapDb.BuildingsRow)dt.Rows[0];
             }
             return null;
         }

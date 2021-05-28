@@ -1,4 +1,7 @@
-﻿namespace ProgramMain.ExampleForms
+﻿using SimpleMap.Controls;
+using SimpleMap.SimpleMapDb;
+
+namespace SimpleMapApp
 {
     partial class FrmWorldMap
     {
@@ -29,24 +32,17 @@
         private void InitializeComponent()
         {
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.simpleMapDb1 = new ProgramMain.ExampleDb.SimpleMapDb();
-            this.imageZoomlCtl1 = new ProgramMain.ExampleForms.Controls.RegisterImageCtl();
-            this.registerImageCtl1 = new ProgramMain.ExampleForms.Controls.RegisterImageCtl();
-            this.registerMapCtl1 = new ProgramMain.ExampleForms.Controls.RegisterMapCtl();
+            this.imageZoomlCtl1 = new SimpleMap.Controls.RegisterImageCtl();
+            this.registerImageCtl1 = new SimpleMap.Controls.RegisterImageCtl();
+            this.registerMapCtl1 = new SimpleMap.Controls.RegisterMapCtl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleMapDb1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // simpleMapDb1
-            // 
-            this.simpleMapDb1.DataSetName = "SimpleMapDb";
-            this.simpleMapDb1.EnforceConstraints = false;
-            this.simpleMapDb1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+           
             // 
             // imageZoomlCtl1
             // 
@@ -110,7 +106,7 @@
             this.Text = "Geo Reference Image";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmGeoReference_FormClosing);
             this.Load += new System.EventHandler(this.FrmGeoReference_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.simpleMapDb1)).EndInit();
+         
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -118,10 +114,10 @@
 
         #endregion
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private ExampleDb.SimpleMapDb simpleMapDb1;
-        private Controls.RegisterImageCtl imageZoomlCtl1;
-        private Controls.RegisterImageCtl registerImageCtl1;
-        private Controls.RegisterMapCtl registerMapCtl1;
+        private MapDb MapDb1;
+        private RegisterImageCtl imageZoomlCtl1;
+        private RegisterImageCtl registerImageCtl1;
+        private RegisterMapCtl registerMapCtl1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

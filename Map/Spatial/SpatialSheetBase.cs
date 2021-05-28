@@ -1,8 +1,8 @@
-using ProgramMain.Map.Tile;
-using ProgramMain.Map.Spatial.Indexer;
-using ProgramMain.Map.Spatial.Types;
+using SimpleMap.Map.Tile;
+using SimpleMap.Map.Spatial.Indexer;
+using SimpleMap.Map.Spatial.Types;
 
-namespace ProgramMain.Map.Spatial
+namespace SimpleMap.Map.Spatial
 {
     internal class SpatialSheetBase<TNode> where TNode : ISpatialTreeNode
     {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using ProgramMain.ExampleForms;
 
-namespace ProgramMain
+namespace SimpleMap
 {
 	static class Program
 	{
@@ -20,11 +19,11 @@ namespace ProgramMain
 		{
             Application.EnableVisualStyles();
 
-            FrmMapDemo MapDemo = new FrmMapDemo();
-            Application.Run(MapDemo);
+            //FrmMapDemo MapDemo = new FrmMapDemo();
+            //Application.Run(MapDemo);
 
-            FrmWorldMap GeoReference = new FrmWorldMap();
-            Application.Run(GeoReference);
+            //FrmWorldMap GeoReference = new FrmWorldMap();
+            //Application.Run(GeoReference);
 
             //GeoReference = null;
         }

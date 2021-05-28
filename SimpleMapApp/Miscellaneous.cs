@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 
-namespace ProgramMain.ExampleForms
+namespace SimpleMap
 {
     public static class Miscellaneous
     {

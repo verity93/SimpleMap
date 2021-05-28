@@ -1,4 +1,4 @@
-﻿namespace ProgramMain.Controls
+﻿namespace SimpleMap.Controls
 {
     partial class PointReferenceCtl
     {

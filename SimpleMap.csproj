@@ -6,9 +6,9 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FE54D43D-1518-478D-94C1-42656E024E1D}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProgramMain</RootNamespace>
+    <RootNamespace>SimpleMap</RootNamespace>
     <AssemblyName>SimpleMap</AssemblyName>
     <ApplicationIcon>default.ico</ApplicationIcon>
     <FileUpgradeFlags>
@@ -23,7 +23,6 @@
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>false</SignManifests>
     <SignAssembly>false</SignAssembly>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <TargetZone>LocalIntranet</TargetZone>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <PublishUrl>Publish\</PublishUrl>
@@ -72,7 +71,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ProgramMain.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -108,10 +108,10 @@
     <Compile Include="Controls\ImageRegister-CtlPts\ImageZoomCtl.Designer.cs">
       <DependentUpon>ImageZoomCtl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExampleDb\SimpleMapDb.cs">
+    <Compile Include="SimpleMapDb\SimpleMapDb.cs">
       <DependentUpon>SimpleMapDb.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ExampleDb\SimpleMapDb.Designer.cs">
+    <Compile Include="SimpleMapDb\SimpleMapDb.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SimpleMapDb.xsd</DependentUpon>
@@ -135,25 +135,12 @@
       <DependentUpon>MapCtl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\GeoRegister\Transforms.cs" />
-    <Compile Include="ExampleForms\FrmWorldMap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ExampleForms\FrmWorldMap.Designer.cs">
-      <DependentUpon>FrmWorldMap.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ExampleForms\FrmMapDownloader.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ExampleForms\FrmMapDownloader.Designer.cs">
-      <DependentUpon>FrmMapDownloader.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\GeoRegister\RegisterMapCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\GeoRegister\RegisterMapCtl.Designer.cs">
       <DependentUpon>RegisterMapCtl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExampleForms\Miscellaneous.cs" />
     <Compile Include="Framework\ExternalHelpers.cs" />
     <Compile Include="Framework\GraphicLayer.cs" />
     <Compile Include="Framework\WorkerThread\Types\EventPriorityType.cs" />
@@ -162,6 +149,12 @@
     <Compile Include="Framework\WorkerThread\Types\WorkerEventType.cs" />
     <Compile Include="Framework\WorkerThread\WorkerEvent.cs" />
     <Compile Include="Framework\WorkerThread\WorkerMessageThread.cs" />
+    <Compile Include="FrmMapDownloader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMapDownloader.Designer.cs">
+      <DependentUpon>FrmMapDownloader.cs</DependentUpon>
+    </Compile>
     <Compile Include="Map\GeoReference.cs" />
     <Compile Include="Layers\ImageLayer.cs" />
     <Compile Include="Layers\MapObjects\BuildingTree.cs" />
@@ -188,12 +181,6 @@
     <Compile Include="Map\Spatial\SpatialQueryIterator.cs" />
     <Compile Include="Map\Spatial\SpatialTree.cs" />
     <Compile Include="Map\Spatial\SpatialSheetBase.cs" />
-    <Compile Include="ExampleForms\FrmMapDemo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ExampleForms\FrmMapDemo.designer.cs">
-      <DependentUpon>FrmMapDemo.cs</DependentUpon>
-    </Compile>
     <Compile Include="Map\Spatial\Types\SpatialSheetPowerTypes.cs" />
     <Compile Include="Map\Spatial\Types\SpatialTreeNode.cs" />
     <Compile Include="Map\Spatial\Types\SpatialTreeNodeTypes.cs" />
@@ -217,7 +204,7 @@
     <EmbeddedResource Include="Controls\ImageRegister-CtlPts\ImageZoomCtl.resx">
       <DependentUpon>ImageZoomCtl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExampleDb\SimpleMapDb.resx">
+    <EmbeddedResource Include="SimpleMapDb\SimpleMapDb.resx">
       <DependentUpon>SimpleMapDb.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\GeoRegister\RegisterImageCtl.resx">
@@ -225,6 +212,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ButtonPanelCtl.resx">
       <DependentUpon>ButtonPanelCtl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MapCtl.resx">
       <DependentUpon>MapCtl.cs</DependentUpon>
@@ -232,14 +220,8 @@
     <EmbeddedResource Include="Controls\GeoRegister\RegisterMapCtl.resx">
       <DependentUpon>RegisterMapCtl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExampleForms\FrmWorldMap.resx">
-      <DependentUpon>FrmWorldMap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExampleForms\FrmMapDownloader.resx">
+    <EmbeddedResource Include="FrmMapDownloader.resx">
       <DependentUpon>FrmMapDownloader.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExampleForms\FrmMapDemo.resx">
-      <DependentUpon>FrmMapDemo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
@@ -251,15 +233,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ExampleDb\SimpleMapDb.xsc">
+    <None Include="SimpleMapDb\SimpleMapDb.xsc">
       <DependentUpon>SimpleMapDb.xsd</DependentUpon>
     </None>
-    <None Include="ExampleDb\SimpleMapDb.xsd">
+    <None Include="SimpleMapDb\SimpleMapDb.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SimpleMapDb.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ExampleDb\SimpleMapDb.xss">
+    <None Include="SimpleMapDb\SimpleMapDb.xss">
       <DependentUpon>SimpleMapDb.xsd</DependentUpon>
     </None>
   </ItemGroup>

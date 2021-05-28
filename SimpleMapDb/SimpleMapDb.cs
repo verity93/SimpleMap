@@ -1,10 +1,11 @@
 ﻿using System.Data;
 using System.Windows.Forms;
 
-namespace ProgramMain.ExampleDb
+
+namespace SimpleMap.SimpleMapDb
 {
 
-    public partial class SimpleMapDb
+    public partial class MapDb
     {
 
         public static BindingSource CreateDataSource(DataTable table)

@@ -5,15 +5,15 @@ using System.Drawing.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
-using ProgramMain.Framework.WorkerThread;
-using ProgramMain.Framework.WorkerThread.Types;
-using ProgramMain.Map;
-using ProgramMain.Map.Tile;
+using SimpleMap.Framework.WorkerThread;
+using SimpleMap.Framework.WorkerThread.Types;
+using SimpleMap.Map;
+using SimpleMap.Map.Tile;
 using Point = System.Drawing.Point;
 using Font = System.Drawing.Font;
 using FontStyle = System.Drawing.FontStyle;
 
-namespace ProgramMain.Framework
+namespace SimpleMap.Framework
 {
     public class GraphicLayer : WorkerMessageThread
     {

@@ -1,7 +1,7 @@
 using System;
-using ProgramMain.Framework.WorkerThread.Types;
+using SimpleMap.Framework.WorkerThread.Types;
 
-namespace ProgramMain.Framework.WorkerThread
+namespace SimpleMap.Framework.WorkerThread
 {
     public class WorkerEvent : IComparable
     {

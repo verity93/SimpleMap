@@ -1,6 +1,6 @@
-using ProgramMain.Map.Spatial.Types;
+using SimpleMap.Map.Spatial.Types;
 
-namespace ProgramMain.Map.Spatial.Indexer
+namespace SimpleMap.Map.Spatial.Indexer
 {
     public class SpatialLevelPowerIndexer<TNode> where TNode : ISpatialTreeNode
     {

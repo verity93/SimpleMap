@@ -6,17 +6,18 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ProgramMain.ExampleDb;
-using ProgramMain.Framework;
-using ProgramMain.Framework.WorkerThread.Types;
-using ProgramMain.Layers;
-using ProgramMain.Map;
-using ProgramMain.Map.Tile;
-using ProgramMain.Properties;
+using SimpleMap;
+using SimpleMap.Framework;
+using SimpleMap.Framework.WorkerThread.Types;
+using SimpleMap.Layers;
+using SimpleMap.Map;
+using SimpleMap.Map.Tile;
 
+using SimpleMap.Properties;
+using SimpleMap.SimpleMapDb;
 using HashItem = System.Collections.Generic.KeyValuePair<double, int>;
 
-namespace ProgramMain.ExampleForms.Controls
+namespace SimpleMap.Controls
 {
     public partial class MapCtl : UserControl
     {
@@ -169,8 +170,8 @@ namespace ProgramMain.ExampleForms.Controls
             var longitude1 = Convert.ToDecimal(Settings.Default.LeftMapBound + (double) rnd.Next(0, rangeX)/100000);
             var latitude1 = Convert.ToDecimal(Settings.Default.BottomMapBound + (double)rnd.Next(0, rangeY) / 100000);
 
-            var cableDbRows = new SimpleMapDb.CablesDataTable();
-            var vertexDbRows = new SimpleMapDb.VertexesDataTable();
+            var cableDbRows = new MapDb.CablesDataTable();
+            var vertexDbRows = new MapDb.VertexesDataTable();
             while (cableDbRows.Count < 200)
             {
                 var cableRow = cableDbRows.NewCablesRow();

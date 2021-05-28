@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ProgramMain.Map.Indexer
+namespace SimpleMap.Map.Indexer
 {
     public class CoordinateIndexer
     {

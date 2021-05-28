@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace ProgramMain.Map.Spatial
+namespace SimpleMap.Map.Spatial
 {
     internal class SpatialQueryIterator
     {

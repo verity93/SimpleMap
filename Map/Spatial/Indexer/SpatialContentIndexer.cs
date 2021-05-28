@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using ProgramMain.Map.Spatial.Types;
+using SimpleMap.Map.Spatial.Types;
 
-namespace ProgramMain.Map.Spatial.Indexer
+namespace SimpleMap.Map.Spatial.Indexer
 {
     internal class SpatialContentIndexer<TNode> where TNode : ISpatialTreeNode
     {

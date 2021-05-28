@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using ProgramMain.Map.Tile;
-using ProgramMain.Map.Spatial.Types;
+using SimpleMap.Map.Tile;
+using SimpleMap.Map.Spatial.Types;
 
-namespace ProgramMain.Map.Spatial.Indexer
+namespace SimpleMap.Map.Spatial.Indexer
 {
     internal class SpatialSheetIndexer<TNode> where TNode : ISpatialTreeNode
     {

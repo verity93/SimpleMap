@@ -1,6 +1,8 @@
-﻿using ProgramMain.ExampleForms.Controls;
+﻿
 
-namespace ProgramMain.ExampleForms
+using SimpleMap.Controls;
+
+namespace SimpleMapApp
 {
     partial class FrmMapDemo
     {
@@ -32,8 +34,8 @@ namespace ProgramMain.ExampleForms
         {
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.mapCtl1 = new ProgramMain.ExampleForms.Controls.MapCtl();
-            this.buttonPanelCtl1 = new ProgramMain.ExampleForms.Controls.ButtonPanelCtl();
+            this.mapCtl1 = new SimpleMap.Controls.MapCtl();
+            this.buttonPanelCtl1 = new SimpleMap.Controls.ButtonPanelCtl();
             this.SuspendLayout();
             // 
             // printDocument1
@@ -56,7 +58,7 @@ namespace ProgramMain.ExampleForms
             this.mapCtl1.Name = "mapCtl1";
             this.mapCtl1.Size = new System.Drawing.Size(1020, 655);
             this.mapCtl1.TabIndex = 0;
-            this.mapCtl1.LevelValueChanged += new System.EventHandler<ProgramMain.ExampleForms.Controls.ButtonPanelCtl.LevelValueArgs>(this.mapCtl1_LevelValueChanged);
+            this.mapCtl1.LevelValueChanged += new System.EventHandler<SimpleMap.Controls.ButtonPanelCtl.LevelValueArgs>(this.mapCtl1_LevelValueChanged);
             this.mapCtl1.Load += new System.EventHandler(this.mapCtl1_Load);
             // 
             // buttonPanelCtl1
@@ -70,7 +72,7 @@ namespace ProgramMain.ExampleForms
             this.buttonPanelCtl1.Name = "buttonPanelCtl1";
             this.buttonPanelCtl1.Size = new System.Drawing.Size(1020, 59);
             this.buttonPanelCtl1.TabIndex = 1;
-            this.buttonPanelCtl1.LevelValueChanged += new System.EventHandler<ProgramMain.ExampleForms.Controls.ButtonPanelCtl.LevelValueArgs>(this.buttonPanelCtl1_LevelValueChanged);
+            this.buttonPanelCtl1.LevelValueChanged += new System.EventHandler<SimpleMap.Controls.ButtonPanelCtl.LevelValueArgs>(this.buttonPanelCtl1_LevelValueChanged);
             this.buttonPanelCtl1.CenterMapClicked += new System.EventHandler(this.buttonPanelCtl1_CenterMapClicked);
             this.buttonPanelCtl1.PrintMapClicked += new System.EventHandler(this.buttonPanelCtl1_PrintMapClicked);
             this.buttonPanelCtl1.RefreshMapClicked += new System.EventHandler(this.buttonPanelCtl1_RefreshMapClicked);

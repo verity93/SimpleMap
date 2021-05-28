@@ -1,4 +1,4 @@
-namespace ProgramMain.ExampleForms.Controls
+namespace SimpleMap.Controls
 {
     partial class RegisterMapCtl
     {
@@ -31,7 +31,7 @@ namespace ProgramMain.ExampleForms.Controls
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.layout = new System.Windows.Forms.TableLayoutPanel();
-            this.mapCtl_GeoRef = new ProgramMain.ExampleForms.Controls.MapCtl();
+            this.mapCtl_GeoRef = new SimpleMap.Controls.MapCtl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -151,7 +151,7 @@ namespace ProgramMain.ExampleForms.Controls
             // 
             // btnCacheAllMap
             // 
-            this.btnCacheAllMap.Image = global::ProgramMain.Properties.Resources.save_2_16x16;
+            this.btnCacheAllMap.Image = global::SimpleMap.Properties.Resources.save_2_16x16;
             this.btnCacheAllMap.Location = new System.Drawing.Point(379, 84);
             this.btnCacheAllMap.Name = "btnCacheAllMap";
             this.btnCacheAllMap.Size = new System.Drawing.Size(33, 32);

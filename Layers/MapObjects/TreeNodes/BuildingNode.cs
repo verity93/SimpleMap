@@ -1,14 +1,15 @@
 using System;
 using System.Data;
-using ProgramMain.ExampleDb;
-using ProgramMain.Map;
-using ProgramMain.Map.Spatial.Types;
 
-namespace ProgramMain.Layers.MapObjects.TreeNodes
+using SimpleMap.Map;
+using SimpleMap.Map.Spatial.Types;
+using SimpleMap.SimpleMapDb;
+
+namespace SimpleMap.Layers.MapObjects.TreeNodes
 {
     public class BuildingNode : ISpatialTreeNode
     {
-        private readonly SimpleMapDb.BuildingsRow _row;
+        private readonly MapDb.BuildingsRow _row;
 
         public SpatialTreeNodeTypes NodeType
         {
@@ -42,7 +43,7 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
             get { return _row.ID; }
         }
 
-        internal BuildingNode(SimpleMapDb.BuildingsRow row)
+        internal BuildingNode(MapDb.BuildingsRow row)
         {
             _row = row;    
         }
@@ -52,7 +53,7 @@ namespace ProgramMain.Layers.MapObjects.TreeNodes
             get { return _row; }
         }
 
-        public static implicit operator BuildingNode(SimpleMapDb.BuildingsRow row)
+        public static implicit operator BuildingNode(MapDb.BuildingsRow row)
         {
             return new BuildingNode(row);
         }

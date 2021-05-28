@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using ProgramMain.Map.Tile;
-using ProgramMain.Map.Types;
+using SimpleMap.Map.Tile;
+using SimpleMap.Map.Types;
 
-namespace ProgramMain.Map
+namespace SimpleMap.Map
 {
     public class CoordinateRectangle : ICloneable
     {

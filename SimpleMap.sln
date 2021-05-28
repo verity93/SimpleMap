@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMap", "SimpleMap.csproj", "{FE54D43D-1518-478D-94C1-42656E024E1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleMapApp", "SimpleMapApp\SimpleMapApp.csproj", "{7C85084A-3894-4F63-974A-ABD84453ABDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,12 +17,16 @@ Global
 		{FE54D43D-1518-478D-94C1-42656E024E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE54D43D-1518-478D-94C1-42656E024E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE54D43D-1518-478D-94C1-42656E024E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C85084A-3894-4F63-974A-ABD84453ABDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C85084A-3894-4F63-974A-ABD84453ABDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C85084A-3894-4F63-974A-ABD84453ABDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C85084A-3894-4F63-974A-ABD84453ABDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {A99AA3C9-C890-43E6-ADA3-484BD8AE6F23}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

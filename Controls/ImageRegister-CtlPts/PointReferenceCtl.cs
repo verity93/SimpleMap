@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ProgramMain.Controls
+namespace SimpleMap.Controls
 {
     public partial class PointReferenceCtl : UserControl
     {

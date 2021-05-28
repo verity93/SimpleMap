@@ -48,3 +48,8 @@ Temporary Items
 *.suo
 bin/
 obj/
+/Controls/GeoRegister/North_Transparent.png
+/Controls/GeoRegister/Map.jpw
+/Controls/GeoRegister/Map.jpg
+/SampleData/ShapeFile
+/SampleData
