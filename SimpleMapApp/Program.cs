@@ -16,10 +16,13 @@ namespace SimpleMapApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            
-            FrmMapDemo MapDemo = new FrmMapDemo();
-            Application.Run(MapDemo);
+
+            FrmWorldMap Wor = new FrmWorldMap();
+            Application.Run(Wor);
+
+
+           // FrmMapDemo MapDemo = new FrmMapDemo();
+            //Application.Run(MapDemo);
 
            
         }

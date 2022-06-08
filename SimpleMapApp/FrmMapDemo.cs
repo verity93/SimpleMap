@@ -144,6 +144,7 @@ namespace SimpleMapApp
 
         private void buttonPanelCtl1_Load(object sender, EventArgs e)
         {
+            
 
         }
 
