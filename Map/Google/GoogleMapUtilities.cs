@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Net;
-using System.Windows.Media;
 
 namespace SimpleMap.Map.Tile
 {
@@ -114,7 +111,7 @@ namespace SimpleMap.Map.Tile
         /// </summary>
         public static double GetLatitude(ScreenCoordinate Tile)
         {
-            const double r2D = 180 / Math.PI;
+            const double r2D = 180 / Math.PI; 
             const double p2 = Math.PI / 2;
             var z = (Tile.Y - BitmapOrigo(Tile.Level)) / (-1 * PixelsPerRadian(Tile.Level));
             return Math.Round((2 * Math.Atan(Math.Exp(z)) - p2) * r2D, 5);
@@ -227,9 +224,9 @@ namespace SimpleMap.Map.Tile
         /// </summary>
         public static GeomCoordinate GetMiddlePoint(GeomCoordinate c1, GeomCoordinate c2)
         {
-
+           
             const double d2R = Math.PI / 180;
-            const double r2D = 180 / Math.PI;
+            const double r2D = 180 / Math.PI; 
 
             var dLon = d2R * (c2.Longitude - c1.Longitude);
             var c1Rlat = d2R * (c1.Latitude);
@@ -252,127 +249,6 @@ namespace SimpleMap.Map.Tile
             return String.Format(Properties.Settings.Default.TileUrl, block.X, block.Y, block.Level - 1);
         }
 
-        public List<TileLayer> TileLayers { get; set; }
-
-        public class TileLayer
-        {
-            public string SourceName;
-            public TileSource TileSource;
-            public SolidColorBrush DrawLinesColor;
-        }
-
-        public class TileSource
-        {
-            public string UriFormat;
-        }
-        void InitTileURLs()
-        {
-            TileLayers = new List<TileLayer>()
-            {
-                new TileLayer()
-                {
-                    SourceName = "Open Street Map",
-                            TileSource = new TileSource { UriFormat = "http://{c}.tile.openstreetmap.org/{z}/{x}/{y}.png" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Black)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Open Cycle Map",
-                            TileSource = new TileSource { UriFormat = "http://{c}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Black)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Landscape",
-                            TileSource = new TileSource { UriFormat = "http://{c}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Black)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Outdoors",
-                            TileSource = new TileSource { UriFormat = "http://{c}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Black)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Transport",
-                            TileSource = new TileSource { UriFormat = "http://{c}.tile.thunderforest.com/transport/{z}/{x}/{y}.png" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Black)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Transport Dark",
-                            TileSource = new TileSource { UriFormat = "http://{c}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png" },
-                            DrawLinesColor = new SolidColorBrush(Colors.White)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Map Quest",
-                            TileSource = new TileSource { UriFormat = "http://otile{n}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Black)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Seamarks",
-                            TileSource = new TileSource { UriFormat = "http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Black)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Google (satellite)",
-                            TileSource = new TileSource { UriFormat = "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Lavender)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Google (hybrid)",
-                            TileSource = new TileSource { UriFormat = "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Lavender)
-                        },
-                        new TileLayer()
-                {
-                    SourceName = "Google (map)",
-                            TileSource = new TileSource { UriFormat = "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}" },
-                            DrawLinesColor = new SolidColorBrush(Colors.Black)
-                }
-            };
-
-        }
-
-/*
-        public void BeginLoadTiles(TileLayer tileLayer, IEnumerable<Tile> tiles)
-        {
-            var imageTileSource = tileLayer.TileSource as ImageTileSource;
-
-            foreach (var tile in tiles)
-            {
-                try
-                {
-                    ImageSource image = null;
-
-                    if (imageTileSource != null)
-                    {
-                        image = imageTileSource.LoadImage(tile.XIndex, tile.Y, tile.ZoomLevel);
-                    }
-                    else
-                    {
-                        var uri = tileLayer.TileSource.GetUri(tile.XIndex, tile.Y, tile.ZoomLevel);
-
-                        if (uri != null)
-                        {
-                            image = new BitmapImage(uri);
-                        }
-                    }
-
-                    tile.SetImage(image);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Loading tile image failed: {0}", ex.Message);
-                }
-            }
-        }
-    */
         /// <summary>
         /// Create web request to get bitmap block from Tile bitmap cache
         /// </summary>

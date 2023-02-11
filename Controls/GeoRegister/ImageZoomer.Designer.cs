@@ -1,6 +1,6 @@
 namespace SimpleMap.Controls
 {
-    partial class ImageZoomCtl
+    partial class ImageZoomer
     {
         /// <summary> 
         /// Required designer variable.

@@ -11,10 +11,10 @@ using System.Reflection;
 
 namespace SimpleMap.Controls
 {
-        public partial class ImageZoomCtl : UserControl
+        public partial class ImageZoomer : UserControl
     {
         //https://www.mapsmadeeasy.com/pricing
-        public ImageZoomCtl()
+        public ImageZoomer()
         {
             InitializeComponent();
             // Synchronize some private members with the form's values.

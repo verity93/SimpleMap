@@ -16,28 +16,6 @@ namespace SimpleMapApp
 
             Icon = Miscellaneous.DefaultIcon();
         }
-        
-        //protected override CreateParams CreateParams
-        //{
-        //    get
-        //    {
-        //        var handleParam = base.CreateParams;
-        //        handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
-        //        return handleParam;
-        //    }
-        //}
-
-        protected override void OnResizeBegin(EventArgs e)
-        {
-            SuspendLayout();
-            base.OnResizeBegin(e);
-        }
-
-        protected override void OnResizeEnd(EventArgs e)
-        {
-            ResumeLayout();
-            base.OnResizeEnd(e);
-        }
 
         private void FrmOpticMap_Load(object sender, EventArgs e)
         {
@@ -77,7 +55,7 @@ namespace SimpleMapApp
             RefreshForm();
         }
 
-        private void buttonPanelCtl1_LevelValueChanged(object sender, ButtonPanelCtl.LevelValueArgs e)
+        private void buttonPanelCtl1_LevelValueChanged(object sender, ButtonPanel.LevelValueArgs e)
         {
             mapCtl1.Level = e.Level;
         }
@@ -92,7 +70,7 @@ namespace SimpleMapApp
             set { buttonPanelCtl1.Level = value; }
         }
 
-        private void mapCtl1_LevelValueChanged(object sender, ButtonPanelCtl.LevelValueArgs e)
+        private void mapCtl1_LevelValueChanged(object sender, ButtonPanel.LevelValueArgs e)
         {
             buttonPanelCtl1.Level = e.Level;
         }
@@ -144,7 +122,6 @@ namespace SimpleMapApp
 
         private void buttonPanelCtl1_Load(object sender, EventArgs e)
         {
-            
 
         }
 
@@ -163,7 +140,7 @@ namespace SimpleMapApp
             
             //Test  loading a georeferenced image 
             
-            string GeorefImage = Path.Combine(statupPath, "GeoRefImage.jpg");
+            string GeorefImage = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "Grid.jpg");
             //mapCtl1.GraphicLayer
             mapCtl1.LoadGeoRefImage(GeorefImage, "TestGeoRefLayer");
 

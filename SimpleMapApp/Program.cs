@@ -17,14 +17,14 @@ namespace SimpleMapApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            FrmWorldMap Wor = new FrmWorldMap();
-            Application.Run(Wor);
+            FrmGeoReference GeoReference = new FrmGeoReference();
+            Application.Run(GeoReference);
 
-
-           // FrmMapDemo MapDemo = new FrmMapDemo();
-            //Application.Run(MapDemo);
+            FrmMapDemo MapDemo = new FrmMapDemo();
+            Application.Run(MapDemo);
 
            
+
         }
     }
 }

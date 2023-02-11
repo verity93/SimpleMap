@@ -19,7 +19,7 @@ using HashItem = System.Collections.Generic.KeyValuePair<double, int>;
 
 namespace SimpleMap.Controls
 {
-    public partial class MapCtl : UserControl
+    public partial class MapControl : UserControl
     {
         private readonly TileLayer _mapLayer;
         private readonly ShapeLayer _netLayer;
@@ -39,7 +39,7 @@ namespace SimpleMap.Controls
                     _netLayer.Level = value;
                     _imageLayer.Level = value;
                     if (LevelValueChanged != null)
-                        LevelValueChanged(this, new ButtonPanelCtl.LevelValueArgs(value));
+                        LevelValueChanged(this, new ButtonPanel.LevelValueArgs(value));
                 }
             }
         }
@@ -47,7 +47,7 @@ namespace SimpleMap.Controls
 
         public GeomCoordinate CursorCoordinate;
         
-        public event EventHandler<ButtonPanelCtl.LevelValueArgs> LevelValueChanged;
+        public event EventHandler<ButtonPanel.LevelValueArgs> LevelValueChanged;
 
         public PixelFormat PiFormat
         {
@@ -85,7 +85,7 @@ namespace SimpleMap.Controls
         //    }
         //}
 
-        public MapCtl()
+        public MapControl()
         {
             InitializeComponent();
 

@@ -1,6 +1,6 @@
 namespace SimpleMap.Controls
 { 
-    partial class ButtonPanelCtl
+    partial class ButtonPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -51,7 +51,7 @@ namespace SimpleMap.Controls
             this.labelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelControl1.Location = new System.Drawing.Point(3, 0);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(44, 32);
+            this.labelControl1.Size = new System.Drawing.Size(39, 32);
             this.labelControl1.TabIndex = 3;
             this.labelControl1.Text = "Zoom:";
             this.labelControl1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -62,7 +62,7 @@ namespace SimpleMap.Controls
             this.btnRefreshMap.Image = global::SimpleMap.Properties.Resources.refresh_16;
             this.btnRefreshMap.Location = new System.Drawing.Point(3, 3);
             this.btnRefreshMap.Name = "btnRefreshMap";
-            this.btnRefreshMap.Size = new System.Drawing.Size(57, 32);
+            this.btnRefreshMap.Size = new System.Drawing.Size(39, 32);
             this.btnRefreshMap.TabIndex = 8;
             this.toolTip1.SetToolTip(this.btnRefreshMap, "Refresh Sample Tree");
             this.btnRefreshMap.UseCompatibleTextRendering = true;
@@ -73,9 +73,9 @@ namespace SimpleMap.Controls
             // 
             this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPrint.Image = global::SimpleMap.Properties.Resources.print_24;
-            this.btnPrint.Location = new System.Drawing.Point(66, 3);
+            this.btnPrint.Location = new System.Drawing.Point(48, 3);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(57, 32);
+            this.btnPrint.Size = new System.Drawing.Size(39, 32);
             this.btnPrint.TabIndex = 9;
             this.toolTip1.SetToolTip(this.btnPrint, "Print Map");
             this.btnPrint.UseVisualStyleBackColor = true;
@@ -85,11 +85,11 @@ namespace SimpleMap.Controls
             // 
             this.zoomLevel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.zoomLevel.LargeChange = 2;
-            this.zoomLevel.Location = new System.Drawing.Point(53, 3);
+            this.zoomLevel.Location = new System.Drawing.Point(48, 3);
             this.zoomLevel.Maximum = 20;
             this.zoomLevel.Minimum = 10;
             this.zoomLevel.Name = "zoomLevel";
-            this.zoomLevel.Size = new System.Drawing.Size(253, 26);
+            this.zoomLevel.Size = new System.Drawing.Size(84, 26);
             this.zoomLevel.TabIndex = 10;
             this.toolTip1.SetToolTip(this.zoomLevel, "Change map zoom level");
             this.zoomLevel.Value = 12;
@@ -99,9 +99,9 @@ namespace SimpleMap.Controls
             // 
             this.btnCenterMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCenterMap.Image = global::SimpleMap.Properties.Resources.centermap_24;
-            this.btnCenterMap.Location = new System.Drawing.Point(444, 3);
+            this.btnCenterMap.Location = new System.Drawing.Point(234, 3);
             this.btnCenterMap.Name = "btnCenterMap";
-            this.btnCenterMap.Size = new System.Drawing.Size(57, 32);
+            this.btnCenterMap.Size = new System.Drawing.Size(39, 32);
             this.btnCenterMap.TabIndex = 11;
             this.toolTip1.SetToolTip(this.btnCenterMap, "Center map");
             this.btnCenterMap.UseVisualStyleBackColor = true;
@@ -110,11 +110,15 @@ namespace SimpleMap.Controls
             // btnCacheAllMap
             // 
             this.btnCacheAllMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCacheAllMap.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCacheAllMap.Image = global::SimpleMap.Properties.Resources.save_2_16x16;
-            this.btnCacheAllMap.Location = new System.Drawing.Point(507, 3);
+            this.btnCacheAllMap.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCacheAllMap.Location = new System.Drawing.Point(279, 3);
             this.btnCacheAllMap.Name = "btnCacheAllMap";
-            this.btnCacheAllMap.Size = new System.Drawing.Size(57, 32);
+            this.btnCacheAllMap.Size = new System.Drawing.Size(39, 32);
             this.btnCacheAllMap.TabIndex = 12;
+            this.btnCacheAllMap.Text = "Save All";
+            this.btnCacheAllMap.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolTip1.SetToolTip(this.btnCacheAllMap, "Download whole map to local disk cache");
             this.btnCacheAllMap.UseVisualStyleBackColor = true;
             this.btnCacheAllMap.Click += new System.EventHandler(this.btnCacheAllMap_Click);
@@ -122,11 +126,15 @@ namespace SimpleMap.Controls
             // btnSaveMapAsImage
             // 
             this.btnSaveMapAsImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSaveMapAsImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveMapAsImage.Image = global::SimpleMap.Properties.Resources.program_24;
-            this.btnSaveMapAsImage.Location = new System.Drawing.Point(570, 3);
+            this.btnSaveMapAsImage.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSaveMapAsImage.Location = new System.Drawing.Point(324, 3);
             this.btnSaveMapAsImage.Name = "btnSaveMapAsImage";
-            this.btnSaveMapAsImage.Size = new System.Drawing.Size(57, 32);
+            this.btnSaveMapAsImage.Size = new System.Drawing.Size(39, 32);
             this.btnSaveMapAsImage.TabIndex = 13;
+            this.btnSaveMapAsImage.Text = "Save Map";
+            this.btnSaveMapAsImage.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolTip1.SetToolTip(this.btnSaveMapAsImage, "Save map as image to file");
             this.btnSaveMapAsImage.UseVisualStyleBackColor = true;
             this.btnSaveMapAsImage.Click += new System.EventHandler(this.btnSaveMapAsImage_Click);
@@ -134,7 +142,7 @@ namespace SimpleMap.Controls
             // btnLoadGeoRefImage
             // 
             this.btnLoadGeoRefImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLoadGeoRefImage.Location = new System.Drawing.Point(633, 3);
+            this.btnLoadGeoRefImage.Location = new System.Drawing.Point(369, 3);
             this.btnLoadGeoRefImage.Name = "btnLoadGeoRefImage";
             this.btnLoadGeoRefImage.Size = new System.Drawing.Size(94, 32);
             this.btnLoadGeoRefImage.TabIndex = 15;
@@ -146,11 +154,11 @@ namespace SimpleMap.Controls
             // btnShapeData
             // 
             this.btnShapeData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnShapeData.Location = new System.Drawing.Point(733, 3);
+            this.btnShapeData.Location = new System.Drawing.Point(469, 3);
             this.btnShapeData.Name = "btnShapeData";
             this.btnShapeData.Size = new System.Drawing.Size(94, 32);
             this.btnShapeData.TabIndex = 16;
-            this.btnShapeData.Text = "Shape";
+            this.btnShapeData.Text = "Load Shape";
             this.toolTip1.SetToolTip(this.btnShapeData, "Load Shape Data");
             this.btnShapeData.UseVisualStyleBackColor = true;
             this.btnShapeData.Click += new System.EventHandler(this.btnShapeData_Click);
@@ -158,12 +166,12 @@ namespace SimpleMap.Controls
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 8;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.Controls.Add(this.btnRefreshMap, 0, 0);
@@ -179,32 +187,32 @@ namespace SimpleMap.Controls
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(830, 38);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(566, 38);
             this.tableLayoutPanel1.TabIndex = 17;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.50485F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.49515F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.labelControl1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.zoomLevel, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(129, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(93, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(309, 32);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(135, 32);
             this.tableLayoutPanel2.TabIndex = 10;
             // 
-            // ButtonPanelCtl
+            // ButtonPanel
             // 
             this.Controls.Add(this.tableLayoutPanel1);
             this.MaximumSize = new System.Drawing.Size(20000, 38);
             this.MinimumSize = new System.Drawing.Size(325, 38);
-            this.Name = "ButtonPanelCtl";
-            this.Size = new System.Drawing.Size(830, 38);
+            this.Name = "ButtonPanel";
+            this.Size = new System.Drawing.Size(566, 38);
             this.Load += new System.EventHandler(this.FrmDesignPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.zoomLevel)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);

@@ -289,9 +289,6 @@ namespace SimpleMap.Layers
             return null;
         }
 
-
-        //TODO : Make cache for different Tile Providers
-
         private static void WriteImageToFile(TileBlock block, Stream bmpStream)
         {
             var fileName = Properties.Settings.GetMapFileName(block);

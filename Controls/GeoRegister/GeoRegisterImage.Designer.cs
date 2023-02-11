@@ -1,7 +1,7 @@
 ﻿
 namespace SimpleMap.Controls.GeoRegister
 {
-    partial class RegisterImageMapClt
+    partial class GeoRegisterImage
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,28 +31,30 @@ namespace SimpleMap.Controls.GeoRegister
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.layout = new System.Windows.Forms.TableLayoutPanel();
-            this.mapCtl_GeoRef = new SimpleMap.Controls.MapCtl();
+            this.mapCtl_GeoRef = new SimpleMap.Controls.MapControl();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.pbTransformedImage = new System.Windows.Forms.PictureBox();
+            this.btnTransformImage = new System.Windows.Forms.Button();
             this.txtWorldfile = new System.Windows.Forms.TextBox();
-            this.btnCacheAllMap = new System.Windows.Forms.Button();
+            this.btnSaveWorldFile = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.btnCalc = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbCornersTL_BR = new System.Windows.Forms.RadioButton();
+            this.rb2Pt_Calc = new System.Windows.Forms.RadioButton();
             this.rb4Pt_AffineRotation = new System.Windows.Forms.RadioButton();
             this.groupFullRectangle = new System.Windows.Forms.GroupBox();
+            this.rbMapTR = new System.Windows.Forms.RadioButton();
+            this.rbMapBL = new System.Windows.Forms.RadioButton();
             this.Lon_BR = new System.Windows.Forms.TextBox();
             this.Lon_BL = new System.Windows.Forms.TextBox();
             this.Lon_TR = new System.Windows.Forms.TextBox();
             this.Lon_TL = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.rbMapBR = new System.Windows.Forms.RadioButton();
             this.Lat_TR = new System.Windows.Forms.TextBox();
             this.Lat_BR = new System.Windows.Forms.TextBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.rbMapTL = new System.Windows.Forms.RadioButton();
             this.Lat_TL = new System.Windows.Forms.TextBox();
             this.Lat_BL = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -77,10 +79,10 @@ namespace SimpleMap.Controls.GeoRegister
             this.txtBL_Y = new System.Windows.Forms.TextBox();
             this.txtBL_X = new System.Windows.Forms.TextBox();
             this.txtTL_Y = new System.Windows.Forms.TextBox();
-            this.rbBR = new System.Windows.Forms.RadioButton();
-            this.rbTR = new System.Windows.Forms.RadioButton();
-            this.rbBL = new System.Windows.Forms.RadioButton();
-            this.rbTL = new System.Windows.Forms.RadioButton();
+            this.rbImageBR = new System.Windows.Forms.RadioButton();
+            this.rbImageTR = new System.Windows.Forms.RadioButton();
+            this.rbImageBL = new System.Windows.Forms.RadioButton();
+            this.rbImageTL = new System.Windows.Forms.RadioButton();
             this.txtTL_X = new System.Windows.Forms.TextBox();
             this.picImage = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -90,11 +92,14 @@ namespace SimpleMap.Controls.GeoRegister
             this.btnSelectColor = new System.Windows.Forms.Button();
             this.trbZoomFactor = new System.Windows.Forms.TrackBar();
             this.lblZoomFactor = new System.Windows.Forms.Label();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.layout.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTransformedImage)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupFullRectangle.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -106,22 +111,23 @@ namespace SimpleMap.Controls.GeoRegister
             ((System.ComponentModel.ISupportInitialize)(this.picZoom)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbZoomFactor)).BeginInit();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.layout, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1037, 985);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 546F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1037, 827);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // layout
@@ -138,7 +144,7 @@ namespace SimpleMap.Controls.GeoRegister
             this.layout.RowCount = 2;
             this.layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 482F));
             this.layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.layout.Size = new System.Drawing.Size(1031, 486);
+            this.layout.Size = new System.Drawing.Size(1031, 540);
             this.layout.TabIndex = 14;
             // 
             // mapCtl_GeoRef
@@ -149,9 +155,8 @@ namespace SimpleMap.Controls.GeoRegister
             this.mapCtl_GeoRef.Location = new System.Drawing.Point(454, 3);
             this.mapCtl_GeoRef.Name = "mapCtl_GeoRef";
             this.layout.SetRowSpan(this.mapCtl_GeoRef, 2);
-            this.mapCtl_GeoRef.Size = new System.Drawing.Size(574, 480);
+            this.mapCtl_GeoRef.Size = new System.Drawing.Size(574, 534);
             this.mapCtl_GeoRef.TabIndex = 42;
-            this.mapCtl_GeoRef.Load += new System.EventHandler(this.mapCtl_GeoRef_Load);
             this.mapCtl_GeoRef.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapCtl_GeoRef_MouseClick);
             this.mapCtl_GeoRef.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapCtl_GeoRef_MouseMove);
             // 
@@ -182,8 +187,10 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.pbTransformedImage);
+            this.groupBox5.Controls.Add(this.btnTransformImage);
             this.groupBox5.Controls.Add(this.txtWorldfile);
-            this.groupBox5.Controls.Add(this.btnCacheAllMap);
+            this.groupBox5.Controls.Add(this.btnSaveWorldFile);
             this.groupBox5.Controls.Add(this.label9);
             this.groupBox5.Controls.Add(this.btnCalc);
             this.groupBox5.Location = new System.Drawing.Point(8, 315);
@@ -195,30 +202,50 @@ namespace SimpleMap.Controls.GeoRegister
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Worldfile Create - Georeference output";
             // 
+            // pbTransformedImage
+            // 
+            this.pbTransformedImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.pbTransformedImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbTransformedImage.Location = new System.Drawing.Point(242, 18);
+            this.pbTransformedImage.Name = "pbTransformedImage";
+            this.pbTransformedImage.Size = new System.Drawing.Size(188, 101);
+            this.pbTransformedImage.TabIndex = 37;
+            this.pbTransformedImage.TabStop = false;
+            // 
+            // btnTransformImage
+            // 
+            this.btnTransformImage.Location = new System.Drawing.Point(274, 125);
+            this.btnTransformImage.Name = "btnTransformImage";
+            this.btnTransformImage.Size = new System.Drawing.Size(135, 29);
+            this.btnTransformImage.TabIndex = 36;
+            this.btnTransformImage.Text = "Test -> Transform Image";
+            this.btnTransformImage.UseVisualStyleBackColor = true;
+            this.btnTransformImage.Click += new System.EventHandler(this.btnTransformImage_Click);
+            // 
             // txtWorldfile
             // 
             this.txtWorldfile.AcceptsReturn = true;
-            this.txtWorldfile.Location = new System.Drawing.Point(152, 35);
+            this.txtWorldfile.Location = new System.Drawing.Point(75, 27);
             this.txtWorldfile.Multiline = true;
             this.txtWorldfile.Name = "txtWorldfile";
-            this.txtWorldfile.Size = new System.Drawing.Size(114, 109);
+            this.txtWorldfile.Size = new System.Drawing.Size(129, 94);
             this.txtWorldfile.TabIndex = 33;
             this.txtWorldfile.Text = "1\r\n2\r\n3\r\n4\r\n5\r\n6";
             // 
-            // btnCacheAllMap
+            // btnSaveWorldFile
             // 
-            this.btnCacheAllMap.Image = global::SimpleMap.Properties.Resources.save_2_16x16;
-            this.btnCacheAllMap.Location = new System.Drawing.Point(379, 84);
-            this.btnCacheAllMap.Name = "btnCacheAllMap";
-            this.btnCacheAllMap.Size = new System.Drawing.Size(33, 32);
-            this.btnCacheAllMap.TabIndex = 35;
-            this.btnCacheAllMap.UseVisualStyleBackColor = true;
-            this.btnCacheAllMap.Click += new System.EventHandler(this.btnCacheAllMap_Click);
+            this.btnSaveWorldFile.Image = global::SimpleMap.Properties.Resources.save_2_16x16;
+            this.btnSaveWorldFile.Location = new System.Drawing.Point(172, 127);
+            this.btnSaveWorldFile.Name = "btnSaveWorldFile";
+            this.btnSaveWorldFile.Size = new System.Drawing.Size(32, 29);
+            this.btnSaveWorldFile.TabIndex = 35;
+            this.btnSaveWorldFile.UseVisualStyleBackColor = true;
+            this.btnSaveWorldFile.Click += new System.EventHandler(this.btnSaveWorldFile_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(77, 35);
+            this.label9.Location = new System.Drawing.Point(15, 27);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(54, 13);
             this.label9.TabIndex = 34;
@@ -226,17 +253,17 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(318, 29);
+            this.btnCalc.Location = new System.Drawing.Point(36, 127);
             this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(93, 29);
+            this.btnCalc.Size = new System.Drawing.Size(130, 29);
             this.btnCalc.TabIndex = 32;
-            this.btnCalc.Text = "Calc";
+            this.btnCalc.Text = "Generate World File";
             this.btnCalc.UseVisualStyleBackColor = true;
             this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.rbCornersTL_BR);
+            this.groupBox2.Controls.Add(this.rb2Pt_Calc);
             this.groupBox2.Controls.Add(this.rb4Pt_AffineRotation);
             this.groupBox2.Location = new System.Drawing.Point(9, 29);
             this.groupBox2.Name = "groupBox2";
@@ -245,17 +272,18 @@ namespace SimpleMap.Controls.GeoRegister
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Number of Coordinates to Register";
             // 
-            // rbCornersTL_BR
+            // rb2Pt_Calc
             // 
-            this.rbCornersTL_BR.AutoSize = true;
-            this.rbCornersTL_BR.Checked = true;
-            this.rbCornersTL_BR.Location = new System.Drawing.Point(31, 31);
-            this.rbCornersTL_BR.Name = "rbCornersTL_BR";
-            this.rbCornersTL_BR.Size = new System.Drawing.Size(152, 17);
-            this.rbCornersTL_BR.TabIndex = 0;
-            this.rbCornersTL_BR.TabStop = true;
-            this.rbCornersTL_BR.Text = "2 Point, Rectangle Corners";
-            this.rbCornersTL_BR.UseVisualStyleBackColor = true;
+            this.rb2Pt_Calc.AutoSize = true;
+            this.rb2Pt_Calc.Checked = true;
+            this.rb2Pt_Calc.Location = new System.Drawing.Point(31, 31);
+            this.rb2Pt_Calc.Name = "rb2Pt_Calc";
+            this.rb2Pt_Calc.Size = new System.Drawing.Size(152, 17);
+            this.rb2Pt_Calc.TabIndex = 0;
+            this.rb2Pt_Calc.TabStop = true;
+            this.rb2Pt_Calc.Text = "2 Point, Rectangle Corners";
+            this.rb2Pt_Calc.UseVisualStyleBackColor = true;
+            this.rb2Pt_Calc.CheckedChanged += new System.EventHandler(this.rb2Pt_Calc_CheckedChanged);
             // 
             // rb4Pt_AffineRotation
             // 
@@ -266,19 +294,20 @@ namespace SimpleMap.Controls.GeoRegister
             this.rb4Pt_AffineRotation.TabIndex = 1;
             this.rb4Pt_AffineRotation.Text = "4 = Affine && Rotation";
             this.rb4Pt_AffineRotation.UseVisualStyleBackColor = true;
+            this.rb4Pt_AffineRotation.CheckedChanged += new System.EventHandler(this.rb4Pt_AffineRotation_CheckedChanged);
             // 
             // groupFullRectangle
             // 
+            this.groupFullRectangle.Controls.Add(this.rbMapTR);
+            this.groupFullRectangle.Controls.Add(this.rbMapBL);
             this.groupFullRectangle.Controls.Add(this.Lon_BR);
             this.groupFullRectangle.Controls.Add(this.Lon_BL);
             this.groupFullRectangle.Controls.Add(this.Lon_TR);
             this.groupFullRectangle.Controls.Add(this.Lon_TL);
-            this.groupFullRectangle.Controls.Add(this.radioButton1);
-            this.groupFullRectangle.Controls.Add(this.radioButton2);
+            this.groupFullRectangle.Controls.Add(this.rbMapBR);
             this.groupFullRectangle.Controls.Add(this.Lat_TR);
             this.groupFullRectangle.Controls.Add(this.Lat_BR);
-            this.groupFullRectangle.Controls.Add(this.radioButton3);
-            this.groupFullRectangle.Controls.Add(this.radioButton4);
+            this.groupFullRectangle.Controls.Add(this.rbMapTL);
             this.groupFullRectangle.Controls.Add(this.Lat_TL);
             this.groupFullRectangle.Controls.Add(this.Lat_BL);
             this.groupFullRectangle.Location = new System.Drawing.Point(9, 96);
@@ -287,6 +316,34 @@ namespace SimpleMap.Controls.GeoRegister
             this.groupFullRectangle.TabIndex = 44;
             this.groupFullRectangle.TabStop = false;
             this.groupFullRectangle.Text = "Coordinates - Click on Map";
+            // 
+            // rbMapTR
+            // 
+            this.rbMapTR.AutoSize = true;
+            this.rbMapTR.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbMapTR.Location = new System.Drawing.Point(241, 24);
+            this.rbMapTR.Name = "rbMapTR";
+            this.rbMapTR.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.rbMapTR.Size = new System.Drawing.Size(72, 17);
+            this.rbMapTR.TabIndex = 55;
+            this.rbMapTR.TabStop = true;
+            this.rbMapTR.Text = "Top Right";
+            this.rbMapTR.UseVisualStyleBackColor = true;
+            this.rbMapTR.Visible = false;
+            // 
+            // rbMapBL
+            // 
+            this.rbMapBL.AutoSize = true;
+            this.rbMapBL.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbMapBL.Location = new System.Drawing.Point(36, 119);
+            this.rbMapBL.Name = "rbMapBL";
+            this.rbMapBL.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.rbMapBL.Size = new System.Drawing.Size(79, 17);
+            this.rbMapBL.TabIndex = 54;
+            this.rbMapBL.TabStop = true;
+            this.rbMapBL.Text = "Bottom Left";
+            this.rbMapBL.UseVisualStyleBackColor = true;
+            this.rbMapBL.Visible = false;
             // 
             // Lon_BR
             // 
@@ -318,32 +375,18 @@ namespace SimpleMap.Controls.GeoRegister
             this.Lon_TL.Size = new System.Drawing.Size(167, 20);
             this.Lon_TL.TabIndex = 49;
             // 
-            // radioButton1
+            // rbMapBR
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radioButton1.Location = new System.Drawing.Point(241, 119);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radioButton1.Size = new System.Drawing.Size(86, 17);
-            this.radioButton1.TabIndex = 48;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Bottom Right";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radioButton2.Location = new System.Drawing.Point(241, 24);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radioButton2.Size = new System.Drawing.Size(72, 17);
-            this.radioButton2.TabIndex = 47;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Top Right";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.Visible = false;
+            this.rbMapBR.AutoSize = true;
+            this.rbMapBR.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbMapBR.Location = new System.Drawing.Point(241, 119);
+            this.rbMapBR.Name = "rbMapBR";
+            this.rbMapBR.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.rbMapBR.Size = new System.Drawing.Size(86, 17);
+            this.rbMapBR.TabIndex = 48;
+            this.rbMapBR.TabStop = true;
+            this.rbMapBR.Text = "Bottom Right";
+            this.rbMapBR.UseVisualStyleBackColor = true;
             // 
             // Lat_TR
             // 
@@ -360,33 +403,19 @@ namespace SimpleMap.Controls.GeoRegister
             this.Lat_BR.Size = new System.Drawing.Size(167, 20);
             this.Lat_BR.TabIndex = 46;
             // 
-            // radioButton3
+            // rbMapTL
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radioButton3.Location = new System.Drawing.Point(36, 119);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radioButton3.Size = new System.Drawing.Size(79, 17);
-            this.radioButton3.TabIndex = 44;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Bottom Left";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.Visible = false;
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radioButton4.Checked = true;
-            this.radioButton4.Location = new System.Drawing.Point(36, 24);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radioButton4.Size = new System.Drawing.Size(65, 17);
-            this.radioButton4.TabIndex = 43;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Top Left";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.rbMapTL.AutoSize = true;
+            this.rbMapTL.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbMapTL.Checked = true;
+            this.rbMapTL.Location = new System.Drawing.Point(36, 24);
+            this.rbMapTL.Name = "rbMapTL";
+            this.rbMapTL.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.rbMapTL.Size = new System.Drawing.Size(65, 17);
+            this.rbMapTL.TabIndex = 43;
+            this.rbMapTL.TabStop = true;
+            this.rbMapTL.Text = "Top Left";
+            this.rbMapTL.UseVisualStyleBackColor = true;
             // 
             // Lat_TL
             // 
@@ -412,7 +441,7 @@ namespace SimpleMap.Controls.GeoRegister
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 485);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(445, 1);
+            this.panel4.Size = new System.Drawing.Size(445, 52);
             this.panel4.TabIndex = 43;
             // 
             // label3
@@ -453,22 +482,22 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 446F));
-            this.tableLayoutPanel2.Controls.Add(this.groupBox3, 0, 1);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 445F));
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.picImage, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 495);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 549);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 332F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 151F));
+            this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1031, 487);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1031, 275);
             this.tableLayoutPanel2.TabIndex = 13;
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnLoadImage);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.txtysize);
@@ -476,18 +505,18 @@ namespace SimpleMap.Controls.GeoRegister
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.txtxsize);
             this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.groupBox1);
-            this.groupBox3.Location = new System.Drawing.Point(588, 335);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(440, 145);
+            this.groupBox3.Size = new System.Drawing.Size(433, 51);
             this.groupBox3.TabIndex = 46;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Image Registration";
+            this.groupBox3.Text = "Image";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(38, 32);
+            this.label6.Location = new System.Drawing.Point(160, 24);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
@@ -497,7 +526,7 @@ namespace SimpleMap.Controls.GeoRegister
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(312, 35);
+            this.label5.Location = new System.Drawing.Point(403, 28);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(18, 13);
@@ -506,7 +535,7 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             // txtysize
             // 
-            this.txtysize.Location = new System.Drawing.Point(237, 32);
+            this.txtysize.Location = new System.Drawing.Point(328, 24);
             this.txtysize.Margin = new System.Windows.Forms.Padding(4);
             this.txtysize.Name = "txtysize";
             this.txtysize.Size = new System.Drawing.Size(67, 20);
@@ -515,7 +544,7 @@ namespace SimpleMap.Controls.GeoRegister
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(245, 15);
+            this.label8.Location = new System.Drawing.Point(336, 11);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(38, 13);
@@ -525,7 +554,7 @@ namespace SimpleMap.Controls.GeoRegister
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(211, 35);
+            this.label7.Location = new System.Drawing.Point(302, 28);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(18, 13);
@@ -534,7 +563,7 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             // txtxsize
             // 
-            this.txtxsize.Location = new System.Drawing.Point(136, 32);
+            this.txtxsize.Location = new System.Drawing.Point(227, 24);
             this.txtxsize.Margin = new System.Windows.Forms.Padding(4);
             this.txtxsize.Name = "txtxsize";
             this.txtxsize.Size = new System.Drawing.Size(67, 20);
@@ -543,7 +572,7 @@ namespace SimpleMap.Controls.GeoRegister
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(152, 15);
+            this.label4.Location = new System.Drawing.Point(243, 11);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
@@ -559,24 +588,24 @@ namespace SimpleMap.Controls.GeoRegister
             this.groupBox1.Controls.Add(this.txtBL_Y);
             this.groupBox1.Controls.Add(this.txtBL_X);
             this.groupBox1.Controls.Add(this.txtTL_Y);
-            this.groupBox1.Controls.Add(this.rbBR);
-            this.groupBox1.Controls.Add(this.rbTR);
-            this.groupBox1.Controls.Add(this.rbBL);
-            this.groupBox1.Controls.Add(this.rbTL);
+            this.groupBox1.Controls.Add(this.rbImageBR);
+            this.groupBox1.Controls.Add(this.rbImageTR);
+            this.groupBox1.Controls.Add(this.rbImageBL);
+            this.groupBox1.Controls.Add(this.rbImageTL);
             this.groupBox1.Controls.Add(this.txtTL_X);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(3, 52);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(4, 61);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(434, 90);
+            this.groupBox1.Size = new System.Drawing.Size(431, 79);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Image Control Points";
+            this.groupBox1.Text = "Image Registration";
             // 
             // txtBR_Y
             // 
-            this.txtBR_Y.Location = new System.Drawing.Point(387, 58);
+            this.txtBR_Y.Location = new System.Drawing.Point(378, 47);
             this.txtBR_Y.Margin = new System.Windows.Forms.Padding(4);
             this.txtBR_Y.Name = "txtBR_Y";
             this.txtBR_Y.Size = new System.Drawing.Size(35, 20);
@@ -584,7 +613,7 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             // txtBR_X
             // 
-            this.txtBR_X.Location = new System.Drawing.Point(351, 58);
+            this.txtBR_X.Location = new System.Drawing.Point(342, 47);
             this.txtBR_X.Margin = new System.Windows.Forms.Padding(4);
             this.txtBR_X.Name = "txtBR_X";
             this.txtBR_X.Size = new System.Drawing.Size(35, 20);
@@ -592,101 +621,107 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             // txtTR_Y
             // 
-            this.txtTR_Y.Location = new System.Drawing.Point(387, 20);
+            this.txtTR_Y.Location = new System.Drawing.Point(378, 19);
             this.txtTR_Y.Margin = new System.Windows.Forms.Padding(4);
             this.txtTR_Y.Name = "txtTR_Y";
             this.txtTR_Y.Size = new System.Drawing.Size(35, 20);
             this.txtTR_Y.TabIndex = 61;
+            this.txtTR_Y.Visible = false;
             // 
             // txtTR_X
             // 
-            this.txtTR_X.Location = new System.Drawing.Point(351, 20);
+            this.txtTR_X.Location = new System.Drawing.Point(342, 19);
             this.txtTR_X.Margin = new System.Windows.Forms.Padding(4);
             this.txtTR_X.Name = "txtTR_X";
             this.txtTR_X.Size = new System.Drawing.Size(35, 20);
             this.txtTR_X.TabIndex = 60;
+            this.txtTR_X.Visible = false;
             // 
             // txtBL_Y
             // 
-            this.txtBL_Y.Location = new System.Drawing.Point(164, 58);
+            this.txtBL_Y.Location = new System.Drawing.Point(133, 47);
             this.txtBL_Y.Margin = new System.Windows.Forms.Padding(4);
             this.txtBL_Y.Name = "txtBL_Y";
             this.txtBL_Y.Size = new System.Drawing.Size(35, 20);
             this.txtBL_Y.TabIndex = 59;
+            this.txtBL_Y.Visible = false;
             // 
             // txtBL_X
             // 
-            this.txtBL_X.Location = new System.Drawing.Point(128, 58);
+            this.txtBL_X.Location = new System.Drawing.Point(97, 47);
             this.txtBL_X.Margin = new System.Windows.Forms.Padding(4);
             this.txtBL_X.Name = "txtBL_X";
             this.txtBL_X.Size = new System.Drawing.Size(35, 20);
             this.txtBL_X.TabIndex = 58;
+            this.txtBL_X.Visible = false;
             // 
             // txtTL_Y
             // 
-            this.txtTL_Y.Location = new System.Drawing.Point(164, 20);
+            this.txtTL_Y.Location = new System.Drawing.Point(133, 19);
             this.txtTL_Y.Margin = new System.Windows.Forms.Padding(4);
             this.txtTL_Y.Name = "txtTL_Y";
             this.txtTL_Y.Size = new System.Drawing.Size(35, 20);
             this.txtTL_Y.TabIndex = 57;
             // 
-            // rbBR
+            // rbImageBR
             // 
-            this.rbBR.AutoSize = true;
-            this.rbBR.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbBR.Location = new System.Drawing.Point(215, 60);
-            this.rbBR.Margin = new System.Windows.Forms.Padding(4);
-            this.rbBR.Name = "rbBR";
-            this.rbBR.Size = new System.Drawing.Size(86, 17);
-            this.rbBR.TabIndex = 56;
-            this.rbBR.Text = "Bottom Right";
-            this.rbBR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbBR.UseVisualStyleBackColor = true;
+            this.rbImageBR.AutoSize = true;
+            this.rbImageBR.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbImageBR.Location = new System.Drawing.Point(248, 50);
+            this.rbImageBR.Margin = new System.Windows.Forms.Padding(4);
+            this.rbImageBR.Name = "rbImageBR";
+            this.rbImageBR.Size = new System.Drawing.Size(86, 17);
+            this.rbImageBR.TabIndex = 56;
+            this.rbImageBR.Text = "Bottom Right";
+            this.rbImageBR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbImageBR.UseVisualStyleBackColor = true;
             // 
-            // rbTR
+            // rbImageTR
             // 
-            this.rbTR.AutoSize = true;
-            this.rbTR.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbTR.Location = new System.Drawing.Point(240, 22);
-            this.rbTR.Margin = new System.Windows.Forms.Padding(4);
-            this.rbTR.Name = "rbTR";
-            this.rbTR.Size = new System.Drawing.Size(72, 17);
-            this.rbTR.TabIndex = 55;
-            this.rbTR.Text = "Top Right";
-            this.rbTR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbTR.UseVisualStyleBackColor = true;
+            this.rbImageTR.AutoSize = true;
+            this.rbImageTR.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbImageTR.Location = new System.Drawing.Point(262, 21);
+            this.rbImageTR.Margin = new System.Windows.Forms.Padding(4);
+            this.rbImageTR.Name = "rbImageTR";
+            this.rbImageTR.Size = new System.Drawing.Size(72, 17);
+            this.rbImageTR.TabIndex = 55;
+            this.rbImageTR.Text = "Top Right";
+            this.rbImageTR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbImageTR.UseVisualStyleBackColor = true;
+            this.rbImageTR.Visible = false;
             // 
-            // rbBL
+            // rbImageBL
             // 
-            this.rbBL.AutoSize = true;
-            this.rbBL.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbBL.Location = new System.Drawing.Point(-1, 63);
-            this.rbBL.Margin = new System.Windows.Forms.Padding(4);
-            this.rbBL.Name = "rbBL";
-            this.rbBL.Size = new System.Drawing.Size(79, 17);
-            this.rbBL.TabIndex = 52;
-            this.rbBL.Text = "Bottom Left";
-            this.rbBL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbBL.UseVisualStyleBackColor = true;
+            this.rbImageBL.AutoSize = true;
+            this.rbImageBL.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbImageBL.Location = new System.Drawing.Point(10, 51);
+            this.rbImageBL.Margin = new System.Windows.Forms.Padding(4);
+            this.rbImageBL.Name = "rbImageBL";
+            this.rbImageBL.Size = new System.Drawing.Size(79, 17);
+            this.rbImageBL.TabIndex = 52;
+            this.rbImageBL.Text = "Bottom Left";
+            this.rbImageBL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbImageBL.UseVisualStyleBackColor = true;
+            this.rbImageBL.Visible = false;
             // 
-            // rbTL
+            // rbImageTL
             // 
-            this.rbTL.AutoSize = true;
-            this.rbTL.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbTL.Checked = true;
-            this.rbTL.Location = new System.Drawing.Point(24, 22);
-            this.rbTL.Margin = new System.Windows.Forms.Padding(4);
-            this.rbTL.Name = "rbTL";
-            this.rbTL.Size = new System.Drawing.Size(65, 17);
-            this.rbTL.TabIndex = 51;
-            this.rbTL.TabStop = true;
-            this.rbTL.Text = "Top Left";
-            this.rbTL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbTL.UseVisualStyleBackColor = true;
+            this.rbImageTL.AutoSize = true;
+            this.rbImageTL.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbImageTL.Checked = true;
+            this.rbImageTL.Location = new System.Drawing.Point(24, 22);
+            this.rbImageTL.Margin = new System.Windows.Forms.Padding(4);
+            this.rbImageTL.Name = "rbImageTL";
+            this.rbImageTL.Size = new System.Drawing.Size(65, 17);
+            this.rbImageTL.TabIndex = 51;
+            this.rbImageTL.TabStop = true;
+            this.rbImageTL.Text = "Top Left";
+            this.rbImageTL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbImageTL.UseVisualStyleBackColor = true;
             // 
             // txtTL_X
             // 
-            this.txtTL_X.Location = new System.Drawing.Point(128, 20);
+            this.txtTL_X.Location = new System.Drawing.Point(97, 19);
             this.txtTL_X.Margin = new System.Windows.Forms.Padding(4);
             this.txtTL_X.Name = "txtTL_X";
             this.txtTL_X.Size = new System.Drawing.Size(35, 20);
@@ -700,8 +735,10 @@ namespace SimpleMap.Controls.GeoRegister
             this.picImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picImage.Location = new System.Drawing.Point(3, 3);
             this.picImage.Name = "picImage";
-            this.tableLayoutPanel2.SetRowSpan(this.picImage, 3);
-            this.picImage.Size = new System.Drawing.Size(579, 481);
+            this.picImage.Padding = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanel2.SetRowSpan(this.picImage, 2);
+            this.picImage.Size = new System.Drawing.Size(580, 269);
+            this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picImage.TabIndex = 6;
             this.picImage.TabStop = false;
             this.picImage.Click += new System.EventHandler(this.picImage_Click);
@@ -710,12 +747,11 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.picZoom);
-            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(588, 3);
+            this.panel1.Location = new System.Drawing.Point(589, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(440, 326);
+            this.panel1.Size = new System.Drawing.Size(439, 119);
             this.panel1.TabIndex = 7;
             // 
             // picZoom
@@ -723,29 +759,28 @@ namespace SimpleMap.Controls.GeoRegister
             this.picZoom.BackColor = System.Drawing.Color.White;
             this.picZoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picZoom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picZoom.Location = new System.Drawing.Point(0, 0);
+            this.picZoom.Location = new System.Drawing.Point(3, 3);
             this.picZoom.Name = "picZoom";
-            this.picZoom.Size = new System.Drawing.Size(440, 234);
+            this.picZoom.Size = new System.Drawing.Size(433, 78);
             this.picZoom.TabIndex = 7;
             this.picZoom.TabStop = false;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnLoadImage);
             this.panel2.Controls.Add(this.btnSelectColor);
             this.panel2.Controls.Add(this.trbZoomFactor);
             this.panel2.Controls.Add(this.lblZoomFactor);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 234);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 87);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(440, 92);
+            this.panel2.Size = new System.Drawing.Size(433, 29);
             this.panel2.TabIndex = 12;
             // 
             // btnLoadImage
             // 
-            this.btnLoadImage.Location = new System.Drawing.Point(41, 38);
+            this.btnLoadImage.Location = new System.Drawing.Point(13, 19);
             this.btnLoadImage.Name = "btnLoadImage";
-            this.btnLoadImage.Size = new System.Drawing.Size(125, 34);
+            this.btnLoadImage.Size = new System.Drawing.Size(110, 26);
             this.btnLoadImage.TabIndex = 8;
             this.btnLoadImage.Text = "Load image";
             this.btnLoadImage.UseVisualStyleBackColor = true;
@@ -753,9 +788,9 @@ namespace SimpleMap.Controls.GeoRegister
             // 
             // btnSelectColor
             // 
-            this.btnSelectColor.Location = new System.Drawing.Point(277, 38);
+            this.btnSelectColor.Location = new System.Drawing.Point(271, 4);
             this.btnSelectColor.Name = "btnSelectColor";
-            this.btnSelectColor.Size = new System.Drawing.Size(112, 34);
+            this.btnSelectColor.Size = new System.Drawing.Size(88, 22);
             this.btnSelectColor.TabIndex = 11;
             this.btnSelectColor.Text = "Background";
             this.btnSelectColor.UseVisualStyleBackColor = true;
@@ -764,10 +799,10 @@ namespace SimpleMap.Controls.GeoRegister
             // trbZoomFactor
             // 
             this.trbZoomFactor.LargeChange = 1;
-            this.trbZoomFactor.Location = new System.Drawing.Point(46, 6);
+            this.trbZoomFactor.Location = new System.Drawing.Point(24, 3);
             this.trbZoomFactor.Minimum = 2;
             this.trbZoomFactor.Name = "trbZoomFactor";
-            this.trbZoomFactor.Size = new System.Drawing.Size(300, 45);
+            this.trbZoomFactor.Size = new System.Drawing.Size(205, 45);
             this.trbZoomFactor.TabIndex = 9;
             this.trbZoomFactor.Value = 3;
             this.trbZoomFactor.ValueChanged += new System.EventHandler(this.trbZoomFactor_ValueChanged);
@@ -775,25 +810,56 @@ namespace SimpleMap.Controls.GeoRegister
             // lblZoomFactor
             // 
             this.lblZoomFactor.AutoSize = true;
-            this.lblZoomFactor.Location = new System.Drawing.Point(386, 14);
+            this.lblZoomFactor.Location = new System.Drawing.Point(235, 9);
             this.lblZoomFactor.Name = "lblZoomFactor";
             this.lblZoomFactor.Size = new System.Drawing.Size(18, 13);
             this.lblZoomFactor.TabIndex = 10;
             this.lblZoomFactor.Text = "x3";
             // 
-            // RegisterImageMapClt
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.picZoom, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.panel2, 0, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(439, 119);
+            this.tableLayoutPanel3.TabIndex = 12;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.groupBox3, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.groupBox1, 0, 1);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(589, 128);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.58333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.41667F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(439, 144);
+            this.tableLayoutPanel4.TabIndex = 12;
+            // 
+            // GeoRegisterImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "RegisterImageMapClt";
-            this.Size = new System.Drawing.Size(1037, 985);
+            this.Name = "GeoRegisterImage";
+            this.Size = new System.Drawing.Size(1037, 827);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.layout.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTransformedImage)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupFullRectangle.ResumeLayout(false);
@@ -801,6 +867,7 @@ namespace SimpleMap.Controls.GeoRegister
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -811,6 +878,8 @@ namespace SimpleMap.Controls.GeoRegister
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbZoomFactor)).EndInit();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -835,10 +904,10 @@ namespace SimpleMap.Controls.GeoRegister
         private System.Windows.Forms.TextBox txtBL_Y;
         private System.Windows.Forms.TextBox txtBL_X;
         private System.Windows.Forms.TextBox txtTL_Y;
-        private System.Windows.Forms.RadioButton rbBR;
-        private System.Windows.Forms.RadioButton rbTR;
-        private System.Windows.Forms.RadioButton rbBL;
-        private System.Windows.Forms.RadioButton rbTL;
+        private System.Windows.Forms.RadioButton rbImageBR;
+        private System.Windows.Forms.RadioButton rbImageTR;
+        private System.Windows.Forms.RadioButton rbImageBL;
+        private System.Windows.Forms.RadioButton rbImageTL;
         private System.Windows.Forms.TextBox txtTL_X;
         private System.Windows.Forms.PictureBox picImage;
         private System.Windows.Forms.Panel panel1;
@@ -849,28 +918,26 @@ namespace SimpleMap.Controls.GeoRegister
         private System.Windows.Forms.TrackBar trbZoomFactor;
         private System.Windows.Forms.Label lblZoomFactor;
         private System.Windows.Forms.TableLayoutPanel layout;
-        private MapCtl mapCtl_GeoRef;
+        private MapControl mapCtl_GeoRef;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox txtWorldfile;
-        private System.Windows.Forms.Button btnCacheAllMap;
+        private System.Windows.Forms.Button btnSaveWorldFile;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton rbCornersTL_BR;
+        private System.Windows.Forms.RadioButton rb2Pt_Calc;
         private System.Windows.Forms.RadioButton rb4Pt_AffineRotation;
         private System.Windows.Forms.GroupBox groupFullRectangle;
         private System.Windows.Forms.TextBox Lon_BR;
         private System.Windows.Forms.TextBox Lon_BL;
         private System.Windows.Forms.TextBox Lon_TR;
         private System.Windows.Forms.TextBox Lon_TL;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton rbMapBR;
         private System.Windows.Forms.TextBox Lat_TR;
         private System.Windows.Forms.TextBox Lat_BR;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton rbMapTL;
         private System.Windows.Forms.TextBox Lat_TL;
         private System.Windows.Forms.TextBox Lat_BL;
         private System.Windows.Forms.Panel panel4;
@@ -878,5 +945,11 @@ namespace SimpleMap.Controls.GeoRegister
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtLon;
         private System.Windows.Forms.TextBox txtLat;
+        private System.Windows.Forms.RadioButton rbMapTR;
+        private System.Windows.Forms.RadioButton rbMapBL;
+        private System.Windows.Forms.Button btnTransformImage;
+        private System.Windows.Forms.PictureBox pbTransformedImage;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
     }
 }

@@ -1,35 +1,22 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Reflection;
+using SimpleMap.Layers;
+using System.Windows.Media.Imaging;
 
-namespace SimpleMap.Controls
+namespace SimpleMap.Controls.GeoRegister
 {
-
-    // https://www.mapwindow.org/documentation/mapwindow/
-    //Transformation coefficients are calculated with least squares method on each step and the standard error and deviations for each point are displayed
-    //GDAL is an open source X/MIT licensed translator library for raster and vector geospatial data formats.
-    //https://github.com/timwaters/mapwarper
-    //https://github.com/nypl-spacetime/nypl-warper
-    //https://thinkwhere.files.wordpress.com/2017/04/gifrecord_2017-04-02_193003.gif
-    //Users rectify, warp or stretch images of historical maps with a reference basemap, assigning locations on image and map that line up with each other
-    public partial class RegisterImageCtl : UserControl
+    public partial class GeoRegisterImage : UserControl
     {
-        //https://github.com/DotSpatial/DotSpatial
-
-
-        //http://www.dlib.org/dlib/november12/fleet/11fleet.html
-        //http://www.georeferencer.com/features/
-
-        public ImageRegistration imageRegistration = new ImageRegistration();
-
-        public RegisterImageCtl()
+        public GeoRegisterImage()
         {
             InitializeComponent();
             // Synchronize some private members with the form's values.
@@ -41,15 +28,17 @@ namespace SimpleMap.Controls
             picImage.SizeMode = PictureBoxSizeMode.CenterImage;
             picZoom.SizeMode = PictureBoxSizeMode.StretchImage;
         }
-
-
-        private void FrmDesignPanel_Load(object sender, EventArgs e)
+        ~GeoRegisterImage()
         {
+            ControlClosing();
         }
 
+        #region SetVariables
+        public string Worldfile { get; set; }
+        public int xsize { get; set; }
+        public int ysize { get; set; }
 
-        #region Private members
-
+        public ImageRegistration imageRegistration = new ImageRegistration();
         /// <summary>
         /// Stores the zoomfactor of the picZoom picturebox
         /// </summary>
@@ -62,18 +51,133 @@ namespace SimpleMap.Controls
         /// Stores an instance of the originally loaded image
         /// </summary>
         private Image _OriginalImage;
-
-        #endregion // Private members
-
-        #region Control Event Handlers
-
-
-
-
-
         /// <summary>
-        /// Shows an OpenFileDialog to let the user select an image to load.
+        /// Stores an path of the originally loaded image
         /// </summary>
+        private string _OriginalImageFileName;
+        #endregion
+
+        private void btnCalc_Click(object sender, EventArgs e)
+        {
+            /*
+             * World files (.wld) consist of 6 numbers
+             * 1. pixel size in the x direction →
+             * 2. rotation about the y axis  ↓
+             * 3. rotation about the x axis  ←
+             * 4. pixel size in y direction  ↓
+             * 5. lon of the top left pixel
+             * 6. lat of the top left pixel
+             *     ← 3    1 → 
+             *    4   /⎺⎺⎺⎻⎻⎻⎼⎼⎼⎽⎽⎽ ↓ 2
+             *    ↓  /      /
+             *      /      /
+             *      ⎺⎺⎺⎻⎻⎻⎼⎼⎼⎽⎽⎽/
+             */
+
+            double lat1, lat2;
+            double lon1, lon2;
+
+            double.TryParse(Lat_TL.Text, out lat1);
+            //if (lat1neg.Text != "N")
+            //    lat1 = 0 - lat1;
+
+            double.TryParse(Lon_TL.Text, out lon1);
+            //if (lon1neg.Text != "W")
+            //    lon1 = 0 - lon1;
+
+            double.TryParse(Lat_BR.Text, out lat2);
+            //if (lat2neg.Text != "N")
+            //    lat2 = 0 - lat2;
+
+            double.TryParse(Lon_BR.Text, out lon2);
+            //if (lon1neg.Text != "W")
+            //    lon2 = 0 - lon2;
+
+            int xsize, ysize;
+            int.TryParse(txtxsize.Text, out xsize);
+            int.TryParse(txtysize.Text, out ysize);
+
+            if (rb2Pt_Calc.Checked)
+            {
+                if (lon1 < lon2)
+                {
+                    var t = +lon1;
+                    lon1 = lon2;
+                    lon2 = t;
+                }
+                var ppx = (lon1 - lon2) / xsize;
+                if (lat1 > lat2)
+                {
+                    var t = +lat1;
+                    lat1 = lat2;
+                    lat2 = t;
+                }
+                var ppy = (lat1 - lat2) / ysize;
+
+                lon2 += (ppx / 2); // x center of pixel
+                lat2 += (ppy / 2); // y center of pixel
+                var wf = ppx.ToString() + "\n" +
+                        "0.00000" + "\n" +
+                        "0.00000" + "\n" +
+                        ppy.ToString() + "\n" +
+                        lon2.ToString() + "\n" +
+                        lat2.ToString();
+
+                txtWorldfile.Text = ppx.ToString() + "\n" +
+                        "0.00000" + "\n" +
+                        "0.00000" + "\n" +
+                        ppy.ToString() + "\n" +
+                        lon2.ToString() + "\n" +
+                        lat2.ToString();
+
+                Worldfile = wf;
+            }
+            else
+            {
+                // To Do: 4 pt affine transform
+                // To Do: Need to do up ImageLayer.cs Line 400 for transforms, affine / rotation
+
+                //https://gis.stackexchange.com/questions/12181/how-to-generate-a-world-file-with-rotation
+
+                // A = Math.Cos((Math.PI / 180) * Heading) * XPixSize;
+                // D = Math.Sin((Math.PI / 180) * Heading) * -YPixSize;
+                // B = Math.Sin((Math.PI / 180) * Heading) * -XPixSize;
+                // E = Math.Cos((Math.PI / 180) * p.Heading) * -YPixSize;
+
+                //The last two lines should always be the upper left pixel's coordinate values, regardless of flight path/orientation.
+
+
+
+
+            }
+        }
+
+        private void btnSaveWorldFile_Click(object sender, EventArgs e)
+        {
+            string str = Path.GetFileNameWithoutExtension(_OriginalImageFileName);
+            string initpath = Path.GetDirectoryName(_OriginalImageFileName);
+
+            SaveFileDialog sv = new SaveFileDialog();
+            sv.InitialDirectory = initpath;
+
+            sv.DefaultExt = "jpg"; //Determine image type and append w to in
+
+            sv.FileName = str;
+
+            if (sv.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(sv.FileName))
+                {
+                    File.Delete(sv.FileName);
+                }
+
+                using (StreamWriter fs = File.CreateText(sv.FileName))
+                {
+                    fs.Write(Worldfile);
+                }
+            }
+        }
+
         private void btnLoadImage_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -96,6 +200,9 @@ namespace SimpleMap.Controls
                 try
                 {
                     _OriginalImage = Image.FromFile(openFileDialog.FileName);
+                    txtxsize.Text = _OriginalImage.Width.ToString();
+                    txtysize.Text = _OriginalImage.Height.ToString();
+                    _OriginalImageFileName = openFileDialog.FileName;
                     ResizeAndDisplayImage();
                 }
                 catch (Exception ex)
@@ -113,10 +220,6 @@ namespace SimpleMap.Controls
             openFileDialog.Dispose();
         }
 
-        /// <summary>
-        /// Shows a color picker to set the background color.
-        /// It will redraw the image to match the new background color.
-        /// </summary>
         private void btnSelectColor_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
@@ -137,21 +240,12 @@ namespace SimpleMap.Controls
             colorDialog.Dispose();
         }
 
-        /// <summary>
-        /// Set the _ZoomFactor value to match the trbZoomFactor control's value
-        /// and display the selected value to the user
-        /// </summary>
         private void trbZoomFactor_ValueChanged(object sender, EventArgs e)
         {
             _ZoomFactor = trbZoomFactor.Value;
             lblZoomFactor.Text = string.Format("x{0}", _ZoomFactor);
         }
 
-        /// <summary>
-        /// When the mouse is moved over the picImage picturebox, the picZoom
-        /// picturebox must reflect the change and adjust its image to the portion
-        /// of the image the mouse is over
-        /// </summary>
         private void picImage_MouseMove(object sender, MouseEventArgs e)
         {
             // If no picture is loaded, return
@@ -161,9 +255,30 @@ namespace SimpleMap.Controls
             UpdateZoomedImage(e);
         }
 
-        #endregion // Control Event Handlers
+        #region functions
+        public void ControlClosing()
+        {
+            //Stop background threads on deconstructor
+            mapCtl_GeoRef.ControlClosing();
+        }
+        private void rbFullRectangle_CheckedChanged(object sender, EventArgs e)
+        {
+            updateDataEntryUI();
+        }
+        void updateDataEntryUI()
+        {
+            bool vis = rb4Pt_AffineRotation.Checked;
 
-        #region Private Methods
+            rbImageBL.Visible = rbMapBL.Visible = vis; ;
+            txtBL_X.Visible = Lat_BL.Visible = vis;
+            txtBL_Y.Visible = Lon_BL.Visible = vis;
+
+
+            rbMapTR.Visible = rbImageTR.Visible = vis;
+            txtTR_X.Visible = Lat_TR.Visible = vis;
+            txtTR_Y.Visible = Lon_TR.Visible = vis;
+
+        }
 
         /// <summary>
         /// Resizes the image stored in _OriginalImage to fit in picImage,
@@ -305,58 +420,65 @@ namespace SimpleMap.Controls
             // Refresh the picZoom picturebox to reflect the changes
             picZoom.Refresh();
         }
-
-        #endregion // Private Methods
+        #endregion
 
         private void picImage_Click(object sender, EventArgs e)
         {
-            if (picImage.Image == null) return; 
-         
+            if (picImage.Image == null) return;
+
             MouseEventArgs mouse = (MouseEventArgs)e;
             Point coordinates = mouse.Location;
 
             using (Graphics g = Graphics.FromImage(picImage.Image))
             {
                 Pen p = new Pen(Color.Red, 2.0f);
-                Size dotsize = new Size(new Point(2, 2)); 
-                
+                Size dotsize = new Size(new Point(2, 2));
+
                 g.DrawEllipse(p, new Rectangle(coordinates, dotsize));
-             
+
             }
 
-            if (rbTL.Checked)
+            if (rbImageTL.Checked)
             {
                 imageRegistration.TopLeft = coordinates;
 
                 txtTL_X.Text = imageRegistration.TopLeft.X.ToString();
                 txtTL_Y.Text = imageRegistration.TopLeft.Y.ToString();
-               
-                rbBL.Checked = true;
+                
+                if (rb4Pt_AffineRotation.Checked)
+                    rbImageBL.Checked = true;
+                else
+                    rbImageBR.Checked = true;
             }
-
-            if (rbBL.Checked)
+            else if (rbImageBL.Checked)
             {
                 imageRegistration.BottomLeft = coordinates;
 
                 txtBL_X.Text = imageRegistration.BottomLeft.X.ToString();
                 txtBL_Y.Text = imageRegistration.BottomLeft.Y.ToString();
-                rbTR.Checked = true;
-            }
 
-            if (rbTR.Checked)
+                if (rb4Pt_AffineRotation.Checked)
+                    rbImageTR.Checked = true; //Go through all 4
+                else
+                    rbImageTL.Checked = true; //Loop between 2 - back to top
+            }
+            else if (rbImageTR.Checked)
             {
                 imageRegistration.TopRight = coordinates;
+
                 txtTR_X.Text = imageRegistration.TopRight.X.ToString();
                 txtTR_Y.Text = imageRegistration.TopRight.Y.ToString();
-                rbBR.Checked = true;
-            }
 
-            if (rbBR.Checked)
+                rbImageBR.Checked = true;
+            }
+            else if (rbImageBR.Checked)
             {
                 imageRegistration.BottomRight = coordinates;
+
                 txtBR_X.Text = imageRegistration.BottomRight.X.ToString();
                 txtBR_Y.Text = imageRegistration.BottomRight.Y.ToString();
-                rbTL.Checked = true;
+
+                rbImageTL.Checked = true;
             }
         }
 
@@ -381,15 +503,110 @@ namespace SimpleMap.Controls
             //    }
             //}
         }
+        public class ImageRegistration
+        {
+            public Point TopLeft { get; set; }
+            public Point BottomLeft { get; set; }
+            public Point TopRight { get; set; }
+            public Point BottomRight { get; set; }
+
+        }
+
+
+        private void mapCtl_GeoRef_MouseClick(object sender, MouseEventArgs e)
+        {
+            Map.GeomCoordinate coord = mapCtl_GeoRef.CursorCoordinate;
+
+            string Lat = txtLat.Text = coord.Latitude.ToString();
+            string Lon = txtLon.Text = coord.Longitude.ToString();
+
+            if (rbMapTL.Checked)
+            {
+                Lat_TL.Text = Lat;
+                Lon_TL.Text = Lon;
+                if (rb4Pt_AffineRotation.Checked)
+                    rbMapBL.Checked = true;
+                else
+                    rbMapBR.Checked = true;
+            }
+            else if (rbMapBL.Checked)
+            {
+                Lat_BL.Text = Lat;
+                Lon_BL.Text = Lon;
+                if (rb4Pt_AffineRotation.Checked)
+                    rbMapTR.Checked = true;
+                else
+                    rbMapBR.Checked = true;
+            }
+            else if (rbMapTR.Checked)
+            {
+                Lat_TR.Text = Lat;
+                Lon_TR.Text = Lon;
+                rbMapBR.Checked = true;
+            }
+            else if (rbMapBR.Checked)
+            {
+                Lat_BR.Text = Lat;
+                Lon_BR.Text = Lon;
+                rbMapTL.Checked = true;
+            }
+        }
+
+        private void mapCtl_GeoRef_MouseMove(object sender, MouseEventArgs e)
+        {
+            Map.GeomCoordinate coord = mapCtl_GeoRef.CursorCoordinate;
+            try
+            {
+                txtLat.Text = coord.Latitude.ToString();
+                txtLon.Text = coord.Longitude.ToString();
+            }
+            catch
+            {
+                //Shutting down
+            }
+        }
+
+        private void rb4Pt_AffineRotation_CheckedChanged(object sender, EventArgs e)
+        {
+            updateDataEntryUI();
+        }
+
+        private void rb2Pt_Calc_CheckedChanged(object sender, EventArgs e)
+        {
+            updateDataEntryUI();
+        }
+
+        private void btnTransformImage_Click(object sender, EventArgs e)
+        {
+            // Test ImageLayer.cs Line 400 for transforms, affine / rotation
+
+
+        }
+
+        private void btnSaveTransformedImage_Click(object sender, EventArgs e)
+        {
+            string str = Path.GetFileNameWithoutExtension(_OriginalImageFileName);
+            string initpath = Path.GetDirectoryName(_OriginalImageFileName);
+
+            SaveFileDialog sv = new SaveFileDialog();
+            sv.InitialDirectory = initpath;
+            
+            sv.DefaultExt = "jpg"; //Determine image type and append w to in
+            
+            sv.FileName = str;
+
+            if (sv.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(sv.FileName))
+                {
+                    File.Delete(sv.FileName);
+                }
+
+                using (StreamWriter fs = File.CreateText(sv.FileName))
+                {
+                    fs.Write(Worldfile);
+                }
+            }
+        }
     }
-
-    public class ImageRegistration
-    {
-        public Point TopLeft { get; set; }
-        public Point BottomLeft { get; set; }
-        public Point TopRight { get; set; }
-        public Point BottomRight { get; set; }
-
-    }
-
-  }
+}

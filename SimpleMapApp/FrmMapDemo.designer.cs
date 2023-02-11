@@ -34,8 +34,8 @@ namespace SimpleMapApp
         {
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.mapCtl1 = new SimpleMap.Controls.MapCtl();
-            this.buttonPanelCtl1 = new SimpleMap.Controls.ButtonPanelCtl();
+            this.mapCtl1 = new SimpleMap.Controls.MapControl();
+            this.buttonPanelCtl1 = new SimpleMap.Controls.ButtonPanel();
             this.SuspendLayout();
             // 
             // printDocument1
@@ -58,7 +58,7 @@ namespace SimpleMapApp
             this.mapCtl1.Name = "mapCtl1";
             this.mapCtl1.Size = new System.Drawing.Size(1020, 655);
             this.mapCtl1.TabIndex = 0;
-            this.mapCtl1.LevelValueChanged += new System.EventHandler<SimpleMap.Controls.ButtonPanelCtl.LevelValueArgs>(this.mapCtl1_LevelValueChanged);
+            this.mapCtl1.LevelValueChanged += new System.EventHandler<SimpleMap.Controls.ButtonPanel.LevelValueArgs>(this.mapCtl1_LevelValueChanged);
             this.mapCtl1.Load += new System.EventHandler(this.mapCtl1_Load);
             // 
             // buttonPanelCtl1
@@ -72,7 +72,7 @@ namespace SimpleMapApp
             this.buttonPanelCtl1.Name = "buttonPanelCtl1";
             this.buttonPanelCtl1.Size = new System.Drawing.Size(1020, 59);
             this.buttonPanelCtl1.TabIndex = 1;
-            this.buttonPanelCtl1.LevelValueChanged += new System.EventHandler<SimpleMap.Controls.ButtonPanelCtl.LevelValueArgs>(this.buttonPanelCtl1_LevelValueChanged);
+            this.buttonPanelCtl1.LevelValueChanged += new System.EventHandler<SimpleMap.Controls.ButtonPanel.LevelValueArgs>(this.buttonPanelCtl1_LevelValueChanged);
             this.buttonPanelCtl1.CenterMapClicked += new System.EventHandler(this.buttonPanelCtl1_CenterMapClicked);
             this.buttonPanelCtl1.PrintMapClicked += new System.EventHandler(this.buttonPanelCtl1_PrintMapClicked);
             this.buttonPanelCtl1.RefreshMapClicked += new System.EventHandler(this.buttonPanelCtl1_RefreshMapClicked);
@@ -100,8 +100,8 @@ namespace SimpleMapApp
 
         #endregion
 
-        private MapCtl mapCtl1;
-        private ButtonPanelCtl buttonPanelCtl1;
+        private SimpleMap.Controls.MapControl mapCtl1;
+        private ButtonPanel buttonPanelCtl1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.PrintDialog printDialog1;
     }

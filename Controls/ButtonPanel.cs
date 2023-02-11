@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace SimpleMap.Controls
 {
-    public partial class ButtonPanelCtl : UserControl
+    public partial class ButtonPanel : UserControl
     {
-        public ButtonPanelCtl()
+        public ButtonPanel()
         {
             InitializeComponent();
         }
@@ -88,10 +88,7 @@ namespace SimpleMap.Controls
             if (SaveMapAsImageClicked != null) SaveMapAsImageClicked(this, EventArgs.Empty);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
+      
 
         private void btnLoadGeoRefImage_Click(object sender, EventArgs e)
         {

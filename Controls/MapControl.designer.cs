@@ -1,6 +1,6 @@
 namespace SimpleMap.Controls
 {
-    partial class MapCtl
+    partial class MapControl
     {
         /// <summary> 
         /// Required designer variable.
