@@ -21,7 +21,7 @@ namespace SimpleMap.Controls
 {
     public partial class MapControl : UserControl
     {
-        private readonly TileLayer _mapLayer;
+        //private readonly TileLayer _mapLayer;
         private readonly ShapeLayer _netLayer;
         private readonly ImageLayer _imageLayer;
 
@@ -29,13 +29,15 @@ namespace SimpleMap.Controls
         {
             get
             {
-                return _mapLayer.Level;
+                //return _mapLayer.Level;
+                return _imageLayer.Level;
             }
             set
             {
-                if (value != _mapLayer.Level)
+                //if (value != _mapLayer.Level)
+                if (value != _imageLayer.Level)
                 {
-                    _mapLayer.Level = value;
+                    //_mapLayer.Level = value;
                     _netLayer.Level = value;
                     _imageLayer.Level = value;
                     if (LevelValueChanged != null)
@@ -51,7 +53,8 @@ namespace SimpleMap.Controls
 
         public PixelFormat PiFormat
         {
-            get { return _mapLayer.PiFormat; }    
+            //get { return _mapLayer.PiFormat; }
+            get { return _imageLayer.PiFormat; }    
         }
 
        
@@ -60,11 +63,12 @@ namespace SimpleMap.Controls
         {
             get
             {
-                return _mapLayer.CenterCoordinate;
+                //return _mapLayer.CenterCoordinate;
+                return _imageLayer.CenterCoordinate;
             }
             set
             {
-                _mapLayer.CenterCoordinate = value;
+                //_mapLayer.CenterCoordinate = value;
                 _netLayer.CenterCoordinate = value;
                 _imageLayer.CenterCoordinate = value;
             }
@@ -102,12 +106,12 @@ namespace SimpleMap.Controls
              var center = Settings.CenterMapBound;
             // SetCenterMap();
            
-            _mapLayer = new TileLayer(Width, Height, center, Settings.Default.StartZoomLevel);
+            //_mapLayer = new TileLayer(Width, Height, center, Settings.Default.StartZoomLevel);
             _netLayer = new ShapeLayer(Width, Height, center, Settings.Default.StartZoomLevel);
             _imageLayer = new ImageLayer(Width, Height, center, Settings.Default.StartZoomLevel);
 
 
-            _mapLayer.DrawLayerBuffer += Layer_DrawBufferChanged;
+            //_mapLayer.DrawLayerBuffer += Layer_DrawBufferChanged;
             _netLayer.DrawLayerBuffer += Layer_DrawBufferChanged;
             _imageLayer.DrawLayerBuffer += Layer_DrawBufferChanged;
 
@@ -125,20 +129,22 @@ namespace SimpleMap.Controls
 
         private void MapCtl_Resize(object sender, EventArgs e)
         {
-            if (_mapLayer.Terminating) return;
+            //if (_mapLayer.Terminating) return;
+            if (_imageLayer.Terminating) return;
 
-            _mapLayer.Resize(Width, Height);
+            //_mapLayer.Resize(Width, Height);
             _netLayer.Resize(Width, Height);
             _imageLayer.Resize(Width, Height);
         }
 
         private void DrawLayers(Graphics clientDC, Rectangle clipRectangle)
         {
-            if (_mapLayer.Terminating) return;
+            //if (_mapLayer.Terminating) return;
+            if (_imageLayer.Terminating) return;
 
             //clientDC.Clear(Color.White);
-            
-            _mapLayer.DrawBufferToScreen(clientDC, clipRectangle);
+
+            //_mapLayer.DrawBufferToScreen(clientDC, clipRectangle);
             _netLayer.DrawBufferToScreen(clientDC, clipRectangle);
             _imageLayer.DrawBufferToScreen(clientDC, clipRectangle);
         }
@@ -146,14 +152,15 @@ namespace SimpleMap.Controls
 
         public void RefreshControl(bool randomData = false)
         {
-            _mapLayer.Update(new Rectangle(0, 0, Width, Height));
+            //_mapLayer.Update(new Rectangle(0, 0, Width, Height));
+            _imageLayer.Update(new Rectangle(0, 0, Width, Height));
             
             if (randomData)
                 _netLayer.ReloadData();
             else
                 _netLayer.Update(new Rectangle(0, 0, Width, Height));
 
-            _imageLayer.Update(new Rectangle(0, 0, Width, Height));
+            //_imageLayer.Update(new Rectangle(0, 0, Width, Height));
             
 
         }
@@ -206,7 +213,8 @@ namespace SimpleMap.Controls
 
         private void MapCtl_Paint(object sender, PaintEventArgs e)
         {
-            if (_mapLayer.Terminating) return;
+            //if (_mapLayer.Terminating) return;
+            if (_imageLayer.Terminating) return;
 
             var g = e.Graphics;
             
@@ -246,7 +254,8 @@ namespace SimpleMap.Controls
 
         private void Layer_DrawBufferChanged(object sender, GraphicLayer.InvalidateLayerEventArgs e)
         {
-            if (_mapLayer.Terminating) return;
+            //if (_mapLayer.Terminating) return;
+            if (_imageLayer.Terminating) return;
             if (e == MainThreadEventArgs.Empty)
                 Invalidate();
 
@@ -256,7 +265,7 @@ namespace SimpleMap.Controls
 
         public void ControlClosing()
         {
-            _mapLayer.Terminating = true;
+            //_mapLayer.Terminating = true;
             _netLayer.Terminating = true;
             _imageLayer.Terminating = true;
 
@@ -265,15 +274,18 @@ namespace SimpleMap.Controls
 
         public void SetCenterMap()
         {
-            if(_mapLayer != null)
-                if (_mapLayer.Terminating) return;
+            //if(_mapLayer != null)
+            //    if (_mapLayer.Terminating) return;
+            if(_imageLayer != null)
+                if (_imageLayer.Terminating) return;
 
             CenterCoordinate = Settings.CenterMapBound;
         }
 
         public void MoveCenterMapObject(decimal longitude, decimal latitude)
         {
-            if (_mapLayer.Terminating) return;
+            //if (_mapLayer.Terminating) return;
+            if (_imageLayer.Terminating) return;
 
             CenterCoordinate = new GeomCoordinate(longitude, latitude);
         }
@@ -306,7 +318,8 @@ namespace SimpleMap.Controls
 
         private void MapCtl_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_mapLayer.Terminating) return;
+            //if (_mapLayer.Terminating) return;
+            if (_imageLayer.Terminating) return;
 
             if (_mouseMoveMap) return;
 
@@ -407,7 +420,8 @@ namespace SimpleMap.Controls
 
         private void MapCtl_DoubleClick(object sender, EventArgs e)
         {
-            if (_mapLayer.Terminating) return;
+            //if (_mapLayer.Terminating) return;
+            if (_imageLayer.Terminating) return;
 
             HashItem[] vertexRows;
             HashItem[] cableRows;
@@ -440,7 +454,8 @@ namespace SimpleMap.Controls
 
         private void MapCtl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_mapLayer.Terminating) return;
+            //if (_mapLayer.Terminating) return;
+            if (_imageLayer.Terminating) return;
 
             CursorCoordinate = GeomCoordinate.GetCoordinateFromScreen(_netLayer.ScreenView, new Point(e.X, e.Y));
 
