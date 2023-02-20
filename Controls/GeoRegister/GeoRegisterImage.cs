@@ -307,7 +307,7 @@ namespace SimpleMap.Controls.GeoRegister
 
             // Calculate targetWidth and targetHeight, so that the image will fit into
             // the picImage picturebox without changing the proportions of the image.
-            if (sourceWidth > sourceHeight)
+            if ((double)sourceWidth / sourceHeight > (double)picImage.Width / picImage.Height)
             {
                 // Set the new width
                 targetWidth = picImage.Width;
@@ -316,7 +316,7 @@ namespace SimpleMap.Controls.GeoRegister
                 // Calculate a new height that is in proportion with the original image
                 targetHeight = (int)(ratio * sourceHeight);
             }
-            else if (sourceWidth < sourceHeight)
+            else if ((double)sourceWidth / sourceHeight < (double)picImage.Width / picImage.Height)
             {
                 // Set the new height
                 targetHeight = picImage.Height;
